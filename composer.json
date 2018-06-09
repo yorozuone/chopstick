@@ -1,0 +1,20 @@
+{
+  "autoload":
+  {
+    "psr-4":
+    {
+      "core\\": "energy/core",
+      "app\\": "energy/app",
+      "site\\": "energy/site"
+    }
+  },
+  "config":
+  {
+    "vendor-dir": "energy/vendor"
+  },
+  "require":
+  {
+    "twig/twig": "1.*",
+    "erusev/parsedown": "^1.6"
+  }
+}
