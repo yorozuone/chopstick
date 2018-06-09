@@ -74,9 +74,9 @@ EOT;
         //
         return $rs_dst;
     }
-    // --------------------------------------------------------------------------------
+    // ----------
     // ツリー構造を取得(再帰)
-    // --------------------------------------------------------------------------------
+    // ----------
     private static function recursion_drec_pagenavi($rs_src, $parent_page_id, &$rs_dst, $hierarchy=1, $depth=0)
     {
         if (($depth != 0) and ($hierarchy == $depth + 1))

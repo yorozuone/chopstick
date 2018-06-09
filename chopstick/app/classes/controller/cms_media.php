@@ -8,20 +8,16 @@ class cms_media extends \app\controller
     private $media_id   = '';
     private $file_name  = '';
     private $mime_type  = '';
-    //
     // --------------------------------------------------------------------------------
     // 表示用のフォルダ名取得
     // --------------------------------------------------------------------------------
-    //
     public function before()
     {
         parent::before();
     }
-    //
     // --------------------------------------------------------------------------------
     // 既定
     // --------------------------------------------------------------------------------
-    //
     function action_index($params)
     {
         $this->query($params);
@@ -29,11 +25,9 @@ class cms_media extends \app\controller
         header('Content-Type: '.$this->mime_type);
         readfile(CS_BASE_DIR.'media/'.$this->file_name);
     }
-    //
     // --------------------------------------------------------------------------------
     // 既定
     // --------------------------------------------------------------------------------
-    //
     function action_thumbnail($params)
     {
         $this->query($params);
@@ -41,11 +35,9 @@ class cms_media extends \app\controller
         header('Content-Type: '.$this->mime_type);
         readfile(CS_BASE_DIR.'media/thumbnail/'.$this->file_name);
     }
-    //
     // --------------------------------------------------------------------------------
     // 変数設定
     // --------------------------------------------------------------------------------
-    //
     private function query($params)
     {
         $this->media_id = isset($params[0]) ? $params[0] : '';

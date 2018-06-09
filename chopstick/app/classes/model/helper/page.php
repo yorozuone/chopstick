@@ -6,11 +6,9 @@ use \core\route;
 
 class page
 {
-    //
     // --------------------------------------------------------------------------------
     // 表示用ぱんくず取得
     // --------------------------------------------------------------------------------
-    //
     public static function fetch_beradcrumb($parent_page_id)
     {
         $con = new db();
@@ -34,11 +32,9 @@ EOT;
         //
         return array_reverse($dst);
     }
-    //
-    // -
+    // ----------
     // 表示用ぱんくず取得（再帰）
-    // -
-    //
+    // ----------
     private static function recursion_fetch_beradcrumb($src, $page_id, &$dst) 
     {
         foreach($src as $v)
@@ -50,11 +46,9 @@ EOT;
             }
         }
     }
-    //
     // --------------------------------------------------------------------------------
     // 表示用ツリー構造データの取得
     // --------------------------------------------------------------------------------
-    //
     public static function fetch_tree()
     {
         $con = new db();
@@ -77,11 +71,9 @@ EOT;
         //
         return $rs_dst;
     }
-    //
-    // -
+    // ----------
     // 表示用ツリー構造データの取得（再帰）
-    // -
-    //
+    // ----------
     private static function recursion_fetch_tree($rs_src, $parent_page_id, &$rs_dst, $hierarchy=1)
     {
         foreach($rs_src as $src)
@@ -95,11 +87,9 @@ EOT;
             }
         }
     }
-    //
     // --------------------------------------------------------------------------------
     // 現在表示中の URL の page_id を取得する
     // --------------------------------------------------------------------------------
-    //
     public static function get_current_page_id()
     {
         $route = new route();
@@ -113,11 +103,9 @@ EOT;
         //
         return self::get_page_id_from_permanent_name(implode('/', $route->params));
     }
-    //
     // --------------------------------------------------------------------------------
     // 表示可能かどうか確認
     // --------------------------------------------------------------------------------
-    //
     public static function is_visible($values)
     {
         switch ($values['publish_type'])
@@ -186,11 +174,9 @@ EOT;
                 break;
         }
     }
-    //
     // --------------------------------------------------------------------------------
     // permanent_name を、page_id から取得する
     // --------------------------------------------------------------------------------
-    //
     public function get_permanent_name_from_page_id($page_id = 0)
     {
         $con = new db();
@@ -208,11 +194,9 @@ EOT;
         self::recursion_get_permanent_name_from_page_id($src, $page_id, $dst);
         return implode('/', array_reverse($dst));
     }
-    //
-    // -
+    // ----------
     // permanent_name を、page_id から取得する（再帰）
-    // -
-    //
+    // ----------
     private function recursion_get_permanent_name_from_page_id($src, $page_id, &$dst)
     {
         foreach($src as $v)
@@ -224,11 +208,9 @@ EOT;
             }
         }
     }
-    //
     // --------------------------------------------------------------------------------
     // page_id を、permanent_name から取得する
     // --------------------------------------------------------------------------------
-    //
     public static function get_page_id_from_permanent_name($permanent_path)
     {
         if ($permanent_path == '')
@@ -248,11 +230,9 @@ EOT;
         $rs_page = $con->query($sql);
         return self::recursion_get_page_id_from_permanent_name(0, $permanent_path, $rs_page);
     }
-    //
-    // -
+    // ----------
     // page_id を、permanent_name から取得する（再帰）
-    // -
-    //
+    // ----------
     private static function recursion_get_page_id_from_permanent_name($parent_page_id, $permanent_path, $rs_page)
     {
         $rs1 = explode('/', $permanent_path);

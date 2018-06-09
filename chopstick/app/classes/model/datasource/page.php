@@ -5,11 +5,9 @@ use \core\db;
 
 class page
 {
-    //
     // --------------------------------------------------------------------------------
     // 表示用ページ一覧取得
     // --------------------------------------------------------------------------------
-    //
     public static function fetch_tree()
     {
         $con = new db();
@@ -30,11 +28,9 @@ EOT;
         self::recursion_fetch_tree($rs_src, 0, $rs_dst, 1);
         return $rs_dst;
     }
-    //
-    // -
+    // ----------
     // 表示用ページ一覧取得（再帰）
-    // -
-    //
+    // ----------
     private static function recursion_fetch_tree($rs_src, $parent_page_id, &$rs_dst, $hierarchy=1)
     {
         foreach($rs_src as $src)

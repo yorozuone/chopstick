@@ -31,11 +31,9 @@ class cs_breadcrumb
         $v = new view();
         return $v->render('twig/ext_function/cs_breadcrumb/'.$config['template'].'.twig', $vars);
     }
-    //
     // --------------------------------------------------------------------------------
     //
     // --------------------------------------------------------------------------------
-    //
     private static function drec_breadcrumb($page_id)
     {
         $con = new db();
@@ -55,11 +53,9 @@ EOT;
         self::recursion_drec_breadcrumb($rs_src, $page_id, $rs2);
         return is_array($rs2) ? array_reverse($rs2) : array();
     }
+    // ----------
     //
-    // --------------------------------------------------------------------------------
-    //
-    // --------------------------------------------------------------------------------
-    //
+    // ----------
     private static function recursion_drec_breadcrumb($rs_src, $page_id, &$rs_dst)
     {
         foreach($rs_src as $v)

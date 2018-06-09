@@ -5,6 +5,9 @@ use \core\view;
 
 class cs_markdown
 {
+    // --------------------------------------------------------------------------------
+    //
+    // --------------------------------------------------------------------------------
     public static function render($text, $config = array())
     {
         $config = is_array($config) ? $config : array();

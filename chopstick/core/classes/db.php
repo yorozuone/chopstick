@@ -11,11 +11,9 @@ class db
     const GLOBALVARS_NAME = 'CORE_DB_CONNECTION';
     //
     private $_current_connection = null;
-    //
     // --------------------------------------------------------------------------------
     // 接続を開く
     // --------------------------------------------------------------------------------
-    //
     public function __construct($connection_name = 'default')
     {
         if ($this->_current_connection == false)
@@ -43,11 +41,9 @@ class db
         }
         return true;
     }
-    //
     // --------------------------------------------------------------------------------
     // クエリーを発行
     // --------------------------------------------------------------------------------
-    //
     public function query($sql, $param = array())
     {
         log::write($sql, 'notice');
