@@ -52,52 +52,37 @@
 
 {% if cs_auth_check() == true %}
 
-    <div class="container">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="pull-left">
-                <a href="{{ cs_url("admin/menu") }}" class="btn btn-xs btn-default">管理画面</a>
-                <a href="{{ cs_url("admin/page/summary", [values.parent_page_id]) }}" class="btn btn-xs btn-info">一覧</a>
-                <a href="{{ cs_url("admin/page/edit", [values.page_id]) }}" class="btn btn-xs btn-primary">編集</a>
-                <a href="{{ cs_url("admin/page/delete", [values.page_id]) }}" class="btn btn-xs btn-danger">削除</a>
-                <button type="button" class="btn btn-xs btn-primary btn-sm" data-toggle="collapse" data-target="#sample">詳細</button>
-            </div>
-            <div class="pull-right">
-                <a href="{{ cs_url('/admin/auth/logout') }}" class="btn btn-xs btn-default">ログアウト</a>
-            </div>
-        </div>
-
-        <div>
-            <div class="col-sm-2">状態</div>
-            <div class="col-sm-10">
-                {% if values.publish_status == '-2' %}<span class="btn btn-xs btn-danger">下書</span>{% endif %}
-                {% if values.publish_status == '-1' %}<span class="btn btn-xs btn-danger">レビュー待</span>{% endif %}
-                {% if values.publish_status == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
-            </div>
-            <div class="col-sm-2">公開設定</div>
-            <div class="col-sm-10">
-                {% if values.publish_type == '0' %}<span class="btn btn-xs btn-danger">非公開</span>{% endif %}
-                {% if values.publish_type == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
-                {% if values.publish_type == '2' %}<span class="btn btn-xs btn-danger">時間指定</span>{% endif %}
-            </div>
-            <div class="col-sm-2">開始日時</div>
-            <div class="col-sm-10">
-                {% if values.publish_start == '' %}
-                    <span>未設定</span>
-                {% else %}
-                    {{ values.publish_start }}
-                {% endif %}
-            </div>
-            <div class="col-sm-2">終了日時</div>
-            <div class="col-sm-10">
-                {% if values.publish_end == '' %}
-                    <span>未設定</span>
-                {% else %}
-                    {{ values.publish_end }}
-                {% endif %}
-            </div>
-        </div>
+    <div class="container" style="padding: 5px;">
+        <a href="{{ cs_url("admin/menu") }}" class="btn btn-xs btn-info">管理画面</a>
+        | PAGE :
+        <a href="{{ cs_url("admin/page/summary", [values.parent_page_id]) }}" class="btn btn-xs btn-info">一覧</a>
+        <a href="{{ cs_url("admin/page/edit", [values.page_id]) }}" class="btn btn-xs btn-primary">編集</a>
+        <a href="{{ cs_url("admin/page/delete", [values.page_id]) }}" class="btn btn-xs btn-danger">削除</a>
+        <button type="button" class="btn btn-xs btn-primary btn-sm" data-toggle="collapse" data-target="#sample">詳細</button>
+        | 状態 :
+            {% if values.publish_status == '-2' %}<span class="btn btn-xs btn-danger">下書</span>{% endif %}
+            {% if values.publish_status == '-1' %}<span class="btn btn-xs btn-danger">レビュー待</span>{% endif %}
+            {% if values.publish_status == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
+        | 公開設定 :
+            {% if values.publish_type == '0' %}<span class="btn btn-xs btn-danger">非公開</span>{% endif %}
+            {% if values.publish_type == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
+            {% if values.publish_type == '2' %}<span class="btn btn-xs btn-danger">時間指定</span>{% endif %}
+        | 開始日時 :
+            {% if values.publish_start == '' %}
+                <span>未設定</span>
+            {% else %}
+                {{ values.publish_start }}
+            {% endif %}
+        | 終了日時 :
+            {% if values.publish_end == '' %}
+                <span>未設定</span>
+            {% else %}
+                {{ values.publish_end }}
+            {% endif %}
+        | <a href="{{ cs_url('/admin/auth/logout') }}" class="btn btn-xs btn-info">ログアウト</a>
     </div>
 
+    <hr>
 
 {% endif %}
 

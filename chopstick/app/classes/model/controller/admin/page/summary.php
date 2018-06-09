@@ -44,4 +44,31 @@ EOT;
         );
         return $con->query($sql, $sql_params);
     }
+    // --------------------------------------------------------------------------------
+    // 並び順
+    // --------------------------------------------------------------------------------
+    public function sort($rs)
+    {
+        $con = new db();
+        //
+        $sql = <<< EOT
+UPDATE
+    cs_page
+SET
+    order_at = :order_at
+WHERE
+    page_id = :page_id
+EOT;
+        $i = 0;
+        foreach($rs as $v)
+        {
+            $i++;
+            $sql_params = array
+            (
+                ':page_id'  => $v,
+                ':order_at' => $i,
+            );
+            $con->query($sql, $sql_params);
+        }
+    }
 }

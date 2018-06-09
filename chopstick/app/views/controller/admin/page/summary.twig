@@ -74,9 +74,7 @@
                                     {{ v.page_id }}
                                 </td>
                                 <td nowrap>
-                                    <a href="{{ cs_url('admin/page/summary', [v.page_id]) }}"><span class="btn btn-xs btn-info">下層一覧</span></a>
-                                    <a href="{{ cs_url('admin/page/create', [v.parent_page_id]) }}"><span class="btn btn-xs btn-primary">登録</span></a>
-                                    {{ v.page_title }}
+                                    <a href="{{ cs_url('admin/page/summary', [v.page_id]) }}">{{ v.page_title }}</a>
                                 </td>
                                 <td nowrap>
                                     {{ v.composer_key }}
@@ -87,7 +85,6 @@
                                 <td nowrap style="text-align: right;">
                                     <a href="{{ cs_urlp(v.page_id) }}"><span class="btn btn-xs btn-info">公開画面</span></a>
                                     <a href="{{ cs_url('/admin/page/edit', [v.page_id]) }}" class="btn btn-xs btn-primary">編集</a>
-                                    <a href="{{ cs_url('/admin/page_file/summary', [v.page_id]) }}" class="btn btn-xs btn-primary">ファイル</a>
                                     {% if v.reserved == 1 %}
                                         <span class="btn btn-xs btn-danger disabled">削除</span>
                                     {% else %}                                        
