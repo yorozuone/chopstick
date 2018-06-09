@@ -1,0 +1,25 @@
+{% extends "/controller/admin/default.twig" %}
+
+{% block area_body %}
+
+    <div class="page-header">
+        <h1>カテゴリ削除</h1>
+    </div>
+
+    <ol class="breadcrumb">
+        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+        <li><a href="{{ cs_url('admin/category/summary', [dset_category_values.parent_page_id]) }}">カテゴリ一覧</a></li>
+        <li class="active">カテゴリ削除</li>
+    </ol>
+
+    <div class="page-header">
+        <h1>削除できないカテゴリ</h1>
+    </div>
+ 
+    <div class="alert alert-danger" role="alert">子カテゴリが存在するカテゴリのため、削除できません。</div>
+
+    <div class="form-group">
+        <a href="{{ cs_url('/admin/category/summary', [dset_category_values.parent_category_id]) }}" class="btn btn-default">戻る</a>
+    </div>
+
+{% endblock %}

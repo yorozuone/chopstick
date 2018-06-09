@@ -1,0 +1,42 @@
+{% extends "/controller/admin/default.twig" %}
+
+{% block area_body %}
+
+    <div class="page-header">
+        <h1>スタック・グループ登録</h1>
+    </div>
+
+    <ol class="breadcrumb">
+        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+        <li><a href="{{ cs_url('admin/stackgroup/summary') }}">スタック・グループ一覧</a></li>
+        <li class="active">スタック・グループ登録</li>
+    </ol>
+
+    <form action="{{ cs_url('/admin/stackgroup/create/update') }}" method="post">
+        <div class="panel panel-default">
+            <div class="panel-heading">スタック・グループ登録</div>
+            <div class="panel-body">
+                {% for dset_stackgroup_error_message in dset_stackgroup_error_messages %}
+                    {% if dset_stackgroup_error_message != '' %}
+                        <div class="alert alert-danger" role="alert">{{ dset_stackgroup_error_message }}</div>
+                    {% endif %}
+                {% endfor %}
+                <div class="form-group">
+                    <label for="caption">スタック・グループ名</label>
+                    <input type="text" value="{{ dset_stackgroup_values.caption }}" class="form-control" id="caption" name="caption" placeholder="スタック・グループ名">
+                    {% if dset_stackgroup_error_messages.caption != '' %}
+                        <p class="help-block">
+                            <div class="alert alert-danger" role="alert">{{ dset_stackgroup_error_messages.caption }}</div>
+                        </p>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="登録">
+                    <a href="{{ cs_url('/admin/stackgroup/summary') }}" class="btn btn-default">戻る</a>
+                </div>
+            </div>
+        <div>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    </form>
+
+{% endblock %}

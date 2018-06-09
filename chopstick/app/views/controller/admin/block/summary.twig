@@ -1,0 +1,78 @@
+{% extends "/controller/admin/default.twig" %}
+
+{% block area_body %}
+
+    <div class="page-header">
+        <h1>ブロック一覧</h1>
+    </div>
+
+    <ol class="breadcrumb">
+        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+        <li class="active">ブロック一覧</li>
+    </ol>
+
+    {% if drec_block_1|length == 0 %}
+        <div class="alert alert-success" role="alert">ブロック（未インストール）はありません。</div>
+    {% else %}
+        <div class="panel panel-default">
+            <div class="panel-heading">ブロック一覧（未インストール）</div>
+
+            <table id="pagelist-sortable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ブロック</th>
+                        <th nowrap style="width: 160px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in drec_block_1 %}
+                        <tr template_key="{{ v.block_key }}">
+                            <td>
+                                <b>{{ v.name }}</b><br>
+                                {{ v.description }}<br>
+                                {{ v.block_key }} ( Version.{{ v.version }} )
+                            </td>
+                            <td style="text-align: right;">
+                                <a href="{{ cs_url('/admin/block/create', [v.block_key]) }}" class="btn btn-xs btn-primary">インストール</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+    {% if drec_block_2|length == 0 %}
+        <div class="alert alert-success" role="alert">ブロック（インストール済）はありません。</div>
+    {% else %}
+        <div class="panel panel-default">
+            <div class="panel-heading">ブロック一覧（インストール済）</div>
+
+            <table id="pagelist-sortable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ブロック</th>
+                        <th nowrap style="width: 160px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in drec_block_2 %}
+                        <tr template_key="{{ v.block_key }}">
+                            <td>
+                                <b>{{ v.name }}</b><br>
+                                {{ v.description }}<br>
+                                {{ v.block_key }} ( Version.{{ v.install_version }} )
+                            </td>
+                            <td style="text-align: right;">
+                                <a href="{{ cs_url('/admin/block/edit', [v.block_key]) }}" class="btn btn-xs btn-primary">アップデート</a>
+                                <a href="{{ cs_url('/admin/block/delete', [v.block_key]) }}" class="btn btn-xs btn-danger">削除</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    {% endif %}
+
+{% endblock %}

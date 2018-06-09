@@ -1,0 +1,89 @@
+{% extends "/controller/admin/default.twig" %}
+
+{% block area_body_tail %}
+<script type="text/javascript">
+    $(function() {
+        $('#stack_sortable tbody').sortable({
+            items: 'tr',
+            handle: '.stack_sortable_handle',
+            cursor: 'move',
+            opacity: 0.5,
+            stop: function (event, ui)
+            {
+                var params = [];
+                $("#stack_sortable tbody tr").each(function() {
+                    params.push($(this).attr('stack_key'));
+                });
+                $.ajax({
+                    url: "{{ cs_url('admin/stack/summary/sort/') }}" + params.join('/')
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+{% block area_body %}
+
+    <div class="page-header">
+        <h1>スタック一覧</h1>
+    </div>
+
+    <ol class="breadcrumb">
+        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+        <li><a href="{{ cs_url('admin/stackgroup/summary') }}">スタック・グループ</a></li>
+        <li class="active">スタック一覧（{{ dset_stackgroup_values.caption }}）</li>
+    </ol>
+
+    <div>
+        <a href="{{ cs_url('/admin/stack/create', [ dset_stackgroup_values.stackgroup_id ]) }}" class="btn btn-success">スタック登録</a>
+    </div>
+
+    <br>
+
+    {% if drec_stack|length == 0 %}
+        <div class="alert alert-success" role="alert">スタックが登録されていません。</div>
+    {% else %}
+        <div class="panel panel-default">
+            <div class="panel-heading">スタック一覧</div>
+            <table id="stack_sortable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 12px;"></th>
+                        <th>スタック・グループ</th>
+                        <th>スタック・キー</th>
+                        <th>説明</th>
+                        <th nowrap style="width: 160px;">更新日時</th>
+                        <th nowrap style="width: 180px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in drec_stack %}
+                        <tr stack_key="{{ v.stack_key }}">
+                            <td nowrap>
+                                <span class="glyphicon glyphicon-menu-hamburger stack_sortable_handle" aria-hidden="true" style="cursor:move"></span>
+                            </td>
+                            <td>
+                                {{ v.stackgroup_caption }}
+                            </td>
+                            <td>
+                                {{ v.stack_key }}
+                            </td>
+                            <td>
+                                {{ v.description }}
+                            </td>
+                            <td>
+                                {{ v.updated_at | date('Y/m/d H:i', "Asia/Tokyo") }}
+                            </td>
+                            <td style="text-align: right;">
+                                <a href="{{ cs_url('/admin/stack/edit', [v.stack_key]) }}" class="btn btn-xs btn-primary">編集</a>
+                                <a href="{{ cs_url('/admin/stack/delete', [v.stack_key]) }}" class="btn btn-xs btn-danger">削除</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+{% endblock %}

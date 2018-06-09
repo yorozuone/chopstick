@@ -1,0 +1,97 @@
+{% extends "/controller/admin/default.twig" %}
+
+{% block area_body %}
+
+    <ol class="breadcrumb">
+        <li class="active">Home</li>
+    </ol>
+
+    <div class="page-header">
+        <h1> Dashboard <h2>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="list-group">
+                <a href="#" class="list-group-item active">ページ操作</a>
+                <a href="{{ cs_url('/admin/page/summary') }}" class="list-group-item">ページ管理</a>
+                <a href="{{ cs_url('/admin/category/summary') }}" class="list-group-item">カテゴリ管理</a>
+                <a href="{{ cs_url('/admin/tag/summary') }}" class="list-group-item">タグ管理</a>
+            </div>
+            <div class="list-group">
+                <a href="#" class="list-group-item active">メディア操作</a>
+                <a href="{{ cs_url('/admin/mediafolder/summary') }}" class="list-group-item">メディア管理</a>
+            </div>
+            {% if has_access('full') == true %}
+                <div class="list-group">
+                    <a href="#" class="list-group-item active">コンポーザー・ブロック操作</a>
+                    <a href="{{ cs_url('/admin/composer/summary') }}" class="list-group-item">コンポーザー管理</a>
+                    <a href="{{ cs_url('/admin/block/summary') }}" class="list-group-item">ブロック管理</a>
+                </div>
+                <div class="list-group">
+                    <a href="#" class="list-group-item active">スタック・グループ・スタック操作</a>
+                    <a href="{{ cs_url('/admin/stackgroup/summary') }}" class="list-group-item">スタック管理</a>
+                </div>
+                <div class="list-group">
+                    <a href="#" class="list-group-item active">ユーザー操作</a>
+                    <a href="{{ cs_url('/admin/user/summary') }}" class="list-group-item">ユーザー管理</a>
+                </div>
+                <div class="list-group">
+                    <a href="#" class="list-group-item active">基本</a>
+                    <a href="{{ cs_url('/admin/basic/info') }}" class="list-group-item">情報</a>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="col-md-8">
+
+            {% if drec_page_disabled|length == 0 %}
+                <div class="alert alert-success" role="alert">非公開のページはありません。</div>
+            {% else %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">非公開になっているページ</div>
+                        <div class="table-responsive">
+                            <table id="pagelist-sortable" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th nowrap>タイトル</th>
+                                        <th nowrap">更新日時</th>
+                                        <th nowrap style="width: 100px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for v in drec_page_disabled %}
+                                        <tr page_id="{{ v.page_id }}">
+                                            <td nowrap>
+                                                {{ v.page_title }}
+                                            </td>
+                                            <td nowarp>
+                                                {% if v.created_at != v.updated_at %}
+                                                    {{ v.updated_at | date('Y/m/d H:i:s', "Asia/Tokyo") }}
+                                                {% endif %}
+                                            </td>
+                                            <td nowrap style="text-align: right;">
+                                                <a href="{{ cs_urlp(v.page_id) }}"><span class="btn btn-xs btn-info">preview</span></a>
+                                                <a href="{{ cs_url('/admin/page/edit', [v.page_id]) }}" class="btn btn-xs btn-primary">編集</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="col-md-12">
+            <hr>
+            <center>chopstick cms 2017</center>
+        </div>
+        
+    </div>
+
+
+{% endblock %}

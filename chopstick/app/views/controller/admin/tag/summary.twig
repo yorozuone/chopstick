@@ -1,0 +1,53 @@
+{% extends "/controller/admin/default.twig" %}
+
+{% block area_body %}
+
+    <div class="page-header">
+        <h1>タグ一覧</h1>
+    </div>
+
+    <ol class="breadcrumb">
+        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+        <li class="active">タグ一覧</li>
+    </ol>
+
+    <div>
+        <a href="{{ cs_url('/admin/tag/create', [parent_page_id]) }}" class="btn btn-success">タグ登録</a>
+    </div>
+
+    <br>
+
+    {% if drec_tag|length == 0 %}
+        <div class="alert alert-success" role="alert">タグが登録されていません。</div>
+    {% else %}
+        <div class="panel panel-default">
+            <div class="panel-heading">タグ一覧</div>
+            <table id="pagelist-sortable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>タグ</th>
+                        <th nowrap style="width: 200px;">更新日時</th>
+                        <th nowrap style="width: 180px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in drec_tag %}
+                        <tr tag_id="{{ v.tag_id }}">
+                            <td>
+                                {{ v.caption }}
+                            </td>
+                            <td>
+                                {{ v.updated_at | date('Y/m/d H:i:s', "Asia/Tokyo") }}
+                            </td>
+                            <td style="text-align: right;">
+                                <a href="{{ cs_url('/admin/tag/edit', [v.tag_id]) }}" class="btn btn-xs btn-primary">編集</a>
+                                <a href="{{ cs_url('/admin/tag/delete', [v.tag_id]) }}" class="btn btn-xs btn-danger">削除</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+{% endblock %}

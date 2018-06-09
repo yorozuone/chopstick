@@ -1,0 +1,137 @@
+{% extends "/controller/admin/default.twig" %}
+
+{% block area_body %}
+
+    <div class="page-header">
+        <h1>スタック登録</h1>
+    </div>
+
+    <ol class="breadcrumb">
+        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+        <li><a href="{{ cs_url('admin/stackgroup/summary') }}">スタック・グループ</a></li>
+        <li><a href="{{ cs_url('admin/stack/summary', [ dset_stack_values.stackgroup_id] )}}">スタック一覧（{{ dset_stackgroup_values.caption }}）</a></li>
+        <li class="active">スタック登録</li>
+    </ol>
+
+    <form action="{{ cs_url('/admin/stack/create/update') }}" method="post">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">基本情報</div>
+                    <div class="panel-body">
+                        {% for error_message in dset_stack_error_messages %}
+                            {% if error_message != '' %}
+                                <div class="alert alert-danger" role="alert">{{ error_message }}</div>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="form-group">
+                            <label for="stackgroup_id">スタック・グループ</label>
+                            <select class="form-control" id="stackgroup_id" name="stackgroup_id">
+                                {% for obj in drec_stackgroup %}
+                                    <option value="{{ obj.stackgroup_id }}"{% if obj.stackgroup_id == dset_stack_values.stackgroup_id %} selected{% endif %}>{{ obj.caption }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if dset_stack_error_messages.stackgroup_id != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_stack_error_messages.stackgroup_id }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="stack_key">スタック・キー</label>
+                            <input type="text" value="{{ dset_stack_values.stack_key }}" class="form-control" id="stack_key" name="stack_key" placeholder="スタック・キー">
+                            {% if dset_stack_error_messages.stack_key != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_stack_error_messages.stack_key }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="content">本文</label>
+                            <textarea class="form-control" id="content" name="content" placeholder="本文" rows="10">{{ dset_stack_values.content }}</textarea>
+                            {% if dset_stack_error_messages.content != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_stack_error_messages.content }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="description">説明</label>
+                            <input type="text" value="{{ dset_stack_values.description }}" class="form-control" id="description" name="description" placeholder="説明">
+                            {% if dset_stack_error_messages.description != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_stack_error_messages.description }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="登録">
+                            <a href="{{ cs_url('/admin/stack/summary', [ dset_stack_values.stackgroup_id ]) }}" class="btn btn-default">戻る</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">公開設定</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="publish_type">状態</label>
+                            <div class="radio">
+                                <label><input type="radio" name="publish_status" id="publish_status_1" value="-2"{% if dset_stack_values.publish_status == -2 %} checked{% endif %}> 下書</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="publish_status" id="publish_status_2" value="-1"{% if dset_stack_values.publish_status == -1 %} checked{% endif %}> レビュー待</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="publish_status" id="publish_status_9" value="1"{% if dset_stack_values.publish_status == 1 %} checked{% endif %}> 公開</label>
+                            </div>
+                            {% if dset_stack_error_messages.publis_type != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_stack_error_messages.publish_type }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="publish_type">公開設定</label>
+                            <div class="radio">
+                                <label><input type="radio" name="publish_type" id="publish_type" value="0"{% if dset_stack_values.publish_type == 0 %} checked{% endif %}> 非公開</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="publish_type" id="publish_type" value="1"{% if dset_stack_values.publish_type == 1 %} checked{% endif %}> 公開</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="publish_type" id="publish_type" value="2"{% if dset_stack_values.publish_type == 2 %} checked{% endif %}> 時間指定</label>
+                            </div>
+                            {% if dset_stack_error_messages.publis_type != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_stack_error_messages.publish_type }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="publish_start">開始日時</label>
+                            <input type="text" value="{{ dset_stack_values.publish_start }}" class="form-control" id="publish_start" name="publish_start" placeholder="公開日時">
+                            {% if dset_stack_error_messages.publish_start != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_stack_error_messages.publish_start }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="publish_end">終了日時</label>
+                            <input type="text" value="{{ dset_stack_values.publish_end }}" class="form-control" id="publish_end" name="publish_end" placeholder="終了日時">
+                            {% if dset_stack_error_messages.publish_end != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_stack_error_messages.publish_end }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    </form>
+
+{% endblock %}

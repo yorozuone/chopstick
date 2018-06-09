@@ -1,0 +1,61 @@
+{% extends "/controller/admin/default.twig" %}
+
+{% block area_body %}
+
+    <div class="page-header">
+        <h1>コンポーザー削除</h1>
+    </div>
+
+    <ol class="breadcrumb">
+        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+        <li><a href="{{ cs_url('admin/composer/summary') }}">コンポーザー一覧 ({{ dset_composer_block_values.composer_key }})</a></li>
+        <li><a href="{{ cs_url('admin/composer_block/summary', [ dset_composer_block_values.composer_key ]) }}">コンポーザー・ブロック一覧</a></li>
+        <li class="active">コンポーザー・ブロック削除</li>
+    </ol>
+
+    <form action="{{ cs_url('/admin/composer_block/delete/update') }}" method="post">
+        <div class="panel panel-default">
+            <div class="panel-heading">コンポーザー・ブロックの削除</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="control-label">コンポーザー・キー</label>
+                    <div>
+                        <p class="form-control-static">{{ dset_composer_block_values.composer_key }}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">コンポーザー・ブロック・キー</label>
+                    <div>
+                        <p class="form-control-static">{{ dset_composer_block_values.composer_block_key }}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">ブロック・キー</label>
+                    <div>
+                        <p class="form-control-static">{{ dset_composer_block_values.block_key }}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">ブロック名</label>
+                    <div>
+                        <p class="form-control-static">{{ dset_composer_block_values.caption }}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">説明</label>
+                    <div>
+                        <p class="form-control-static">{{ dset_composer_block_values.description }}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-danger" value="削除">
+                    <a href="{{ cs_url('/admin/composer_block/summary', [ dset_composer_block_values.composer_key ]) }}" class="btn btn-default">戻る</a>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="composer_key" value="{{ dset_composer_block_values.composer_key }}">
+        <input type="hidden" name="composer_block_key" value="{{ dset_composer_block_values.composer_block_key }}">
+    </form>
+
+{% endblock %}

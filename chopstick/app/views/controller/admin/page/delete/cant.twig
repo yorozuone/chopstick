@@ -1,0 +1,17 @@
+{% extends "/controller/admin/default.twig" %}
+
+{% block area_body %}
+
+    <div class="page-header">
+        <h1>削除できないページ</h1>
+    </div>
+
+    <ol class="breadcrumb">
+        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+        <li><a href="{{ cs_url('admin/page/summary') }}">ページ一覧</a></li>
+        <li class="active">ページ削除</li>
+    </ol>
+
+    <div class="alert alert-danger" role="alert">ホーム、または、子ページが存在するページのため、削除できません。</div>
+
+{% endblock %}

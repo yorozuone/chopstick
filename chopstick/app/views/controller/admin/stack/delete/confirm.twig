@@ -1,0 +1,98 @@
+{% extends "/controller/admin/default.twig" %}
+
+{% block area_body %}
+
+    <div class="page-header">
+        <h1>スタック削除</h1>
+    </div>
+
+    <ol class="breadcrumb">
+        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+        <li><a href="{{ cs_url('admin/stackgroup/summary') }}">スタック・グループ</a></li>
+        <li><a href="{{ cs_url('admin/stack/summary', [ dset_stack_values.stackgroup_id] )}}">スタック一覧（{{ dset_stack_values.stackgroup_caption }}）</a></li>
+        <li class="active">スタック削除</li>
+    </ol>
+
+    <form action="{{ cs_url('/admin/stack/delete/update') }}" method="post">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">基本情報</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="control-label">スタック・グループ</label>
+                            <div>
+                                <p class="form-control-static">{{ dset_stack_values.stackgroup_caption }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">スタック・キー</label>
+                            <div>
+                                <p class="form-control-static">{{ dset_stack_values.stack_key }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">本文</label>
+                            <div>
+                                {{ dset_stack_values.content|nl2br }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">説明</label>
+                            <div>
+                                <p class="form-control-static">{{ dset_stack_values.description }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-danger" value="削除">
+                            <a href="{{ cs_url('/admin/stack/summary', [ dset_stack_values.stackgroup_id ]) }}" class="btn btn-default">戻る</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">公開設定</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="control-label">状態</label>
+                            <div>
+                                <p class="form-control-static">
+                                    {% if (dset_stack_values.publish_status == -2) %}下書{% endif %}
+                                    {% if (dset_stack_values.publish_status == -1) %}レビュー待ち{% endif %}
+                                    {% if (dset_stack_values.publish_status ==  1) %}公開{% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">公開設定</label>
+                            <div>
+                                <p class="form-control-static">
+                                    {% if (dset_stack_values.publish_type == 0) %}非公開{% endif %}
+                                    {% if (dset_stack_values.publish_type == 1) %}公開{% endif %}
+                                    {% if (dset_stack_values.publish_type == 2) %}時間指定{% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">開始日時</label>
+                            <div>
+                                <p class="form-control-static">{{ (dset_stack_values.publish_start == '') ? '(未設定)' : dset_stack_values.publish_start }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">終了日時</label>
+                            <div>
+                                <p class="form-control-static">{{ (dset_stack_values.publish_end == '') ? '(未設定)' : dset_stack_values.publish_end }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="stack_key" value="{{ dset_stack_values.stack_key }}">
+    </form>
+
+{% endblock %}

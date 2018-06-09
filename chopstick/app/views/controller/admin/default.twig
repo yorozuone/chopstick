@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    {% set prefix_title = '' %}
+    {% if constant('CS_MODE') == 'development' %}
+        {% set prefix_title = '[開発] ' %}
+    {% endif %}
+    {% if constant('CS_MODE') == 'staging' %}
+        {% set prefix_title = '[ステージング] ' %}
+    {% endif %}
+    <title>{{ prefix_title }}{{ cms.site_name }}</title>
+
+    <!-- Bootstrap -->
+    <link href="{{ cs_url("/assets/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- MyStyle -->
+    <link href="{{ cs_url("/assets/css/mystyle.css") }}" rel="stylesheet">
+
+{% block area_head %}
+{% endblock %}
+
+</head>
+<body>
+
+{% if constant('CS_MODE') == 'development' %}
+
+    {% if GLOBALVARS.CORE_DEBUG_ALERT|length != 0 %}
+        {% for item in GLOBALVARS.CORE_DEBUG_ALERT %}
+            <div class="alert alert-danger">{{ item }}</div>
+        {% endfor %}
+    {% endif %}
+
+    {% if GLOBALVARS.CORE_DEBUG_DUMP|length != 0 %}
+        {% for item in GLOBALVARS.CORE_DEBUG_DUMP %}
+            <pre>{{ item }}</pre>
+        {% endfor %}
+    {% endif %}
+
+{% endif %}
+
+<div class="container">
+    <nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{ cs_url('admin/menu') }}">chopstick cms</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ cs_url('/') }}">公開画面</a></li>
+                <li><a href="{{ cs_url("admin/page/summary/0") }}">ページ一覧</a></li>
+                <li><a href="{{ cs_url("/admin/page/create") }}">ページ登録 <span class="sr-only">(current)</span></a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <p class="navbar-text">{{ session.core_auth.username }}</p>
+                <li><a href="{{ cs_url('/admin/auth/logout') }}">ログアウト</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+    </nav>
+
+{% block area_body %}
+{% endblock area_body %}
+
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{{ cs_url("/assets/bootstrap/js/bootstrap.min.js") }}"></script>
+
+{% block area_body_tail %}
+{% endblock %}
+
+</body>
+</html>

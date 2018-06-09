@@ -1,0 +1,32 @@
+<div id="{{ id }}" class="{{ class }}">
+    <div style="background-color:#e0e0d1; height:12px;">
+    </div>
+    <div style="background-color:#f5f5ef;">
+        <div class="row" style="margin-left:24px; margin-right:24px">
+            <div class="GlobalFooterNav">
+                {% for v1 in drec_pagenavi %}
+                    {% if v1.parent_page_id == 0 %}
+                        <div class="col-md-2">
+                            <h3><a href="{{ cs_urlp(v1.page_id) }}" class="GolobalFooterMenuNavItem">{{ v1.page_title }}</a></h3>
+                            {% set html = '' %}
+                            {% for v2 in drec_pagenavi %}
+                                {% set cnt = 0 %}
+                                {% if v1.page_id == v2.parent_page_id %}
+                                    {% set cnt = cnt + 1 %}
+                                {% endif %}
+                                {% if cnt != 0 %}
+                                    {% if v1.page_id == v2.parent_page_id %}
+                                        <ul>
+                                            <li><a href="{{ cs_urlp(v2.page_id) }}" class="GolobalFooterMenuNavSubItem">{{ v2.page_title }}</a></li>
+                                        </ul>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div style="background-color:#e0e0d1; height:12px;">
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<?php
+namespace app\controller\admin\category;
+
+use \core\auth;
+use \core\csrf;
+use \core\response;
+use \core\url;
+use \core\validation;
+
+use \app\model\controller\admin\category\delete as dset_category;
+
+class delete extends \app\controller_auth
+{
+    private $dset_category = null;
+    //
+    // ********************************************************************************
+    // ****
+    // **** アクション
+    // ****
+    // ********************************************************************************
+    //
+    // --------------------------------------------------------------------------------
+    // コントローラー起動事前処理
+    // --------------------------------------------------------------------------------
+    //
+    public function before()
+    {
+        parent::before();
+        //
+        $parent_category_id = isset($this->params[0]) ? $this->params[0] : 0;
+        //
+        $this->dset_category = new dset_category();
+        $this->dset_category->set_value('category_id', $parent_category_id);
+        //
+        if ($this->dset_category->read() == false)
+        {
+            response::redirect(url::create('/admin/category/summary'));
+        }
+        //
+        if ($this->dset_category->exists_child_category())
+        {
+            $this->display('cant');
+            die();
+        }
+    }
+    //
+    // --------------------------------------------------------------------------------
+    // 既定
+    // --------------------------------------------------------------------------------
+    //
+    public function action_index()
+    {
+        $this->display();
+    }
+    //
+    // --------------------------------------------------------------------------------
+    // 削除
+    // --------------------------------------------------------------------------------
+    //
+    public function action_update()
+    {
+        if (!csrf::check())
+        {
+            auth::logout();
+            response::redirect(url::create('/admin/auth/login'));
+        }
+        $this->dset_category->post();
+        //
+        if ($this->dset_category->check())
+        {
+            $this->dset_category->delete();
+        }
+        response::redirect(url::create('/admin/category/summary', array($this->dset_category->get_value('parent_category_id'))));
+    }
+    //
+    // ********************************************************************************
+    // ****
+    // **** 表示
+    // ****
+    // ********************************************************************************
+    //
+    // --------------------------------------------------------------------------------
+    // 表示
+    // --------------------------------------------------------------------------------
+    //
+    private function display($template_name = 'confirm')
+    {
+        $vars = array
+        (
+            'dset_category_values'            => $this->dset_category->get_values(),
+            'dset_category_error_messages'    => $this->dset_category->get_error_messages(),
+        );
+        echo $this->render('controller/admin/category/delete/'.$template_name.'.twig', $vars);
+    }
+}

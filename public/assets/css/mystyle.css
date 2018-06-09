@@ -1,0 +1,148 @@
+@import url(https://fonts.googleapis.com/earlyaccess/notosansjapanese.css);
+
+body
+{
+	font-family: 'メイリオ',Meiryo,'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','ＭＳ Ｐゴシック',sans-serif;
+	line-height: 2em;
+}
+
+.cs_part_side
+{
+  	padding-left: 24px;
+  	border-left: solid #eee 1px;
+}
+
+a:link.GolobalFooterMenuNavItem
+{
+  	color:#fff;
+}
+
+a:visited.GolobalFooterMenuNavItem
+{
+  	color:#fff;
+}
+
+a:link.GolobalFooterMenuNavSubItem
+{
+  	color:#999;
+}
+
+a:visited.GolobalFooterMenuNavSubItem
+{
+  	color:#999;
+}
+
+a:hover.GolobalFooterMenuNavSubItem
+{
+  	color:#fff;
+}
+
+.GlobalFooterNav h3
+{
+  	display: block;
+  	border-bottom: 1px solid #999;
+  	padding-bottom: 6px;
+  	font-size: 12px;
+ 	width: 100%;
+}
+
+.GlobalFooterNav ul
+{
+  	list-style: none;
+  	padding-left: 0px;
+  	margin-left: 0px;
+  	line-height: 1em;
+  	font-size: 9px;
+}
+
+.cs_title
+{
+    background-color: #ccccb1;
+    height: auto;
+    padding: 4px 0px 8px 12px;
+	margin: 0px 0px 16px 0px;
+	border-radius: 0.5em;
+}
+.cs_title h1
+{
+	font-size: 18px;
+	color: #000;
+}
+
+
+.cs_markdown h1 {
+		font-size: 26px;
+		font-weight: bold;
+		height: auto;
+		background: #fff;
+		margin: 12px 13px 16px 0px;
+		padding: 10px 0px 6px 0px;
+		border-bottom: solid 6px #ddd;
+}
+
+.cs_markdown h2
+{
+		font-size: 24px;
+		font-weight: bold;
+		height: auto;
+		background: #fff;
+		margin: 28px 13px 16px 0px;
+		padding: 10px 0 0 0;
+		border-bottom: solid 1px #bbb;
+}
+
+.cs_markdown h3
+{
+		font-size: 20px;
+		font-weight: bold;
+		height: auto;
+		background: #fff;
+		margin: 24px 14px 16px 0px;
+		padding: 4px 0px 4px 12px;
+		border-left: solid 6px #289dcc;
+		border-bottom: solid 1px #bbb;
+}
+
+.cs_markdown h4
+{
+	font-size: 18px;
+	font-weight: bold;
+	height: auto;
+	background: #fff;
+	margin: 26px 12px 16px 0px;
+	padding: 4px 0px 4px 12px;
+	border-left: solid 6px #289dcc;
+	border-bottom: solid 1px #bbb;
+}
+
+.cs_markdown h5
+{
+	font-size: 16px;
+	font-weight: bold;
+	height: auto;
+	background: #fff;
+	margin: 0px 0px 16px 0px;
+	padding: 4px 0px 4px 12px;
+	border-left: solid 6px #289dcc;
+	border-bottom: solid 1px #bbb;
+}
+
+.cs_markdown h6
+{
+	font-size: 14px;
+	font-weight: bold;
+	height: auto;
+	background: #fff;
+	margin: 0px 0px 16px 0px;
+	padding: 4px 0px 4px 12px;
+	border-left: solid 6px #289dcc;
+	border-bottom: solid 1px #bbb;
+}
+
+.cs_markdown img
+{
+  border: solid 1px #eeeeee;
+	padding: 4px;
+	max-width: 100%;
+}
+

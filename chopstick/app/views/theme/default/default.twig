@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    {% set prefix_title = '' %}
+    {% if constant('CS_MODE') == 'development' %}
+        {% set prefix_title = '[開発] ' %}
+    {% endif %}
+    {% if constant('CS_MODE') == 'staging' %}
+        {% set prefix_title = '[ステージング] ' %}
+    {% endif %}
+    <title>{{ prefix_title }}{{ values.head_title }} | chopstick cms</title>
+
+    <!-- Bootstrap -->
+    <link href="{{ cs_url("/assets/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- MyStyle -->
+    <link href="{{ cs_url("/assets/css/mystyle.css") }}" rel="stylesheet">
+
+{% block area_head %}
+{% endblock %}
+
+</head>
+<body>
+
+{% if constant('CS_MODE') == 'development' %}
+
+    {% if GLOBALVARS.CORE_DEBUG_ALERT|length != 0 %}
+        {% for item in GLOBALVARS.CORE_DEBUG_ALERT %}
+            <div class="alert alert-danger">{{ item }}</div>
+        {% endfor %}
+    {% endif %}
+
+    {% if GLOBALVARS.CORE_DEBUG_DUMP|length != 0 %}
+        {% for item in GLOBALVARS.CORE_DEBUG_DUMP %}
+            <pre>{{ item }}</pre>
+        {% endfor %}
+    {% endif %}
+
+{% endif %}
+
+{% if cs_auth_check() == true %}
+
+    <div class="container">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="pull-left">
+                <a href="{{ cs_url("admin/menu") }}" class="btn btn-xs btn-default">管理画面</a>
+                <a href="{{ cs_url("admin/page/summary", [values.parent_page_id]) }}" class="btn btn-xs btn-info">一覧</a>
+                <a href="{{ cs_url("admin/page/edit", [values.page_id]) }}" class="btn btn-xs btn-primary">編集</a>
+                <a href="{{ cs_url("admin/page/delete", [values.page_id]) }}" class="btn btn-xs btn-danger">削除</a>
+                <button type="button" class="btn btn-xs btn-primary btn-sm" data-toggle="collapse" data-target="#sample">詳細</button>
+            </div>
+            <div class="pull-right">
+                <a href="{{ cs_url('/admin/auth/logout') }}" class="btn btn-xs btn-default">ログアウト</a>
+            </div>
+        </div>
+
+        <div>
+            <div class="col-sm-2">状態</div>
+            <div class="col-sm-10">
+                {% if values.publish_status == '-2' %}<span class="btn btn-xs btn-danger">下書</span>{% endif %}
+                {% if values.publish_status == '-1' %}<span class="btn btn-xs btn-danger">レビュー待</span>{% endif %}
+                {% if values.publish_status == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
+            </div>
+            <div class="col-sm-2">公開設定</div>
+            <div class="col-sm-10">
+                {% if values.publish_type == '0' %}<span class="btn btn-xs btn-danger">非公開</span>{% endif %}
+                {% if values.publish_type == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
+                {% if values.publish_type == '2' %}<span class="btn btn-xs btn-danger">時間指定</span>{% endif %}
+            </div>
+            <div class="col-sm-2">開始日時</div>
+            <div class="col-sm-10">
+                {% if values.publish_start == '' %}
+                    <span>未設定</span>
+                {% else %}
+                    {{ values.publish_start }}
+                {% endif %}
+            </div>
+            <div class="col-sm-2">終了日時</div>
+            <div class="col-sm-10">
+                {% if values.publish_end == '' %}
+                    <span>未設定</span>
+                {% else %}
+                    {{ values.publish_end }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+{% endif %}
+
+<div class="container">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        {{ cs_pagenavi({'template': 'global_navi', 'parent_page_id': '0', 'depth': '1'}) }}
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        {{ cs_breadcrumb() }}
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <div class="cs_part_body">
+{% block area_body %}
+{% endblock %}
+        </div>
+    </div>
+    <div class="hidden-xs hidden-sm col-md-4 col-lg-4">
+            <div class="cs_part_side">
+            {{ cs_pagenavi({'template': 'side_navi', 'parent_page_id': '0', 'depth': '1'}) }}
+        </div>
+    </div>
+</div>
+
+<div class="container" style="margin-top:48px;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        {{ cs_pagenavi({'template': 'footer_navi', 'parent_page_id': '0', 'depth': '2'}) }}
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        {{ cs_stack({'stack_key':'AdFooter'}) }}
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{{ cs_url("/assets/bootstrap/js/bootstrap.min.js") }}"></script>
+
+{{ cs_stack({'stack_key':'AnalyzeTag'})}}
+
+{% block area_body_tail %}
+{% endblock %}
+
+</body>
+</html>

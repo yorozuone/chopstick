@@ -1,0 +1,287 @@
+{% extends "/controller/admin/default.twig" %}
+
+{% block area_body %}
+
+    <div class="page-header">
+        <h1>ページ編集</h1>
+    </div>
+
+    <ol class="breadcrumb">
+        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+        <li><a href="{{ cs_url('admin/page/summary', [dset_page_values.parent_page_id]) }}">ページ一覧</a></li>
+        <li class="active">ページ編集</li>
+    </ol>
+
+    {% if is_valid == false %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {% for dset_page_error_message in dset_page_error_messages %}
+                    {% if dset_page_error_message != '' %}
+                        <div class="alert alert-danger" role="alert">{{ dset_page_error_message }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <form action="{{ cs_url('/admin/page/edit/update', [ dset_page_values.composer_key ]) }}" method="post">
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">基本情報</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="parent_page_id">親ページ</label>
+                            <select class="form-control" id="parent_page_id" name="parent_page_id">
+                                {% for obj in drec_page_tree %}
+                                    <option value="{{ obj.page_id }}"{% if obj.page_id == dset_page_values.parent_page_id %} selected{% endif %}>{{ obj.tree_title }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if dset_page_error_messages.parent_page_id != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_page_error_messages.parent_page_id }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="page_title">ページ・タイトル</label>
+                            <input type="text" value="{{ dset_page_values.page_title }}" class="form-control" id="page_title" name="page_title" placeholder="ページタイトル">
+                            {% if dset_page_error_messages.page_title != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_page_error_messages.page_title }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="head_title">ヘッダ・タイトル</label>
+                            <input type="text" value="{{ dset_page_values.head_title }}" class="form-control" id="head_title" name="head_title" placeholder="ページタイトル">
+                            {% if dset_page_error_messages.head_title != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_page_error_messages.head_title }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="breadcrumb_caption">パンくず・見出し</label>
+                            <input type="text" value="{{ dset_page_values.breadcrumb_caption }}" class="form-control" id="breadcrumb_caption" name="breadcrumb_caption" placeholder="ページタイトル">
+                            {% if dset_page_error_messages.breadcrumb_caption != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_page_error_messages.breadcrumb_caption }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="permanent_name">パーマネント名</label>
+                            <input type="text" value="{{ dset_page_values.permanent_name }}" class="form-control" id="permanent_name" name="permanent_name" placeholder="パーマネント名">
+                            {% if dset_page_error_messages.permanent_name != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_page_error_messages.permanent_name }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="page_type">ページ種類</label>
+                            <div class="radio">
+                                <label><input type="radio" name="page_type" id="page_type_1" value="1"{% if dset_page_values.page_type == 1 %} checked{% endif %}> 通常</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="page_type" id="page_type_1" value="2"{% if dset_page_values.page_type == 2 %} checked{% endif %}> 外部リンク</label>
+                            </div>
+                            {% if dset_page_error_messages.page_type != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_page_error_messages.page_type }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="external_link">外部リンク</label>
+                            <input type="text" value="{{ dset_page_values.external_link }}" class="form-control" id="external_link" name="external_link" placeholder="外部リンク">
+                            {% if dset_page_error_messages.external_link != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_page_error_messages.external_link }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="更新">
+                            <a href="{{ cs_url('/admin/page/summary', [dset_page_values.parent_page_id]) }}" class="btn btn-default">戻る</a>
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="page_id" value="{{ dset_page_values.page_id }}">
+                            <input type="hidden" name="composer_key" value="{{ dset_page_values.composer_key }}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">area_head</div>
+                    <div class="panel-body">
+                        <textarea class="form-control" id="area_head" name="area_head" rows="5">{{ dset_page_values.area_head|raw }}</textarea>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">コンポーザー情報 ({{ dset_page_values.composer_key }})</div>
+                    <div class="panel-body">
+                        {% for composer_block in composer_blocks %}
+                            {{ composer_block.get_entry_html()|raw }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">area_body_tail</div>
+                    <div class="panel-body">
+                        <textarea class="form-control" id="area_body_tail" name="area_body_tail" rows="5">{{ dset_page_values.area_body_tail|raw }}</textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">公開設定</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="publish_type">状態</label>
+                            <div class="radio">
+                                <label><input type="radio" name="publish_status" id="publish_status_A" value="-2"{% if dset_page_values.publish_status == -2 %} checked{% endif %}> 下書</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="publish_status" id="publish_status_B" value="-1"{% if dset_page_values.publish_status == -1 %} checked{% endif %}> レビュー待</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="publish_status" id="publish_status_C" value="1"{% if dset_page_values.publish_status == 1 %} checked{% endif %}> 公開</label>
+                            </div>
+                            {% if dset_page_error_messages.publis_type != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_page_error_messages.publish_type }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="publish_type">公開設定</label>
+                            <div class="radio">
+                                <label><input type="radio" name="publish_type" id="publish_type" value="0"{% if dset_page_values.publish_type == 0 %} checked{% endif %}> 非公開</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="publish_type" id="publish_type" value="1"{% if dset_page_values.publish_type == 1 %} checked{% endif %}> 公開</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="publish_type" id="publish_type" value="2"{% if dset_page_values.publish_type == 2 %} checked{% endif %}> 時間指定</label>
+                            </div>
+                            {% if dset_page_error_messages.publis_type != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_page_error_messages.publish_type }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="publish_start">開始日時</label>
+                            <input type="text" value="{{ dset_page_values.publish_start }}" class="form-control" id="publish_start" name="publish_start" placeholder="公開日時">
+                            {% if dset_page_error_messages.publish_start != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_page_error_messages.publish_start }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="publish_end">終了日時</label>
+                            <input type="text" value="{{ dset_page_values.publish_end }}" class="form-control" id="publish_end" name="publish_end" placeholder="終了日時">
+                            {% if dset_page_error_messages.publish_end != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_page_error_messages.publish_end }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">エクステンション設定</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="publish_navi">ナビ表示</label>
+                            <div class="radio">
+                                <label><input type="radio" name="publish_navi" id="publish_navi_1" value="1"{% if dset_page_values.publish_navi == 1 %} checked{% endif %}> 表示</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="publish_navi" id="publish_navi_0" value="0"{% if dset_page_values.publish_navi != 1 %} checked{% endif %}> 非表示</label>
+                            </div>
+                            {% if dset_page_error_messages.publish_navi != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_page_error_messages.publish_navi }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="publish_list">リスト表示</label>
+                            <div class="radio">
+                                <label><input type="radio" name="publish_list" id="publish_list_1" value="1"{% if dset_page_values.publish_list == 1 %} checked{% endif %}> 表示</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="publish_list" id="publish_list_0" value="0"{% if dset_page_values.publish_list != 1 %} checked{% endif %}> 非表示</label>
+                            </div>
+                            {% if dset_page_error_messages.publish_list != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_page_error_messages.publish_list }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">属性情報</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="category_ids">カテゴリ</label>
+                            <select class="form-control" id="category_ids" name="category_ids[]" multiple="multiple">
+                                {% for obj in drec_category_tree %}
+                                    <option value="{{ obj.category_id }}"{% if obj.category_id in dset_page_values.category_ids %} selected{% endif %}>{{ obj.tree_caption }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if dset_page_error_messages.category_ids != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_page_error_messages.parent_page_id }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="tags">タグ</label>
+                            <input type="text" value="{{ dset_page_values.tags }}" class="form-control" id="tags" name="tags" placeholder="タグ">
+                            {% if dset_page_error_messages.tags != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_page_error_messages.tags }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">テンプレート設定</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="template_key">テンプレート</label>
+                            <select class="form-control" id="template_key" name="template_key">
+                                {% for obj in drec_template %}
+                                    <option value="{{ obj.template_key }}"{% if obj.template_key == dset_page_values.template_key %} selected{% endif %}>{{ obj.caption }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if dset_page_error_messages.template_key != '' %}
+                                <p class="help-block">
+                                    <div class="alert alert-danger" role="alert">{{ dset_page_error_messages.template_key }}</div>
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+
+{% endblock %}
