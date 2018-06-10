@@ -60,6 +60,12 @@
                             <th style="text-align: right; width: 48px;">ID</th>
                             <th>タイトル</th>
                             <th nowrap style="width: 160px;">コンポーザー</th>
+                            <th>状態</th>
+                            <th>公開設定</th>
+                            <th>開始日時</th>
+                            <th>終了日時</th>
+                            <th>ナビ</th>
+                            <th>リスト</th>
                             <th nowrap style="width: 200px;">更新日時</th>
                             <th nowrap style="width: 100px;"></th>
                         </tr>
@@ -78,6 +84,38 @@
                                 </td>
                                 <td nowrap>
                                     {{ v.composer_key }}
+                                </td>
+                                <td>
+                                    {% if v.publish_status == '-2' %}<span class="btn btn-xs btn-danger">下書</span>{% endif %}
+                                    {% if v.publish_status == '-1' %}<span class="btn btn-xs btn-danger">レビュー待</span>{% endif %}
+                                    {% if v.publish_status == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
+                                </td>
+                                <td>
+                                    {% if v.publish_type == '0' %}<span class="btn btn-xs btn-danger">非公開</span>{% endif %}
+                                    {% if v.publish_type == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
+                                    {% if v.publish_type == '2' %}<span class="btn btn-xs btn-danger">時間指定</span>{% endif %}
+                                </td>
+                                <td>
+                                    {% if v.publish_start == '' %}
+                                        <span>-</span>
+                                    {% else %}
+                                        {{ v.publish_start }}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if v.publish_end == '' %}
+                                        <span>-</span>
+                                    {% else %}
+                                        {{ v.publish_end }}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if v.publish_navi == '0' %}<span class="btn btn-xs btn-danger">非公開</span>{% endif %}
+                                    {% if v.publish_navi == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
+                                </td>
+                                <td>
+                                    {% if v.publish_list == '0' %}<span class="btn btn-xs btn-danger">非公開</span>{% endif %}
+                                    {% if v.publish_list == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
                                 </td>
                                 <td nowarp>
                                     {{ v.updated_at | date('Y/m/d H:i:s', "Asia/Tokyo") }}

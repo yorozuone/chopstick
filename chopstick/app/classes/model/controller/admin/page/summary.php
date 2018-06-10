@@ -28,6 +28,12 @@ SELECT
     composer_key,
     page_title,
     reserved,
+    publish_status,
+    publish_type,
+    publish_start,
+    publish_end,
+    publish_navi,
+    publish_list,
     created_at,
     updated_at
 FROM

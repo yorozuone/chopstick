@@ -2,37 +2,40 @@
 namespace core;
 
 class dispatch {
+    //
+    const UNIQ_KEY = 'CORE_LIB_DISPATCH';
+    //
+    private $route;
     // --------------------------------------------------------------------------------
     // コントローラーをパラメーターに従って実行
     // --------------------------------------------------------------------------------
-    public static function run($controller_name, $action_name, $params)
+    public static function run($route)
     {
         // ------------------------------------------------------------
         // コントローラー作成
         // ------------------------------------------------------------
-        $c = new $controller_name;
-        //
-        $c->controller_name = $controller_name;
-        $c->action_name = $action_name;
-        $c->params = $params;
+        $controller = new $route->controller_name;
+        $controller->route = $route;
         // ------------------------------------------------------------
         // 既定（開始時）のアクションの実行
         // ------------------------------------------------------------
-        if (method_exists($c, 'before'))
+        if (method_exists($controller, 'before'))
         {
-            $c->before($params);
+            $controller->before($route->params);
         }
         // ------------------------------------------------------------
         // アクションの実行
         // ------------------------------------------------------------
-        $c->$action_name($params);
+        $action_name = $route->action_name;
+        $controller->$action_name($route->params);
         // ------------------------------------------------------------
         // 既定（終了時）アクションの実行
         // ------------------------------------------------------------
-        if (method_exists($c, 'after'))
+        if (method_exists($controller, 'after'))
         {
-            $c->after($params);
+            $controller->after($route->params);
         }
+        //
         return true;
     } 
 }

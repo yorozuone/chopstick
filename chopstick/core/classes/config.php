@@ -16,6 +16,7 @@ class config
             $tmp_config = self::read_config(CS_BASE_DIR.$v.'/config/'  .$config_name.'.php');
             $config = array_replace_recursive($config, $tmp_config);
         }
+//        print_r($config);
         return $config;
     }
     // --------------------------------------------------------------------------------

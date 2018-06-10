@@ -58,7 +58,6 @@
         <a href="{{ cs_url("admin/page/summary", [values.parent_page_id]) }}" class="btn btn-xs btn-info">一覧</a>
         <a href="{{ cs_url("admin/page/edit", [values.page_id]) }}" class="btn btn-xs btn-primary">編集</a>
         <a href="{{ cs_url("admin/page/delete", [values.page_id]) }}" class="btn btn-xs btn-danger">削除</a>
-        <button type="button" class="btn btn-xs btn-primary btn-sm" data-toggle="collapse" data-target="#sample">詳細</button>
         | 状態 :
             {% if values.publish_status == '-2' %}<span class="btn btn-xs btn-danger">下書</span>{% endif %}
             {% if values.publish_status == '-1' %}<span class="btn btn-xs btn-danger">レビュー待</span>{% endif %}
