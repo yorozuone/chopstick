@@ -42,12 +42,14 @@
 
     <br>
 
-    <ol class="breadcrumb">
-        <li><a href="{{ cs_url('admin/category/summary') }}">(root)</a></li>
-        {% for v in drec_breadcrumb %}
-            <li><a href="{{ cs_url('admin/category/summary', [v.category_id]) }}">{{ v.caption }}</a></li>
-        {% endfor %}
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/category/summary') }}">(root)</a></li>
+            {% for v in drec_breadcrumb %}
+                <li class="breadcrumb-item"><a href="{{ cs_url('admin/category/summary', [v.category_id]) }}">{{ v.caption }}</a></li>
+            {% endfor %}
+        </ol>
+    </nav>
 
     {% if drec_category|length == 0 %}
         <div class="alert alert-success" role="alert">カテゴリが登録されていません。</div>
