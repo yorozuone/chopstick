@@ -2,19 +2,21 @@
 
 {% block area_body %}
 
-    <div class="page-header">
-        <h1>ユーザー削除</h1>
-    </div>
+    <h1 class="display-4">
+        ユーザー削除
+    </h1>
 
-    <ol class="breadcrumb">
-        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
-        <li><a href="{{ cs_url('admin/user/summary') }}">ユーザー一覧</a></li>
-        <li class="active">ユーザー削除</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/user/summary')}}">ユーザー一覧</a></li>
+            <li class="breadcrumb-item active" aria-current="page">ユーザー削除</li>
+        </ol>
+    </nav>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">ユーザー情報</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">ユーザー情報</div>
+        <div class="card-body">
             <form action="{{ cs_url('/admin/user/delete/update') }}" method="post">
                 <div class="form-group">
                     <label class="control-label">ユーザー名</label>
@@ -29,7 +31,7 @@
                     </div>
                 </div>
                 <input type="submit" class="btn btn-danger" value="削除">
-                <a href="{{ cs_url('/admin/user/summary') }}" class="btn btn-default">戻る</a>
+                <a href="{{ cs_url('/admin/user/summary') }}" class="btn btn-outline-info">戻る</a>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="user_id" value="{{ dset_user_values.user_id }}">
             </form>

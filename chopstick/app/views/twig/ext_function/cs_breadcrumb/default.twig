@@ -1,9 +1,9 @@
 <div id="{{ id }}" class="{{ class }}">
     <ol class="breadcrumb">
-        <li><a href="{{ cs_urlp(1) }}">HOME</a></li>
+        <li class="breadcrumb-item"><a href="{{ cs_urlp(1) }}">HOME</a></li>
         {% for obj in drec_breadcrumb %}
             {%if obj.page_id != 1 %}
-                <li><a href="{{ cs_urlp(obj.page_id) }}">{{ obj.breadcrumb_caption }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ cs_urlp(obj.page_id) }}">{{ obj.breadcrumb_caption }}</a></li>
             {% endif %}
         {% endfor %}
     </ol>

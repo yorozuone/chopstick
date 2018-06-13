@@ -20,7 +20,6 @@ class create extends \app\controller_auth
     public function before()
     {
         parent::before();
-        //
         $this->dset_composer = new dset_composer();
     }
     // --------------------------------------------------------------------------------

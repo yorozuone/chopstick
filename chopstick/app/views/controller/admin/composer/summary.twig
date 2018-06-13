@@ -25,14 +25,16 @@
 
 {% block area_body %}
 
-    <div class="page-header">
-        <h1>コンポーザー一覧</h1>
-    </div>
+    <h1 class="display-4">
+        コンポーザー一覧
+    </h1>
 
-    <ol class="breadcrumb">
-        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
-        <li class="active">コンポーザー一覧</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">コンポーザー一覧</li>
+        </ol>
+    </nav>
 
     <div>
         <a href="{{ cs_url('/admin/composer/create') }}" class="btn btn-success">コンポーザー登録</a>
@@ -43,39 +45,39 @@
     {% if drec_composer|length == 0 %}
         <div class="alert alert-success" role="alert">コンポーザーが登録されていません。</div>
     {% else %}
-        <div class="panel panel-default">
-            <div class="panel-heading">コンポーザー一覧</div>
+        <p class="h4">コンポーザー一覧</p>
+        <div class="table-responsive">
             <table id="composer_sortable" class="table table-striped">
                 <thead>
                     <tr>
                         <th style="width: 12px;"></th>
-                        <th style="width: 240px;"></th>
-                        <th>コンポーザー・キー</th>
-                        <th>コンポーザー名</th>
-                        <th nowrap style="width: 200px;">更新日時</th>
-                        <th nowrap style="width: 120px;"></th>
+                        <th nowrap></th>
+                        <th nowrap>コンポーザー・キー</th>
+                        <th nowrap>コンポーザー名</th>
+                        <th nowrap">更新日時</th>
+                        <th nowrap"></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for v in drec_composer %}
                         <tr composer_key="{{ v.composer_key }}">
                             <td nowrap>
-                                <span class="glyphicon glyphicon-menu-hamburger composer_sortable_handle" aria-hidden="true" style="cursor:move"></span>
+                                <div class="composer_sortable_handle" style="cursor:move">[=]</div>
                             </td>
-                            <td>
+                            <td nowrap>
                                 <a href="{{ cs_url('/admin/composer_block/summary', [v.composer_key]) }}" class="btn btn-xs btn-info">コンポーザー・ブロック一覧</a>
                                 <a href="{{ cs_url('/admin/composer_block/create', [v.composer_key]) }}" class="btn btn-xs btn-primary">登録</a>
                             </td>
-                            <td>
+                            <td nowrap>
                                 {{ v.composer_key }}
                             </td>
-                            <td>
+                            <td nowrap>
                                 {{ v.caption }}
                             </td>
-                            <td>
+                            <td nowrap>
                                 {{ v.updated_at | date('Y/m/d H:i:s', "Asia/Tokyo") }}
                             </td>
-                            <td style="text-align: right;">
+                            <td nowrap style="text-align: right;">
                                 <a href="{{ cs_url('/admin/composer/edit', [v.composer_key]) }}" class="btn btn-xs btn-primary">編集</a>
                                 <a href="{{ cs_url('/admin/composer/delete', [v.composer_key]) }}" class="btn btn-xs btn-danger">削除</a>
                             </td>

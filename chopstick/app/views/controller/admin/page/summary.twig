@@ -25,14 +25,16 @@
 
 {% block area_body %}
 
-    <div class="page-header">
-        <h1>ページ一覧</h1>
-    </div>
+    <h1 class="display-4">
+        ページ一覧
+    </h1>
 
-    <ol class="breadcrumb">
-        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
-        <li class="active">ページ一覧</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">ページ一覧</li>
+        </ol>
+    </nav>
 
     <div>
         <a href="{{ cs_url('/admin/page/create', [drec_page_values.parent_page_id]) }}" class="btn btn-success">ページ登録</a>
@@ -40,100 +42,62 @@
 
     <br>
 
-    <ol class="breadcrumb">
-        <li><a href="{{ cs_url('admin/page/summary') }}">(root)</a></li>
-        {% for v in dr_beradcrumb %}
-            <li><a href="{{ cs_url('admin/page/summary', [v.page_id]) }}">{{ v.page_title }}</a></li>
-        {% endfor %}
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/page/summary') }}">(root)</a></li>
+            {% for v in dr_beradcrumb %}
+                <li class="breadcrumb-item"><a href="{{ cs_url('admin/page/summary', [v.page_id]) }}">{{ v.page_title }}</a></li>
+            {% endfor %}
+        </ol>
+    </nav>
 
     {% if drec_page|length == 0 %}
         <div class="alert alert-success" role="alert">ページが登録されていません。</div>
     {% else %}
-        <div class="panel panel-default">
-            <div class="panel-heading">ページ一覧</div>
-            <div class="table-responsive">
-                <table id="page_sortable" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th style="width: 12px;"></th>
-                            <th style="text-align: right; width: 48px;">ID</th>
-                            <th>タイトル</th>
-                            <th nowrap style="width: 160px;">コンポーザー</th>
-                            <th>状態</th>
-                            <th>公開設定</th>
-                            <th>開始日時</th>
-                            <th>終了日時</th>
-                            <th>ナビ</th>
-                            <th>リスト</th>
-                            <th nowrap style="width: 200px;">更新日時</th>
-                            <th nowrap style="width: 100px;"></th>
+        <p class="h4">ページ一覧</p>
+        <div class="table-responsive">
+            <table id="page_sortable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 12px;"></th>
+                        <th style="text-align: right; width: 48px;">ID</th>
+                        <th nowrap>タイトル</th>
+                        <th nowrap>コンポーザー</th>
+                        <th nowrap>更新日時</th>
+                        <th nowrap></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in drec_page %}
+                        <tr page_id="{{ v.page_id }}">
+                            <td nowrap>
+                                <div class="page_sortable_handle" style="cursor:move">[=]</div>
+                            </td>
+                            <td nowrap style="text-align: right">
+                                {{ v.page_id }}
+                            </td>
+                            <td nowrap>
+                                <a href="{{ cs_url('admin/page/summary', [v.page_id]) }}">{{ v.page_title }}</a>
+                            </td>
+                            <td nowrap>
+                                {{ v.composer_key }}
+                            </td>
+                            <td nowarp>
+                                {{ v.updated_at | date('Y/m/d H:i:s', "Asia/Tokyo") }}
+                            </td>
+                            <td nowrap style="text-align: right;">
+                                <a href="{{ cs_urlp(v.page_id) }}"><span class="btn btn-xs btn-info">公開画面</span></a>
+                                <a href="{{ cs_url('/admin/page/edit', [v.page_id]) }}" class="btn btn-xs btn-primary">編集</a>
+                                {% if v.reserved == 1 %}
+                                    <span class="btn btn-xs btn-danger disabled">削除</span>
+                                {% else %}                                        
+                                    <a href="{{ cs_url('/admin/page/delete', [v.page_id]) }}" class="btn btn-xs btn-danger">削除</a>
+                                {% endif %}
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {% for v in drec_page %}
-                            <tr page_id="{{ v.page_id }}">
-                                <td nowrap>
-                                    <span class="glyphicon glyphicon-menu-hamburger page_sortable_handle" aria-hidden="true" style="cursor:move"></span>
-                                </td>
-                                <td nowrap style="text-align: right">
-                                    {{ v.page_id }}
-                                </td>
-                                <td nowrap>
-                                    <a href="{{ cs_url('admin/page/summary', [v.page_id]) }}">{{ v.page_title }}</a>
-                                </td>
-                                <td nowrap>
-                                    {{ v.composer_key }}
-                                </td>
-                                <td>
-                                    {% if v.publish_status == '-2' %}<span class="btn btn-xs btn-danger">下書</span>{% endif %}
-                                    {% if v.publish_status == '-1' %}<span class="btn btn-xs btn-danger">レビュー待</span>{% endif %}
-                                    {% if v.publish_status == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
-                                </td>
-                                <td>
-                                    {% if v.publish_type == '0' %}<span class="btn btn-xs btn-danger">非公開</span>{% endif %}
-                                    {% if v.publish_type == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
-                                    {% if v.publish_type == '2' %}<span class="btn btn-xs btn-danger">時間指定</span>{% endif %}
-                                </td>
-                                <td>
-                                    {% if v.publish_start == '' %}
-                                        <span>-</span>
-                                    {% else %}
-                                        {{ v.publish_start }}
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if v.publish_end == '' %}
-                                        <span>-</span>
-                                    {% else %}
-                                        {{ v.publish_end }}
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if v.publish_navi == '0' %}<span class="btn btn-xs btn-danger">非公開</span>{% endif %}
-                                    {% if v.publish_navi == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
-                                </td>
-                                <td>
-                                    {% if v.publish_list == '0' %}<span class="btn btn-xs btn-danger">非公開</span>{% endif %}
-                                    {% if v.publish_list == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
-                                </td>
-                                <td nowarp>
-                                    {{ v.updated_at | date('Y/m/d H:i:s', "Asia/Tokyo") }}
-                                </td>
-                                <td nowrap style="text-align: right;">
-                                    <a href="{{ cs_urlp(v.page_id) }}"><span class="btn btn-xs btn-info">公開画面</span></a>
-                                    <a href="{{ cs_url('/admin/page/edit', [v.page_id]) }}" class="btn btn-xs btn-primary">編集</a>
-                                    {% if v.reserved == 1 %}
-                                        <span class="btn btn-xs btn-danger disabled">削除</span>
-                                    {% else %}                                        
-                                        <a href="{{ cs_url('/admin/page/delete', [v.page_id]) }}" class="btn btn-xs btn-danger">削除</a>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     {% endif %}
 

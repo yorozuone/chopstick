@@ -5,14 +5,16 @@
 
 {% block area_body %}
 
-    <div class="page-header">
-        <h1>ユーザー一覧</h1>
-    </div>
+    <h1 class="display-4">
+        ユーザー一覧
+    </h1>
 
-    <ol class="breadcrumb">
-        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
-        <li class="active">ユーザー一覧</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/user/summary')}}">ユーザー一覧</a></li>
+        </ol>
+    </nav>
 
     <div>
         <a href="{{ cs_url('/admin/user/create', [parent_user_id]) }}" class="btn btn-success">ユーザー登録</a>
@@ -23,16 +25,16 @@
     {% if drec_user|length == 0 %}
         <div class="alert alert-success" role="alert">ユーザーが登録されていません。</div>
     {% else %}
-        <div class="panel panel-default">
-            <div class="panel-heading">ユーザー一覧</div>
+        <p class="h4">ユーザー一覧</p>
+        <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>ユーザー名</th>
-                        <th>メールアドレス</th>
-                        <th>所属グループ</th>
+                        <th nowrap>ユーザー名</th>
+                        <th nowrap>メールアドレス</th>
+                        <th nowrap>所属グループ</th>
                         <th nowrap style="width: 200px;">更新日時</th>
-                        <th nowrap style="width: 280px;"></th>
+                        <th nowrap style="width: 320px;"></th>
                     </tr>
                 </thead>
                 <tbody>

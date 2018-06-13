@@ -2,21 +2,22 @@
 
 {% block area_body %}
 
-    <div class="page-header">
-        <h1>コンポーザー・ブロック</h1>
-    </div>
+    <h1 class="display-4">
+        コンポーザー・ブロック登録
+    </h1>
 
-    <ol class="breadcrumb">
-        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
-        <li><a href="{{ cs_url('admin/composer/summary') }}">コンポーザー一覧 ({{ dset_composer_values.composer_key }})</a></li>
-        <li><a href="{{ cs_url('admin/composer_block/summary', [ dset_composer_block_values.composer_key ]) }}">コンポーザー・ブロック一覧</a></li>
-        <li class="active">コンポーザー・ブロック登録</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/composer_block/summary', [ dset_composer_block_values.composer_key ]) }}">コンポーザー・ブロック一覧</a></li>
+            <li class="breadcrumb-item active" aria-current="page">コンポーザー・ブロック登録</li>
+        </ol>
+    </nav>
 
     <form action="{{ cs_url('/admin/composer_block/create/update') }}" method="post">
-        <div class="panel panel-default">
-            <div class="panel-heading">コンポーザー・ブロック登録</div>
-            <div class="panel-body">
+        <div class="card">
+            <div class="card-header">コンポーザー・ブロック登録</div>
+            <div class="card-body">
                 {% for dset_composer_block_error_message in dset_composer_block_error_messages %}
                     {% if dset_composer_block_error_message != '' %}
                         <div class="alert alert-danger" role="alert">{{ dset_composer_block_error_message }}</div>
@@ -35,7 +36,7 @@
                     <label for="parent_page_id">ブロック</label>
                     <select class="form-control" id="block_key" name="block_key">
                         {% for obj in drec_block %}
-                            <option value="{{ obj.block_key }}"{% if obj.block_key == dset_composer_block_values.block_key %} selected{% endif %}>{{ obj.caption }}</option>
+                            <option value="{{ obj.block_key }}"{% if obj.block_key == dset_composer_block_values.block_key %} selected{% endif %}>{{ obj.name }}</option>
                         {% endfor %}
                     </select>
                     {% if dset_composer_block_error_messages.block_key != '' %}
@@ -64,7 +65,7 @@
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" value="登録">
-                    <a href="{{ cs_url('/admin/composer_block/summary', [dset_composer_block_values.composer_key]) }}" class="btn btn-default">戻る</a>
+                    <a href="{{ cs_url('/admin/composer_block/summary', [dset_composer_block_values.composer_key]) }}" class="btn btn-outline-info">戻る</a>
                 </div>
             </div>
         <div>

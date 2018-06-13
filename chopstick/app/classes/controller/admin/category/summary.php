@@ -23,11 +23,9 @@ class summary extends \app\controller_auth
     // --------------------------------------------------------------------------------
     public function action_index()
     {
-        $parent_category_id = isset($this->params[0]) ? $this->params[0] : 0;
-        //
+        $parent_category_id = isset($this->route->params[0]) ? $this->route->params[0] : 0;
         $this->drec_category = new drec_category();
         $this->drec_category->set_value('parent_category_id', $parent_category_id);
-        //
         $this->display();
     }
     // --------------------------------------------------------------------------------
@@ -35,7 +33,7 @@ class summary extends \app\controller_auth
     // --------------------------------------------------------------------------------
     public function action_sort()
     {
-        $this->dset_category->sort($this->params);
+        $this->dset_category->sort($this->route->params);
     }
     // ********************************************************************************
     // **** 表示

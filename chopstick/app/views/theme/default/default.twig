@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
     {% set prefix_title = '' %}
     {% if constant('CS_MODE') == 'development' %}
@@ -14,16 +16,6 @@
         {% set prefix_title = '[ステージング] ' %}
     {% endif %}
     <title>{{ prefix_title }}{{ values.head_title }} | chopstick cms</title>
-
-    <!-- Bootstrap -->
-    <link href="{{ cs_url("/assets/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
     <!-- MyStyle -->
     <link href="{{ cs_url("/assets/css/mystyle.css") }}" rel="stylesheet">
@@ -52,7 +44,10 @@
 
 {% if cs_auth_check() == true %}
 
-    <div class="container" style="padding: 5px;">
+    <hr>
+
+    <div class="container">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <a href="{{ cs_url("admin/menu") }}" class="btn btn-xs btn-info">管理画面</a>
         | PAGE :
         <a href="{{ cs_url("admin/page/summary", [values.parent_page_id]) }}" class="btn btn-xs btn-info">一覧</a>
@@ -80,33 +75,29 @@
             {% endif %}
         | <a href="{{ cs_url('/admin/auth/logout') }}" class="btn btn-xs btn-info">ログアウト</a>
     </div>
+    </div>
 
     <hr>
 
 {% endif %}
 
 <div class="container">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        {{ cs_pagenavi({'template': 'global_navi', 'parent_page_id': '0', 'depth': '1'}) }}
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+    {{ cs_pagenavi({'template': 'global_navi', 'parent_page_id': '0', 'depth': '1'}) }}
+
+    <br>
+
         {{ cs_breadcrumb() }}
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+
         <div class="cs_part_body">
 {% block area_body %}
 {% endblock %}
         </div>
     </div>
-    <div class="hidden-xs hidden-sm col-md-4 col-lg-4">
-            <div class="cs_part_side">
-            {{ cs_pagenavi({'template': 'side_navi', 'parent_page_id': '0', 'depth': '1'}) }}
-        </div>
-    </div>
 </div>
 
 <div class="container" style="margin-top:48px;">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="col-12">
         {{ cs_pagenavi({'template': 'footer_navi', 'parent_page_id': '0', 'depth': '2'}) }}
     </div>
 </div>
@@ -117,10 +108,12 @@
     </div>
 </div>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="{{ cs_url("/assets/bootstrap/js/bootstrap.min.js") }}"></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha384-JPbtLYL10d/Z1crlc6GGGGM3PavCzzoUJ1UxH0bXHOfguWHQ6XAWrIzW+MBGGXe5" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
 {{ cs_stack({'stack_key':'AnalyzeTag'})}}
 

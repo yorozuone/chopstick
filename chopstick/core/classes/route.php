@@ -1,7 +1,7 @@
 <?php
 namespace core;
 
-use \core\lib\response;
+use \core\response;
 
 class route
 {

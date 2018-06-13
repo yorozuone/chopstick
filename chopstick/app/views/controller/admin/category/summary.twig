@@ -25,14 +25,16 @@
 
 {% block area_body %}
 
-    <ol class="breadcrumb">
-        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
-        <li class="active">カテゴリ一覧</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">カテゴリ一覧</li>
+        </ol>
+    </nav>
 
-    <div class="page-header">
-        <h1>カテゴリ一覧</h1>
-    </div>
+    <h1 class="display-4">
+        カテゴリ一覧
+    </h1>
 
     <div>
         <a href="{{ cs_url('/admin/category/create', [parent_category_id]) }}" class="btn btn-success">カテゴリ登録</a>
@@ -50,8 +52,8 @@
     {% if drec_category|length == 0 %}
         <div class="alert alert-success" role="alert">カテゴリが登録されていません。</div>
     {% else %}
-        <div class="panel panel-default">
-            <div class="panel-heading">カテゴリ一覧</div>
+        <p class="h4">カテゴリ一覧</p>
+        <div class="table-responsive">
             <table id="category_sortable" class="table table-striped">
                 <thead>
                     <tr>
@@ -65,7 +67,7 @@
                     {% for v in drec_category %}
                         <tr category_id="{{ v.category_id }}">
                             <td>
-                                <span class="glyphicon glyphicon-menu-hamburger category_sortable_handle" aria-hidden="true" style="cursor:move"></span>
+                                <div class="category_sortable_handle" style="cursor:move">[=]</span>
                             </td>
                             <td>
                                 <a href="{{ cs_url('/admin/category/summary', [v.category_id]) }}" class="btn btn-xs btn-info">下層一覧</a>

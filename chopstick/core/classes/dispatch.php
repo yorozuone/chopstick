@@ -2,10 +2,7 @@
 namespace core;
 
 class dispatch {
-    //
     const UNIQ_KEY = 'CORE_LIB_DISPATCH';
-    //
-    private $route;
     // --------------------------------------------------------------------------------
     // コントローラーをパラメーターに従って実行
     // --------------------------------------------------------------------------------
@@ -21,7 +18,7 @@ class dispatch {
         // ------------------------------------------------------------
         if (method_exists($controller, 'before'))
         {
-            $controller->before($route->params);
+            $controller->before();
         }
         // ------------------------------------------------------------
         // アクションの実行
@@ -33,9 +30,8 @@ class dispatch {
         // ------------------------------------------------------------
         if (method_exists($controller, 'after'))
         {
-            $controller->after($route->params);
+            $controller->after();
         }
-        //
         return true;
     } 
 }

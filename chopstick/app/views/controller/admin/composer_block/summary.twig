@@ -25,15 +25,16 @@
 
 {% block area_body %}
 
-    <div class="page-header">
-        <h1>コンポーザー・ブロック一覧</h1>
-    </div>
+    <h1 class="display-4">
+        コンポーザー・ブロック一覧
+    </h1>
 
-    <ol class="breadcrumb">
-        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
-        <li><a href="{{ cs_url('admin/composer/summary') }}">コンポーザー一覧 ({{ dset_composer_values.composer_key }})</a></li>
-        <li class="active">コンポーザー・ブロック一覧</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">コンポーザー・ブロック一覧</li>
+        </ol>
+    </nav>
 
     <div>
         <a href="{{ cs_url('/admin/composer_block/create', [ composer_key ]) }}" class="btn btn-success">コンポーザー・ブロック登録</a>
@@ -44,34 +45,34 @@
     {% if drec_composer_block|length == 0 %}
         <div class="alert alert-success" role="alert">コンポーザー・ブロックが登録されていません。</div>
     {% else %}
-        <div class="panel panel-default">
-            <div class="panel-heading">コンポーザー・ブロック一覧</div>
+        <p class="h4">コンポーザー・ブロック一覧</p>
+        <div class="table-responsive">
             <table id="block_sortable" class="table table-striped">
                 <thead>
                     <tr>
                         <th style="width: 12px;"></th>
-                        <th>ブロック・キー</th>
-                        <th>ブロック名</th>
-                        <th nowrap style="width: 200px;">更新日時</th>
-                        <th nowrap style="width: 120px;"></th>
+                        <th nowrap>ブロック・キー</th>
+                        <th nowrap>ブロック名</th>
+                        <th nowrap>更新日時</th>
+                        <th nowrap></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for v in drec_composer_block %}
                         <tr block_key="{{ v.block_key }}">
                             <td nowrap>
-                                <span class="glyphicon glyphicon-menu-hamburger block_sortable_handle" aria-hidden="true" style="cursor:move"></span>
+                                <div class="block_sortable_handle" style="cursor:move">[=]</div>
                             </td>
-                            <td>
+                            <td nowrap>
                                 {{ v.block_key }}
                             </td>
-                            <td>
+                            <td nowrap>
                                 {{ v.caption }}
                             </td>
-                            <td>
+                            <td nowrap>
                                 {{ v.updated_at | date('Y/m/d H:i:s', "Asia/Tokyo") }}
                             </td>
-                            <td style="text-align: right;">
+                            <td nowrap style="text-align: right;">
                                 <a href="{{ cs_url('/admin/composer_block/edit', [v.composer_key, v.composer_block_key]) }}" class="btn btn-xs btn-primary">編集</a>
                                 <a href="{{ cs_url('/admin/composer_block/delete', [v.composer_key, v.composer_block_key]) }}" class="btn btn-xs btn-danger">削除</a>
                             </td>
@@ -79,7 +80,7 @@
                     {% endfor %}
                 </tbody>
             </table>
-        </div>
+        </dov>
     {% endif %}
 
 {% endblock %}

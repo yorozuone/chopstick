@@ -77,7 +77,7 @@ class create extends \app\controller_auth
             array
             (
                 'block_key'=>'',
-                'caption'=>'（ブロックを選択してください）'
+                'name'=>'（ブロックを選択してください）'
             )
         );
         echo $this->render('controller/admin/composer_block/create/edit.twig', $vars);

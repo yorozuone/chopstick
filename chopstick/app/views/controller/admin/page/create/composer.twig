@@ -2,15 +2,17 @@
 
 {% block area_body %}
 
-    <div class="page-header">
-        <h1>ページ登録 - コンポーザー選択</h1>
-    </div>
+    <h1 class="display-4">
+        ページ登録 - コンポーザー選択<
+    </h1>
 
-    <ol class="breadcrumb">
-        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
-        <li><a href="{{ cs_url('admin/page/summary') }}">ページ一覧</a></li>
-        <li class="active">ページ登録 - コンポーザー選択</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/page/summary') }}">ページ一覧</a></li>
+            <li class="breadcrumb-item active" aria-current="page">ページ登録 - コンポーザー選択</li>
+        </ol>
+    </nav>
 
     <div class="list-group">
         <a href="#" class="list-group-item active">
@@ -21,8 +23,8 @@
         {% endfor %}
     </div>
 
-    <div class="list-group">
-        <a href="{{ cs_url('/admin/page/summary', [dset_page_values.parent_page_id]) }}" class="btn btn-default">戻る</a>
-    </div>
+    <br>
+
+    <a href="{{ cs_url('/admin/page/summary', [dset_page_values.parent_page_id]) }}" class="btn btn-outline-info">戻る</a>
 
 {% endblock %}

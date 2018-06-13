@@ -3,9 +3,7 @@ namespace core;
 
 class controller
 {
-    public $controller_name = '';
-    public $action_name = '';
-    public $params = array();
+    public $route;
     // --------------------------------------------------------------------------------
     // 既定のアクション
     // --------------------------------------------------------------------------------

@@ -2,19 +2,21 @@
 
 {% block area_body %}
 
-    <div class="page-header">
-        <h1>スタック・グループ編集</h1>
-    </div>
+    <h1 class="display-4">
+        コンポーザー編集
+    </h1>
 
-    <ol class="breadcrumb">
-        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
-        <li><a href="{{ cs_url('admin/composer/summary') }}">コンポーザー一覧</a></li>
-        <li class="active">コンポーザー編集</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/composer/summary') }}">コンポーザー一覧</a></li>
+            <li class="breadcrumb-item active" aria-current="page">コンポーザー編集</li>
+        </ol>
+    </nav>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">コンポーザーの編集</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">コンポーザーの編集</div>
+        <div class="card-body">
             {% for dset_composer_error_message in dset_composer_error_messages %}
                 {% if dset_composer_error_message != '' %}
                     <div class="alert alert-danger" role="alert">{{ dset_composer_error_message }}</div>
@@ -46,7 +48,7 @@
                     {% endif %}
                 </div>
                 <input type="submit" class="btn btn-primary" value="更新">
-                <a href="{{ cs_url('/admin/composer/summary') }}" class="btn btn-default">戻る</a>
+                <a href="{{ cs_url('/admin/composer/summary') }}" class="btn btn-outline-info">戻る</a>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="hidden" id="composer_key" name="composer_key" value="{{ dset_composer_values.composer_key }}">
             </form>

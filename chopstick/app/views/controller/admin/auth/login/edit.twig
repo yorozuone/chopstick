@@ -2,11 +2,10 @@
 
 {% block area_body %}
 
-    <div class="row">
-        <div class="col-md-offset-4 col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">ログイン</div>
-                <div class="panel-body">
+        <div class="mx-auto" style="width: 320px;">
+            <div class="card">
+                <div class="card-header">ログイン</div>
+                <div class="card-body">
                     {% for error_message in error_messages %}
                         {% if error_message != '' %}
                             <div class="alert alert-danger" role="alert">{{ error_message }}</div>
@@ -35,8 +34,7 @@
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     </form>
                 </div>
-            <div>
-        <div>
-    <div>
+            </div>
+        </div>
 
 {% endblock %}

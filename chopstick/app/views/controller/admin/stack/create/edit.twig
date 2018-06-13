@@ -2,23 +2,24 @@
 
 {% block area_body %}
 
-    <div class="page-header">
-        <h1>スタック登録</h1>
-    </div>
+    <h1 class="display-4">
+        スタック登録
+    </h1>
 
-    <ol class="breadcrumb">
-        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
-        <li><a href="{{ cs_url('admin/stackgroup/summary') }}">スタック・グループ</a></li>
-        <li><a href="{{ cs_url('admin/stack/summary', [ dset_stack_values.stackgroup_id] )}}">スタック一覧（{{ dset_stackgroup_values.caption }}）</a></li>
-        <li class="active">スタック登録</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/stack/summary', [ dset_stack_values.stackgroup_id] )}}">スタック一覧</a></li>
+            <li class="breadcrumb-item active" aria-current="page">スタック編集</li>
+        </ol>
+    </nav>
 
     <form action="{{ cs_url('/admin/stack/create/update') }}" method="post">
         <div class="row">
             <div class="col-md-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading">基本情報</div>
-                    <div class="panel-body">
+                <div class="card">
+                    <div class="card-header">基本情報</div>
+                    <div class="card-body">
                         {% for error_message in dset_stack_error_messages %}
                             {% if error_message != '' %}
                                 <div class="alert alert-danger" role="alert">{{ error_message }}</div>
@@ -66,15 +67,15 @@
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary" value="登録">
-                            <a href="{{ cs_url('/admin/stack/summary', [ dset_stack_values.stackgroup_id ]) }}" class="btn btn-default">戻る</a>
+                            <a href="{{ cs_url('/admin/stack/summary', [ dset_stack_values.stackgroup_id ]) }}" class="btn btn-outline-info">戻る</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">公開設定</div>
-                    <div class="panel-body">
+                <div class="card">
+                    <div class="card-header">公開設定</div>
+                    <div class="card-body">
                         <div class="form-group">
                             <label for="publish_type">状態</label>
                             <div class="radio">

@@ -1,7 +1,9 @@
 <div id="{{ id }}" class="{{ class }}">
-    <ul class="nav nav-pills nav-stacked">
+    <ul class="nav flex-column">
         {% for v in drec_pagenavi %}
-            <li role="presentation"><a href="{{ cs_urlp(v.page_id) }}"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>  {{ v.page_title }}</a></li>
+            <li class="nav-item">
+                <a href="{{ cs_urlp(v.page_id) }}">{{ v.page_title }}</a>
+            </li>
         {% endfor %}
     </ul>
 </div>

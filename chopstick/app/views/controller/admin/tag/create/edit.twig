@@ -2,20 +2,22 @@
 
 {% block area_body %}
 
-    <div class="page-header">
-        <h1>タグ登録</h1>
-    </div>
+    <h1 class="display-4">
+        タグ登録
+    </h1>
 
-    <ol class="breadcrumb">
-        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
-        <li><a href="{{ cs_url('admin/tag/summary') }}">タグ一覧</a></li>
-        <li class="active">タグ登録</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/tag/summary', [ dset_stack_values.stackgroup_id] )}}">タグ一覧</a></li>
+            <li class="breadcrumb-item active" aria-current="page">タグ登録</li>
+        </ol>
+    </nav>
 
     <form action="{{ cs_url('/admin/tag/create/update') }}" method="post">
-        <div class="panel panel-default">
-            <div class="panel-heading">タグ登録</div>
-            <div class="panel-body">
+        <div class="card">
+            <div class="card-header">タグ登録</div>
+            <div class="card-body">
                 {% for dset_tag_error_message in dset_tag_error_messages %}
                     {% if dset_tag_error_message != '' %}
                         <div class="alert alert-danger" role="alert">{{ dset_tag_error_message }}</div>
@@ -32,7 +34,7 @@
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" value="登録">
-                    <a href="{{ cs_url('/admin/tag/summary') }}" class="btn btn-default">戻る</a>
+                    <a href="{{ cs_url('/admin/tag/summary') }}" class="btn btn-outline-info">戻る</a>
                 </div>
             </div>
         <div>

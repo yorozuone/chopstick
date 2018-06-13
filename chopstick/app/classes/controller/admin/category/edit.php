@@ -21,12 +21,9 @@ class edit extends \app\controller_auth
     public function before()
     {
         parent::before();
-        //
-        $parent_category_id = isset($this->params[0]) ? $this->params[0] : 0;
-        //
+        $parent_category_id = isset($this->route->params[0]) ? $this->route->params[0] : 0;
         $this->dset_category = new dset_category();
         $this->dset_category->set_value('category_id', $parent_category_id);
-        //
         if ($this->dset_category->read() == false)
         {
             response::redirect(url::create('/admin/category/summary'));

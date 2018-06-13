@@ -2,20 +2,21 @@
 
 {% block area_body %}
 
-    <div class="page-header">
-        <h1>ファイル編集</h1>
-    </div>
+    <h1 class="display-4">
+        ファイル削除
+    </h1>
 
-    <ol class="breadcrumb">
-        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
-        <li><a href="{{ cs_url('admin/mediafolder/summary') }}">フォルダ一覧</a></li>
-        <li><a href="{{ cs_url('admin/media/summary', [dset_media_values.mediafolder_id]) }}">ファイル一覧</a></li>
-        <li class="active">ファイル編集</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/media/summary', [dset_media_values.mediafolder_id]) }}">ファイル一覧</a></li>
+            <li class="breadcrumb-item active" aria-current="page">ファイル編集</li>
+        </ol>
+    </nav>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">ファイルの編集</div>
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-header">ファイルの編集</div>
+        <div class="card-body">
             {% for dset_page_error_message in dset_page_error_messages %}
                 {% if dset_page_error_message != '' %}
                     <div class="alert alert-danger" role="alert">{{ dset_page_error_message }}</div>
@@ -62,7 +63,7 @@
                     {% endif %}
                 </div>
                 <input type="submit" class="btn btn-primary" value="更新">
-                <a href="{{ cs_url('/admin/media/summary', [ dset_media_values.mediafolder_id ]) }}" class="btn btn-default">戻る</a>
+                <a href="{{ cs_url('/admin/media/summary', [ dset_media_values.mediafolder_id ]) }}" class="btn btn-outline-info">戻る</a>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="media_id" value="{{ dset_media_values.media_id }}">
             </form>

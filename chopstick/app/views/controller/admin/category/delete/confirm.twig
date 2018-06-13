@@ -2,20 +2,22 @@
 
 {% block area_body %}
 
-    <div class="page-header">
-        <h1>カテゴリ削除</h1>
-    </div>
+    <h1 class="display-4">
+        カテゴリ削除
+    </h1>
 
-    <ol class="breadcrumb">
-        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
-        <li><a href="{{ cs_url('admin/category/summary', [dset_category_values.parent_page_id]) }}">カテゴリ一覧</a></li>
-        <li class="active">カテゴリ削除</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/category/summary', [dset_category_values.parent_page_id]) }}">カテゴリ一覧</a></li>
+            <li class="breadcrumb-item active" aria-current="page">カテゴリ削除</li>
+        </ol>
+    </nav>
 
     <form action="{{ cs_url('/admin/category/delete/update') }}" method="post">
-        <div class="panel panel-default">
-            <div class="panel-heading">ページの削除</div>
-            <div class="panel-body">
+        <div class="card">
+            <div class="card-header">ページの削除</div>
+            <div class="card-body">
                 <div class="form-group">
                     <label class="control-label">親カテゴリ</label>
                     <div>
@@ -37,9 +39,9 @@
                 {% if input.number_of_child_category == 0 %}
                     <input type="submit" class="btn btn-danger" value="削除">
                 {% else %}
-                    <span class="btn btn-default">削除</span>
+                    <span class="btn btn-outline-info">削除</span>
                 {% endif %}
-                <a href="{{ cs_url('/admin/category/summary', [dset_category_values.parent_category_id]) }}" class="btn btn-default">戻る</a>
+                <a href="{{ cs_url('/admin/category/summary', [dset_category_values.parent_category_id]) }}" class="btn btn-outline-info">戻る</a>
             </div>
         </div>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">

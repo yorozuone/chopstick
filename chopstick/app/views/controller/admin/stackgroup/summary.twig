@@ -25,14 +25,16 @@
 
 {% block area_body %}
 
-    <div class="page-header">
-        <h1>スタック・グループ一覧</h1>
-    </div>
+    <h1 class="display-4">
+        スタック・グループ一覧
+    </h1>
 
-    <ol class="breadcrumb">
-        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
-        <li class="active">スタック・グループ一覧</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">スタック・グループ一覧</li>
+        </ol>
+    </nav>
 
     <div>
         <a href="{{ cs_url('/admin/stackgroup/create') }}" class="btn btn-success">スタッグ・グループ登録</a>
@@ -43,32 +45,32 @@
     {% if drec_stackgroup|length == 0 %}
         <div class="alert alert-success" role="alert">スタック・グループが登録されていません。</div>
     {% else %}
-        <div class="panel panel-default">
-            <div class="panel-heading">スタック・グループ一覧</div>
+        <p class="h4">スタック・グループ一覧</p>
+        <div class="table-responsive">
             <table id="stackgroup_sortable" class="table table-striped">
                 <thead>
                     <tr>
-                        <th style="width: 12px;"></th>
-                        <th>スタック・グループ名</th>
-                        <th nowrap style="width: 160px;">更新日時</th>
-                        <th nowrap style="width: 120px;"></th>
+                        <th nowrap style="width: 12px;"></th>
+                        <th nowrap>スタック・グループ名</th>
+                        <th nowrap>更新日時</th>
+                        <th nowrap></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for v in drec_stackgroup %}
                         <tr stackgroup_id="{{ v.stackgroup_id }}">
                             <td nowrap>
-                                <span class="glyphicon glyphicon-menu-hamburger stackgroup_sortable_handle" aria-hidden="true" style="cursor:move"></span>
+                                <div class="stackgroup_sortable_handle" style="cursor:move">[=]</div>
                             </td>
-                            <td>
+                            <td nowrap>
                                 <a href="{{ cs_url('/admin/stack/summary', [v.stackgroup_id]) }}" class="btn btn-xs btn-info">スタック一覧</a> 
                                 <a href="{{ cs_url('/admin/stack/create', [v.stackgroup_id]) }}" class="btn btn-xs btn-success">登録</a>
                                 {{ v.caption }}
                             </td>
-                            <td>
+                            <td nowrap>
                                 {{ v.updated_at | date('Y/m/d H:i', "Asia/Tokyo") }}
                             </td>
-                            <td style="text-align: right;">
+                            <td nowrap style="text-align: right;">
                                 <a href="{{ cs_url('/admin/stackgroup/edit', [v.stackgroup_id]) }}" class="btn btn-xs btn-primary">編集</a>
                                 <a href="{{ cs_url('/admin/stackgroup/delete', [v.stackgroup_id]) }}" class="btn btn-xs btn-danger">削除</a>
                             </td>

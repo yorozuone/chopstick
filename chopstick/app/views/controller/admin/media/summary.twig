@@ -5,15 +5,16 @@
 
 {% block area_body %}
 
-    <div class="page-header">
-        <h1>ファイル一覧</h1>
-    </div>
+    <h1 class="display-4">
+        ファイル一覧
+    </h1>
 
-    <ol class="breadcrumb">
-        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
-        <li><a href="{{ cs_url('admin/mediafolder/summary') }}">フォルダ一覧</a></li>
-        <li class="active">ファイル一覧</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">ファイル一覧</li>
+        </ol>
+    </nav>
 
     <div>
         <a href="{{ cs_url('/admin/media/create', [mediafolder_id]) }}" class="btn btn-success">ファイル登録</a>
@@ -28,31 +29,31 @@
     {% if drec_media|length == 0 %}
         <div class="alert alert-success" role="alert">ファイルが登録されていません。</div>
     {% else %}
-        <div class="panel panel-default">
-            <div class="panel-heading">ファイル一覧</div>
+        <p class="h4">ファイル一覧</p>
+        <div class="table-responsive">
             <table id="pagelist-sortable" class="table table-striped">
                 <thead>
                     <tr>
-                        <th width="160px"></th>
-                        <th>ファイル名</th>
-                        <th nowrap style="width: 160px;">更新日時</th>
-                        <th nowrap style="width: 180px;"></th>
+                        <th nowrap></th>
+                        <th nowrap>ファイル名</th>
+                        <th nowrap>更新日時</th>
+                        <th nowrap></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for v in drec_media %}
                         <tr folder_id="{{ v.media_id }}">
-                            <td>
+                            <td nowrap>
                                     <img src="{{ cs_url('/cms_media/thumbnail', [v.media_id]) }}">
                             </td>
-                            <td>
+                            <td nowrap>
                                 {{ cs_url('/cms_media', [v.media_id]) }}<br>
                                 {{ v.description }}
                             </td>
-                            <td>
+                            <td nowrap>
                                 {{ v.updated_at | date('Y/m/d H:i', "Asia/Tokyo") }}
                             </td>
-                            <td style="text-align: right;">
+                            <td nowrap style="text-align: right;">
                                 <a href="{{ cs_url('/admin/media/edit', [v.media_id]) }}" class="btn btn-xs btn-primary">編集</a>
                                 <a href="{{ cs_url('/admin/media/delete', [v.media_id]) }}" class="btn btn-xs btn-danger">削除</a>
                             </td>

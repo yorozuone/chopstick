@@ -1,7 +1,7 @@
 <div id="{{ id }}" class="{{ class }}">
     <ul class="list-unstyled">
         {% for item in items %}
-            <li><a href="{{ item.link }}" target="_new"><span class="glyphicon glyphicon-link" aria-hidden="true"></span> {{ item.page_title }}</a></li>
+            <li><a href="{{ item.link }}" target="_new">{{ item.page_title }}</a></li>
         {% endfor %}
     </ul>
 </div>

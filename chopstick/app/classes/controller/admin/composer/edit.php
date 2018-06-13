@@ -20,22 +20,19 @@ class edit extends \app\controller_auth
     public function before()
     {
         parent::before();
-        //
         $this->dset_composer = new dset_composer();
     }
     // --------------------------------------------------------------------------------
     // 既定
     // --------------------------------------------------------------------------------
-    public function action_index()
+    public function action_index($params)
     {
-        $composer_key = isset($this->params[0]) ? $this->params[0] : '';
+        $composer_key = isset($this->route->params[0]) ? $this->route->params[0] : '';
         $this->dset_composer->set_value('composer_key', $composer_key);
-        //
         if ($this->dset_composer->read() == false)
         {
             response::redirect(url::create('/admin/composer/summary'));
         }
-        //
         $this->display();
     }
     // --------------------------------------------------------------------------------

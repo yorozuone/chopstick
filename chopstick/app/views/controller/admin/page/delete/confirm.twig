@@ -2,22 +2,24 @@
 
 {% block area_body %}
 
-    <div class="page-header">
-        <h1>ページの削除</h1>
-    </div>
+    <h1 class="display-4">
+        ページ削除
+    </h1>
 
-    <ol class="breadcrumb">
-        <li><a href="{{ cs_url('admin/menu') }}">Home</a></li>
-        <li><a href="{{ cs_url('admin/page/summary', [dset_page_values.parent_page_id]) }}">ページ一覧</a></li>
-        <li class="active">ページ削除</li>
-    </ol>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/menu') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/page/summary') }}">ページ一覧</a></li>
+            <li class="breadcrumb-item active" aria-current="page">ページ確認</li>
+        </ol>
+    </nav>
 
     <form action="{{ cs_url('/admin/page/delete/update') }}" method="post">
         <div class="row">
             <div class="col-md-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading">基本情報</div>
-                    <div class="panel-body">
+                <div class="card">
+                    <div class="card-header">基本情報</div>
+                    <div class="card-body">
                         <div class="form-group">
                             <label class="control-label">親ページ</label>
                             <div>
@@ -63,9 +65,11 @@
                     </div>
                 </div>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">area_head</div>
-                    <div class="panel-body">
+                <br>
+
+                <div class="card">
+                    <div class="card-header">area_head</div>
+                    <div class="card-body">
                         {% if dset_page_values.area_head == '' %}
                             (未登録)
                         {% else %}
@@ -74,18 +78,22 @@
                     </div>
                 </div>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">コンポーザー情報 ({{ dset_page_values.composer_key }})</div>
-                    <div class="panel-body">
+                <br>
+
+                <div class="card">
+                    <div class="card-header">コンポーザー情報 ({{ dset_page_values.composer_key }})</div>
+                    <div class="card-body">
                         {% for composer_block in composer_blocks %}
                             {{ composer_block.get_confirm_html()|raw }}
                         {% endfor %}
                     </div>
                 </div>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">area_body_tail</div>
-                    <div class="panel-body">
+                <br>
+
+                <div class="card">
+                    <div class="card-header">area_body_tail</div>
+                    <div class="card-body">
                         {% if dset_page_values.area_body_tail == '' %}
                             (未登録)
                         {% else %}
@@ -95,10 +103,11 @@
                 </div>
 
             </div>
+
             <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">公開設定</div>
-                    <div class="panel-body">
+                <div class="card">
+                    <div class="card-header">公開設定</div>
+                    <div class="card-body">
                         <div class="form-group">
                             <label class="control-label">状態</label>
                             <div>
@@ -113,9 +122,9 @@
                             {% if dset_page_values.number_of_child_page == 0 %}
                                 <input type="submit" class="btn btn-danger" value="削除">
                             {% else %}
-                                <span class="btn btn-default">削除</span>
+                                <span class="btn btn-outline-info">削除</span>
                             {% endif %}
-                            <a href="{{ cs_url('/admin/page/summary', [dset_page_values.parent_page_id]) }}" class="btn btn-default">戻る</a>
+                            <a href="{{ cs_url('/admin/page/summary', [dset_page_values.parent_page_id]) }}" class="btn btn-outline-info">戻る</a>
                         </div>
                         <div class="form-group">
                             <label class="control-label">公開設定</label>
@@ -141,9 +150,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">エクステンション設定</div>
-                    <div class="panel-body">
+
+                <br>
+
+                <div class="card">
+                    <div class="card-header">エクステンション設定</div>
+                    <div class="card-body">
                         <div class="form-group">
                             <label class="control-label">公開設定 - ナビ</label>
                             <div>
@@ -165,9 +177,11 @@
                     </div>
                 </div>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">属性設定</div>
-                    <div class="panel-body">
+                <br>
+
+                <div class="card">
+                    <div class="card-header">属性設定</div>
+                    <div class="card-body">
                         <div class="form-group">
                             <label class="control-label">カテゴリ</label>
                             <div>
@@ -193,9 +207,11 @@
                     </div>
                 </div>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">テンプレート設定</div>
-                    <div class="panel-body">
+                <br>
+
+                <div class="card">
+                    <div class="card-header">テンプレート設定</div>
+                    <div class="card-body">
                         <div class="form-group">
                             <label class="control-label">テンプレート・キー</label>
                             <p class="form-control-static">{{ dset_page_values.template_key }}</p>

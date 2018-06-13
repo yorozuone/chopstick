@@ -10,7 +10,6 @@ class summary extends \app\controller_auth
 {
     private $composer_key;
     private $drec_composer_block;
-    //
     // ********************************************************************************
     // **** アクション
     // ********************************************************************************
@@ -24,13 +23,11 @@ class summary extends \app\controller_auth
     // --------------------------------------------------------------------------------
     // 既定
     // --------------------------------------------------------------------------------
-    public function action_index($params)
+    public function action_index()
     {
-        $composer_key = isset($this->params[0]) ? $this->params[0] :-10;
-        //
+        $composer_key = isset($this->route->params[0]) ? $this->route->params[0] :-10;
         $this->drec_composer_block = new drec_composer_block();
         $this->drec_composer_block->set_value('composer_key', $composer_key);
-        //
         $this->display();
     }
     // --------------------------------------------------------------------------------
