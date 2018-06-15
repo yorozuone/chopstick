@@ -21,7 +21,6 @@ class edit extends \app\controller_auth
     public function before()
     {
         parent::before();
-        //
         $this->dset_stack = new dset_stack();
     }
     // --------------------------------------------------------------------------------

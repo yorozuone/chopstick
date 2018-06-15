@@ -15,7 +15,6 @@ class edit extends \app\model\controller\admin\stack\base
     {
         $this->validate('required', 'stackgroup_id');
         $this->validate('required', 'content');
-        //
         return $this->is_valid;
     }
     // ################################################################################

@@ -44,37 +44,54 @@
 
 {% if cs_auth_check() == true %}
 
-    <hr>
-
     <div class="container">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <a href="{{ cs_url("admin/menu") }}" class="btn btn-xs btn-info">管理画面</a>
-        | PAGE :
-        <a href="{{ cs_url("admin/page/summary", [values.parent_page_id]) }}" class="btn btn-xs btn-info">一覧</a>
-        <a href="{{ cs_url("admin/page/edit", [values.page_id]) }}" class="btn btn-xs btn-primary">編集</a>
-        <a href="{{ cs_url("admin/page/delete", [values.page_id]) }}" class="btn btn-xs btn-danger">削除</a>
-        | 状態 :
-            {% if values.publish_status == '-2' %}<span class="btn btn-xs btn-danger">下書</span>{% endif %}
-            {% if values.publish_status == '-1' %}<span class="btn btn-xs btn-danger">レビュー待</span>{% endif %}
-            {% if values.publish_status == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
-        | 公開設定 :
-            {% if values.publish_type == '0' %}<span class="btn btn-xs btn-danger">非公開</span>{% endif %}
-            {% if values.publish_type == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
-            {% if values.publish_type == '2' %}<span class="btn btn-xs btn-danger">時間指定</span>{% endif %}
-        | 開始日時 :
-            {% if values.publish_start == '' %}
-                <span>未設定</span>
-            {% else %}
-                {{ values.publish_start }}
-            {% endif %}
-        | 終了日時 :
-            {% if values.publish_end == '' %}
-                <span>未設定</span>
-            {% else %}
-                {{ values.publish_end }}
-            {% endif %}
-        | <a href="{{ cs_url('/admin/auth/logout') }}" class="btn btn-xs btn-info">ログアウト</a>
-    </div>
+        <div class="table-responsive">
+            <table id="pagelist-sortable" class="table table-striped">
+                <tr>
+                    <th nowrap>ページ</th>
+                    <th nowrap>状態</th>
+                    <th nowrap>公開設定</th>
+                    <th nowrap>開始日時</th>
+                    <th nowrap>終了日時</th>
+                    <th nowrap>メニュー</th>
+                </tr>
+                <tr>
+                    <td nowrap>
+                        <a href="{{ cs_url("admin/page/summary", [values.parent_page_id]) }}" class="btn btn-xs btn-info">一覧</a>
+                        <a href="{{ cs_url("admin/page/edit", [values.page_id]) }}" class="btn btn-xs btn-primary">編集</a>
+                        <a href="{{ cs_url("admin/page/delete", [values.page_id]) }}" class="btn btn-xs btn-danger">削除</a>
+                    </td>
+                    <td>
+                        {% if values.publish_status == '-2' %}<span class="btn btn-xs btn-danger">下書</span>{% endif %}
+                        {% if values.publish_status == '-1' %}<span class="btn btn-xs btn-danger">レビュー待</span>{% endif %}
+                        {% if values.publish_status == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
+                    </td>
+                    <td nowrap>
+                        {% if values.publish_type == '0' %}<span class="btn btn-xs btn-danger">非公開</span>{% endif %}
+                        {% if values.publish_type == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
+                        {% if values.publish_type == '2' %}<span class="btn btn-xs btn-danger">時間指定</span>{% endif %}
+                    </td>
+                    <td nowrap>
+                            {% if values.publish_start == '' %}
+                                <span>未設定</span>
+                            {% else %}
+                                {{ values.publish_start }}
+                            {% endif %}
+                    </td>
+                    <td nowrap>
+                            {% if values.publish_end == '' %}
+                                <span>未設定</span>
+                            {% else %}
+                                {{ values.publish_end }}
+                            {% endif %}
+                    </td>
+                    <td nowrap>
+                        <a href="{{ cs_url("admin/menu") }}" class="btn btn-xs btn-info">管理画面</a>
+                        <a href="{{ cs_url('/admin/auth/logout') }}" class="btn btn-xs btn-info">ログアウト</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 
     <hr>
@@ -87,6 +104,8 @@
 
     <br>
 
+        {{ cs_title() }}
+
         {{ cs_breadcrumb() }}
 
         <div class="cs_part_body">
@@ -96,17 +115,15 @@
     </div>
 </div>
 
-<div class="container" style="margin-top:48px;">
-    <div class="col-12">
-        {{ cs_pagenavi({'template': 'footer_navi', 'parent_page_id': '0', 'depth': '2'}) }}
-    </div>
-</div>
+<hr>
 
 <div class="container">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         {{ cs_stack({'stack_key':'AdFooter'}) }}
     </div>
 </div>
+
+<br>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

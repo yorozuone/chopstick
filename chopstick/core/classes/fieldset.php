@@ -83,7 +83,10 @@ class fieldset
     {
         foreach($values as $k => $v)
         {
-            $this->fields[$k]->set_value($v);
+            if (isset($this->fields[$k]))
+            {
+                $this->fields[$k]->set_value($v);
+            }
         }
     }
     public function get_values()
@@ -148,12 +151,10 @@ class fieldset
     public function validate(...$args)
     {
         $method = '\\core\\validation\\'.$args[0];
-        //
         if ($method::run($this, array_slice($args, 1)) == false)
         {
             $this->is_valid = false;
         }
-        //
         return $this->is_valid;
     }
 }
