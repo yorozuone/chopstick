@@ -6,7 +6,7 @@ use \core\url;
 
 use \app\model\controller\admin\block\summary as drec_block;
 
-class summary extends \app\controller_auth
+class summary extends \app\controller_admin
 {
     private $drec_block;
     //

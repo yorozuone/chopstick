@@ -18,7 +18,6 @@ class base extends \core\fieldset
         $this->append('block_key',          'ブロック・キー');
         $this->append('caption',            'ブロック名');
         $this->append('description',        '説明');
-        $this->append('datasource',         'データソース');
         $this->append('order_at',           '順序');
     }
     // ################################################################################
@@ -37,8 +36,7 @@ SELECT
     composer_block_key,
     block_key,
     caption,
-    description,
-    datasource
+    description
 FROM
     cs_composer_block
 WHERE

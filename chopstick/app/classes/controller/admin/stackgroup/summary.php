@@ -7,7 +7,7 @@ use \core\url;
 
 use \app\model\controller\admin\stackgroup\summary as drec_stackgroup;
 
-class summary extends \app\controller_auth
+class summary extends \app\controller_admin
 {
     // ********************************************************************************
     // **** アクション

@@ -8,7 +8,7 @@ use \core\url;
 
 use \app\model\controller\admin\composer_block\edit as dset_composer_block;
 
-class edit extends \app\controller_auth
+class edit extends \app\controller_admin
 {
     private $dset_composer_block = null;
     // ********************************************************************************

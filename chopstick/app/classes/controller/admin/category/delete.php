@@ -9,7 +9,7 @@ use \core\validation;
 
 use \app\model\controller\admin\category\delete as dset_category;
 
-class delete extends \app\controller_auth
+class delete extends \app\controller_admin
 {
     private $dset_category = null;
     // ********************************************************************************

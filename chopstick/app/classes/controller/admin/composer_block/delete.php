@@ -8,7 +8,7 @@ use \core\url;
 
 use \app\model\controller\admin\composer_block\delete as dset_composer_block;
 
-class delete extends \app\controller_auth
+class delete extends \app\controller_admin
 {
     // ********************************************************************************
     // **** アクション

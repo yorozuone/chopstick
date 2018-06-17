@@ -9,7 +9,7 @@ use \core\url;
 // dataset
 use \app\model\controller\admin\mediafolder\create as dset_folder;
 
-class create extends \app\controller_auth
+class create extends \app\controller_admin
 {
     private $dset_folder = null;
     // ********************************************************************************

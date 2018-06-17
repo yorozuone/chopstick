@@ -10,7 +10,7 @@ use \core\user;
 // dataset
 use \app\model\controller\admin\user\update_password as dset_user;
 
-class update_password extends \app\controller_auth
+class update_password extends \app\controller_admin
 {
     private $dset_user = null;
     // ********************************************************************************

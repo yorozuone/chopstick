@@ -9,7 +9,7 @@ use \core\url;
 // dataset
 use \app\model\controller\admin\stackgroup\create as dset_stackgroup;
 
-class create extends \app\controller_auth
+class create extends \app\controller_admin
 {
     private $dset_stackgroup = null;
     // ********************************************************************************

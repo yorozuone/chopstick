@@ -8,7 +8,7 @@ use \core\url;
 
 use \app\model\controller\admin\user\summary as drec_user;
 
-class summary extends \app\controller_auth
+class summary extends \app\controller_admin
 {
     // ********************************************************************************
     // **** アクション

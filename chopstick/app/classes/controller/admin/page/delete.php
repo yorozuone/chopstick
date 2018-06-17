@@ -10,7 +10,7 @@ use \core\validation;
 // dataset
 use \app\model\controller\admin\page\delete as dset_page;
 
-class delete extends \app\controller_auth
+class delete extends \app\controller_admin
 {
     private $dset_page;
     //

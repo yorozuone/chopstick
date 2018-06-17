@@ -6,7 +6,7 @@ use \core\url;
 
 use \app\model\controller\admin\tag\summary as drec_tag;
 
-class summary extends \app\controller_auth
+class summary extends \app\controller_admin
 {
     // ********************************************************************************
     // **** アクション

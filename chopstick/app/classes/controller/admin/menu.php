@@ -3,7 +3,7 @@ namespace app\controller\admin;
 
 use core\db;
 
-class menu extends \app\controller_auth
+class menu extends \app\controller_admin
 {
     // --------------------------------------------------------------------------------
     // 表示用のフォルダ名取得

@@ -8,7 +8,7 @@ use \core\url;
 
 use \app\model\controller\admin\tag\delete as dset_tag;
 
-class delete extends \app\controller_auth
+class delete extends \app\controller_admin
 {
     private $dset_tag = null;
     // ********************************************************************************

@@ -10,7 +10,7 @@ use \core\user;
 // dataset
 use \app\model\controller\admin\user\create as dset_user;
 
-class create extends \app\controller_auth
+class create extends \app\controller_admin
 {
     private $dset_user = null;
     // ********************************************************************************

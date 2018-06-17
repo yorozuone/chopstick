@@ -8,7 +8,7 @@ use \core\url;
 
 use \app\model\controller\admin\composer\create as dset_composer;
 
-class create extends \app\controller_auth
+class create extends \app\controller_admin
 {
     private $dset_composer = null;
     // ********************************************************************************

@@ -5,7 +5,7 @@ use \core\auth;
 use \core\response;
 use \core\url;
 
-class controller_auth extends \app\controller
+class controller_admin extends \app\controller
 {
     // --------------------------------------------------------------------------------
     //

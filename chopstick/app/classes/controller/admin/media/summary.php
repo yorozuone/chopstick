@@ -9,7 +9,7 @@ use \core\url;
 // dset_media
 use \app\model\controller\admin\media\summary as drec_media;
 
-class summary extends \app\controller_auth
+class summary extends \app\controller_admin
 {
     private $mediafolder_id;
     private $drec_media;

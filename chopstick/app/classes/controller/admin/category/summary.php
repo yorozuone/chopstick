@@ -6,7 +6,7 @@ use \core\url;
 
 use \app\model\controller\admin\category\summary as drec_category;
 
-class summary extends \app\controller_auth
+class summary extends \app\controller_admin
 {
     // ********************************************************************************
     // **** アクション

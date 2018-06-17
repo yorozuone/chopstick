@@ -8,7 +8,7 @@ use \core\url;
 
 use \app\model\controller\admin\media\delete as dset_media;
 
-class delete extends \app\controller_auth
+class delete extends \app\controller_admin
 {
     // ********************************************************************************
     // **** アクション

@@ -8,7 +8,7 @@ use \core\url;
 
 use \app\model\controller\admin\composer_block\create as dset_composer_block;
 
-class create extends \app\controller_auth
+class create extends \app\controller_admin
 {
     private $dset_composer_block = null;
     // ********************************************************************************

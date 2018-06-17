@@ -8,7 +8,7 @@ use \core\url;
 // cs_stack
 use \app\model\controller\admin\stack\summary as drec_stack;
 
-class summary extends \app\controller_auth
+class summary extends \app\controller_admin
 {
     private $drec_stackgroup;
     // ********************************************************************************

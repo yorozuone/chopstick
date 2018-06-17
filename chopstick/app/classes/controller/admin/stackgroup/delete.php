@@ -9,7 +9,7 @@ use \core\url;
 // dataset
 use \app\model\controller\admin\stackgroup\delete as dset_stackgroup;
 
-class delete extends \app\controller_auth
+class delete extends \app\controller_admin
 {
     private $dset_stackgroup;
     // ********************************************************************************

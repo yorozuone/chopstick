@@ -9,7 +9,7 @@ use \core\url;
 // dataset
 use \app\model\controller\admin\media\edit as dset_media;
 
-class edit extends \app\controller_auth
+class edit extends \app\controller_admin
 {
     private $dset_media;
     private $dset_media_validation;

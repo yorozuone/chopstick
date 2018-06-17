@@ -8,7 +8,7 @@ use \core\url;
 
 use \app\model\controller\admin\block\edit as dset_block;
 
-class edit extends \app\controller_auth
+class edit extends \app\controller_admin
 {
     private $dset_block = null;
     // ********************************************************************************

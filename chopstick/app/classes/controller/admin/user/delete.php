@@ -10,7 +10,7 @@ use \core\user;
 // dataset
 use \app\model\controller\admin\user\delete as dset_user;
 
-class delete extends \app\controller_auth
+class delete extends \app\controller_admin
 {
     private $dset_user = null;
     // ********************************************************************************

@@ -9,7 +9,7 @@ use \core\url;
 
 use \app\model\controller\admin\composer\delete as dset_composer;
 
-class delete extends \app\controller_auth
+class delete extends \app\controller_admin
 {
     private $dset_composer = null;
     // ********************************************************************************

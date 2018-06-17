@@ -9,7 +9,7 @@ use \core\url;
 // dataset
 use \app\model\controller\admin\page\edit as dset_page;
 
-class edit extends \app\controller_auth
+class edit extends \app\controller_admin
 {
     private $dset_page;
     private $cblocks = array();

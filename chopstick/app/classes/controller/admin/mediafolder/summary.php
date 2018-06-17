@@ -7,7 +7,7 @@ use \core\url;
 
 use \app\model\controller\admin\mediafolder\summary as drec_folder;
 
-class summary extends \app\controller_auth
+class summary extends \app\controller_admin
 {
     // ********************************************************************************
     // **** アクション

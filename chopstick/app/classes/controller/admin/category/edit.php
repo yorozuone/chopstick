@@ -9,7 +9,7 @@ use \core\validation;
 
 use \app\model\controller\admin\category\edit as dset_category;
 
-class edit extends \app\controller_auth
+class edit extends \app\controller_admin
 {
     private $dset_category = null;
     // ********************************************************************************

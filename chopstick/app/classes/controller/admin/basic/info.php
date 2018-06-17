@@ -5,7 +5,7 @@ use \core\acl;
 use \core\session;
 use \core\golobalvars;
 
-class info extends \app\controller_auth
+class info extends \app\controller_admin
 {
     // ********************************************************************************
     // ****

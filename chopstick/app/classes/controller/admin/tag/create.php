@@ -8,7 +8,7 @@ use \core\url;
 
 use \app\model\controller\admin\tag\create as dset_tag;
 
-class create extends \app\controller_auth
+class create extends \app\controller_admin
 {
     private $dset_tag = null;
     // ********************************************************************************
