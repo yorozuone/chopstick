@@ -1,11 +1,11 @@
 <?php
-namespace app\twig\ext_function\classes;
+namespace app\twig\twig_function\cs_url;
 
 use \core\url;
 
 use \app\model\helper\page as dset_page;
 
-class cs_url
+class controller extends \app\twig_function
 {
     // --------------------------------------------------------------------------------
     // URL を作成する

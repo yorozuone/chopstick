@@ -1,27 +1,22 @@
 <?php
-namespace app\twig\ext_filter\classes;
+namespace app\twig\twig_filter\cs_markdown;
 
 use \core\view;
 
-class cs_markdown
+class controller extends \app\twig_filter
 {
     // --------------------------------------------------------------------------------
     //
     // --------------------------------------------------------------------------------
-    public static function render($text, $config = array())
+    public static function display($text)
     {
-        $config = is_array($config) ? $config : array();
-        $config = array_merge
+        $config = array
         (
-            array
-            (
-                'id'        => 'cs_markdown',
-                'class'     => 'cs_markdown',
-                'template'  => 'default',
-            ),
-            $config
+            'id'        => 'cs_markdown',
+            'class'     => 'cs_markdown',
+            'template'  => 'default',
         );
-        $Parsedown = new \app\twig\ext_filter\classes\cs_markdown_parsedown();
+        $Parsedown = new \app\twig\twig_filter\cs_markdown\cs_markdown_parsedown();
         $Parsedown->setBreaksEnabled(true);
         $Parsedown->setMarkupEscaped(false);
         $Parsedown->setUrlsLinked(false);
@@ -32,7 +27,6 @@ class cs_markdown
             'template'  => $config['template'],
             'html'      => $Parsedown->text($text),
         );
-        $v = new view();
-        return $v->render('twig/ext_filter/cs_markdown/'.$config['template'].'.twig', $vars);
+        return self::render($config['template'], $vars);
     }
 }

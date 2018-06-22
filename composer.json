@@ -3,14 +3,14 @@
   {
     "psr-4":
     {
-      "core\\": "energy/core",
-      "app\\": "energy/app",
-      "site\\": "energy/site"
+      "core\\": "chopstick/core",
+      "app\\": "chopstick/app",
+      "site\\": "chopstick/site"
     }
   },
   "config":
   {
-    "vendor-dir": "energy/vendor"
+    "vendor-dir": "chopstick/vendor"
   },
   "require":
   {

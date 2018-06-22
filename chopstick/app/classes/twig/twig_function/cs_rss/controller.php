@@ -1,14 +1,14 @@
 <?php
-namespace app\twig\ext_function\classes;
+namespace app\twig\twig_function\cs_rss;
 
 use \core\view;
 
-class cs_rss
+class controller extends \app\twig_function
 {
     // --------------------------------------------------------------------------------
     // render 実行
     // --------------------------------------------------------------------------------
-    public static function render($config = array())
+    public static function display($config = array())
     {
         $config = is_array($config) ? $config : array();
         $config = array_replace_recursive
@@ -29,7 +29,8 @@ class cs_rss
                 'error_message' => 'RSS のURLが取得されていません。',
             );
             $vars = array_merge_recursive($config, $vars);
-            return view::render('twig/ext_function/cs_rss/error.twig', $vars);
+            return self::render('error', $vars);
+
         }
         if (function_exists('simplexml_load_file') == false)
         {
@@ -39,8 +40,7 @@ class cs_rss
             );
             $vars = array_merge_recursive($config, $vars);
             //
-            $v = new view();
-            return $v->render('twig/ext_function/cs_rss/error.twig', $vars);
+            return self::render('error', $vars);
         }
         $rss = simplexml_load_file($config['url']);
         $items = array();
@@ -95,7 +95,6 @@ class cs_rss
         );
         $vars = array_merge_recursive($config, $vars);
         //
-        $v = new view();
-        return $v->render('twig/ext_function/cs_rss/'.$config['template'].'.twig', $vars);
+        return self::render($config['template'], $vars);
     }
 }

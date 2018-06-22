@@ -1,5 +1,5 @@
 <?php
-namespace app\twig\ext_filter\classes;
+namespace app\twig\twig_filter\cs_markdown;
 
 class cs_markdown_parsedown extends \Parsedown
 {

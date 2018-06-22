@@ -1,15 +1,15 @@
 <?php
-namespace app\twig\ext_function\classes;
+namespace app\twig\twig_function\cs_breadcrumb;
 
 use \core\db;
 use \core\view;
 
-class cs_breadcrumb
+class controller extends \app\twig_function
 {
     // --------------------------------------------------------------------------------
     //
     // --------------------------------------------------------------------------------
-    public static function render($config = array())
+    public static function display($config = array())
     {
         $config = is_array($config) ? $config : array();
         $config = array_replace_recursive
@@ -28,8 +28,7 @@ class cs_breadcrumb
         );
         $vars = array_merge_recursive($config, $vars);
         //
-        $v = new view();
-        return $v->render('twig/ext_function/cs_breadcrumb/'.$config['template'].'.twig', $vars);
+        return self::render($config['template'], $vars);
     }
     // --------------------------------------------------------------------------------
     //

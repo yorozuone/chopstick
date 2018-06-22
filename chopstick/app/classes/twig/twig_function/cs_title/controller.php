@@ -1,16 +1,16 @@
 <?php
-namespace app\twig\ext_function\classes;
+namespace app\twig\twig_function\cs_title;
 
 use \core\db;
 use \core\globalvars;
 use \core\view;
 
-class cs_title
+class controller extends \app\twig_function
 {
     // --------------------------------------------------------------------------------
     // タイトルを表示
     // --------------------------------------------------------------------------------
-    public static function render($config = array())
+    public static function display($config = array())
     {
         $config = is_array($config) ? $config : array();
         $config = array_replace_recursive
@@ -33,7 +33,6 @@ class cs_title
         //
         $vars = $config;
         //
-        $v = new view();
-        return $v->render('twig/ext_function/cs_title/'.$config['template'].'.twig', $vars);
+        return self::render($config['template'], $vars);
     }
 }
