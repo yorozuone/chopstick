@@ -19,7 +19,6 @@ class delete extends \app\controller_admin
     public function before()
     {
         parent::before();
-        //
         $this->dset_composer_block = new dset_composer_block();
     }
     // --------------------------------------------------------------------------------
@@ -29,7 +28,6 @@ class delete extends \app\controller_admin
     {
         $this->dset_composer_block->set_value('composer_key', isset($params[0]) ? $params[0] : '');
         $this->dset_composer_block->set_value('composer_block_key', isset($params[1]) ? $params[1] : '');
-        //
         if ($this->dset_composer_block->read() == false)
         {
             response::redirect(url::create('/admin/composer_block/summary', array($this->dset_composer_block->get_value('composer_key'))));
@@ -47,7 +45,6 @@ class delete extends \app\controller_admin
             response::redirect(url::create('/admin/auth/login'));
         }
         $this->dset_composer_block->post();
-        //
         if ($this->dset_composer_block->read() == false)
         {
             response::redirect(url::create('/admin/composer_block/summary', array($this->dset_composer_block->get_value('composer_key'))));

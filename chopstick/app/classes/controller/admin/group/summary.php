@@ -1,16 +1,16 @@
 <?php
-namespace app\controller\admin\block;
+namespace app\controller\admin\group;
 
-use \core\auth;
-use \core\csrf;
+use \core\db;
 use \core\response;
 use \core\url;
 
-use \app\model\controller\admin\block\edit as dset_block;
+// cs_group
+use \app\model\controller\admin\group\summary as drec_group;
 
-class edit extends \app\controller_admin
+class summary extends \app\controller_admin
 {
-    private $dset_block = null;
+    private $drec_group;
     // ********************************************************************************
     // **** アクション
     // ********************************************************************************
@@ -20,41 +20,21 @@ class edit extends \app\controller_admin
     public function before()
     {
         parent::before();
-        //
-        $this->dset_block = new dset_block();
+        $this->drec_group = new drec_group;
     }
     // --------------------------------------------------------------------------------
     // 既定
     // --------------------------------------------------------------------------------
-    public function action_index($params)
+    public function action_index()
     {
-        $this->dset_block->set_value('block_key', isset($params[0]) ? $params[0] : '');
-        if ($this->dset_block->read() == false)
-        {
-            response::redirect(url::create('/admin/block/summary'));
-        }
         $this->display();
     }
     // --------------------------------------------------------------------------------
-    // 更新
+    // 並べ替えアクション
     // --------------------------------------------------------------------------------
-    public function action_update($params)
+    public function action_sort($params)
     {
-        if (!csrf::check())
-        {
-            auth::logout();
-            response::redirect(url::create('/admin/auth/login'));
-        }
-        $this->dset_block->post();
-        if ($this->dset_block->check())
-        {
-            $this->dset_block->update();
-            response::redirect(url::create('/admin/block/summary'));
-        }
-        else
-        {
-            $this->display();
-        }
+        $this->drec_group->sort($params);
     }
     // ********************************************************************************
     // **** 表示
@@ -62,13 +42,12 @@ class edit extends \app\controller_admin
     // --------------------------------------------------------------------------------
     // 表示
     // --------------------------------------------------------------------------------
-    public function display()
+    private function display()
     {
         $vars = array
         (
-            'dset_block_values'         => $this->dset_block->get_values(),
-            'dset_block_error_messages' => $this->dset_block->get_error_messages(),
+            'drec_group'              => $this->drec_group->fetch_all(),
         );
-        echo $this->render('controller/admin/block/edit/edit.twig', $vars);
+        echo $this->render('controller/admin/group/summary.twig', $vars);
     }
 }

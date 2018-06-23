@@ -10,7 +10,8 @@ use \app\model\controller\admin\stack\summary as drec_stack;
 
 class summary extends \app\controller_admin
 {
-    private $drec_stackgroup;
+    private $stackgroup_id;
+    private $drec_stack;
     // ********************************************************************************
     // **** アクション
     // ********************************************************************************
@@ -20,7 +21,6 @@ class summary extends \app\controller_admin
     public function before()
     {
         parent::before();
-        //
         $this->drec_stack = new drec_stack;
     }
     // --------------------------------------------------------------------------------
@@ -28,10 +28,8 @@ class summary extends \app\controller_admin
     // --------------------------------------------------------------------------------
     public function action_index($params)
     {
-        $stackgroup_id = isset($params[0]) ? $params[0] : -1;
-        //
-        $this->drec_stack->set_value('stackgroup_id', $stackgroup_id);
-        //
+        $this->stackgroup_id = isset($params[0]) ? $params[0] : -1;
+        $this->drec_stack->set_value('stackgroup_id', $this->stackgroup_id);
         $this->display();
     }
     // --------------------------------------------------------------------------------
@@ -51,7 +49,8 @@ class summary extends \app\controller_admin
     {
         $vars = array
         (
-            'drec_stack'              => $this->drec_stack->fetch_all(),
+            'stackgroup_id' => $this->stackgroup_id,
+            'drec_stack'    => $this->drec_stack->fetch_all(),
         );
         echo $this->render('controller/admin/stack/summary.twig', $vars);
     }

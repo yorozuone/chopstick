@@ -20,7 +20,6 @@ class create extends \app\controller_admin
     public function before()
     {
         parent::before();
-        //
         $this->dset_composer_block = new dset_composer_block();
     }
     // --------------------------------------------------------------------------------
@@ -28,10 +27,7 @@ class create extends \app\controller_admin
     // --------------------------------------------------------------------------------
     public function action_index($params)
     {
-        $composer_key = isset($params[0]) ? $params[0] : '';
-        //
-        $this->dset_composer_block->set_value('composer_key', $composer_key);
-        //
+        $this->dset_composer_block->set_value('composer_key', isset($params[0]) ? $params[0] : '');
         $this->display();
     }
     // --------------------------------------------------------------------------------
@@ -45,7 +41,6 @@ class create extends \app\controller_admin
             response::redirect(url::create('/admin/auth/login'));
         }
         $this->dset_composer_block->post();
-        //
         if ($this->dset_composer_block->check())
         {
             $this->dset_composer_block->create();

@@ -25,9 +25,9 @@ class summary extends \app\controller_admin
     // --------------------------------------------------------------------------------
     public function action_index()
     {
-        $composer_key = isset($this->route->params[0]) ? $this->route->params[0] :-10;
+        $this->composer_key = isset($this->route->params[0]) ? $this->route->params[0] :-10;
         $this->drec_composer_block = new drec_composer_block();
-        $this->drec_composer_block->set_value('composer_key', $composer_key);
+        $this->drec_composer_block->set_value('composer_key', $this->composer_key);
         $this->display();
     }
     // --------------------------------------------------------------------------------

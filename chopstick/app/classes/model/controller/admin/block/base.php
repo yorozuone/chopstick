@@ -18,7 +18,6 @@ class base extends \core\fieldset
         $this->append('name',               'ブロック名');
         $this->append('description',        '説明');
         $this->append('install_version',    'インストール・バージョン');
-        $this->append('class_path',         'class_path');
         //
         $this->append('version',            'バージョン');
     }
@@ -37,8 +36,7 @@ SELECT
     block_key,
     name,
     description,
-    install_version,
-    class_path
+    install_version
 FROM
     cs_block
 WHERE
@@ -75,7 +73,6 @@ EOT;
         {
             return false;
         }
-        $this->set_value('class_path',  $block_class);
         $this->set_value('name',        $block_class::$block_name);
         $this->set_value('description', $block_class::$block_description);
         $this->set_value('version',     $block_class::$block_version);

@@ -38,7 +38,6 @@ INSERT INTO cs_composer_block
     block_key,
     caption,
     description,
-    datasource,
     order_at,
     created_at,
     updated_at
@@ -50,7 +49,6 @@ VALUES
     :block_key,
     :caption,
     :description,
-    :datasource,
     :order_at,
     NOW(),
     NOW()
@@ -63,7 +61,6 @@ EOT;
             ':block_key'            => $this->get_value('block_key'),
             ':caption'              => $this->get_value('caption'),
             ':description'          => $this->get_value('description'),
-            ':datasource'           => $this->get_value('datasource'),
             ':order_at'             => $this->get_value('order_at'),
         );
         //

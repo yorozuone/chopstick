@@ -1,0 +1,90 @@
+{% extends "/controller/admin/default.twig" %}
+
+{% block area_body_tail %}
+<script type="text/javascript">
+    $(function() {
+        $('#group_sortable tbody').sortable({
+            items: 'tr',
+            handle: '.group_sortable_handle',
+            cursor: 'move',
+            opacity: 0.5,
+            stop: function (event, ui)
+            {
+                var params = [];
+                $("#group_sortable tbody tr").each(function() {
+                    params.push($(this).attr('group_key'));
+                });
+                $.ajax({
+                    url: "{{ cs_url('admin/group/summary/sort/') }}" + params.join('/')
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+{% block area_body %}
+
+    <h1 class="display-4">
+        グループ一覧
+    </h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/menu') }}">メニュー</a></li>
+            <li class="breadcrumb-item active" aria-current="page">グループ一覧</li>
+        </ol>
+    </nav>
+
+    <div>
+        <a href="{{ cs_url('/admin/group/create') }}" class="btn btn-success">グループ登録</a>
+    </div>
+
+    <br>
+
+    {% if drec_group|length == 0 %}
+        <div class="alert alert-success" role="alert">グループが登録されていません。</div>
+    {% else %}
+        <p class="h4">グループ一覧</p>
+        <div class="table-responsive">
+            <table id="group_sortable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 12px;"></th>
+                        <th nowrap>グループ・キー</th>
+                        <th nowrap>見出し</th>
+                        <th nowrap>更新日時</th>
+                        <th nowrap></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in drec_group %}
+                        <tr group_key="{{ v.group_key }}">
+                            <td nowrap>
+                                <div class="group_sortable_handle" style="cursor:move">[=]</div>
+                            </td>
+                            <td nowrap>
+                                {{ v.group_key }}
+                            </td>
+                            <td nowrap>
+                                {{ v.caption }}
+                            </td>
+                            <td nowrap>
+                                {{ v.updated_at | date('Y/m/d H:i', "Asia/Tokyo") }}
+                            </td>
+                            <td nowrap style="text-align: right;">
+                                <a href="{{ cs_url('/admin/group/edit', [v.group_key]) }}" class="btn btn-xs btn-primary">編集</a>
+                                {% if v.reserved == 1 %}
+                                    <span class="btn btn-xs btn-danger disabled">削除</span>
+                                {% else %}                                        
+                                    <a href="{{ cs_url('/admin/group/delete', [v.group_key]) }}" class="btn btn-xs btn-danger">削除</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+{% endblock %}

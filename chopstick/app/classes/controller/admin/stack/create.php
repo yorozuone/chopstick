@@ -21,7 +21,6 @@ class create extends \app\controller_admin
     public function before()
     {
         parent::before();
-        //
         $this->dset_stack = new dset_stack();
     }
     // --------------------------------------------------------------------------------
@@ -30,9 +29,7 @@ class create extends \app\controller_admin
     public function action_index($params)
     {
         $stackgroup_id = isset($params[0]) ? $params[0] : '';
-        //
         $this->dset_stack->set_value('stackgroup_id', $stackgroup_id);
-        //
         $this->display();
     }
     // --------------------------------------------------------------------------------

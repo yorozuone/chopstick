@@ -28,7 +28,6 @@ SELECT
     block_key,
     caption,
     description,
-    datasource,
     order_at,
     created_at,
     updated_at

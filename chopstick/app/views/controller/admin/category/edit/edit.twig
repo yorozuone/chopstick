@@ -57,7 +57,7 @@
                 <input type="submit" class="btn btn-primary" value="更新">
                 <a href="{{ cs_url('/admin/category/summary', [dset_category_values.parent_category_id]) }}" class="btn btn-outline-info">戻る</a>
             </div>
-        <div>
+        </div>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <input type="hidden" id="category_id" name="category_id" value="{{ dset_category_values.category_id }}">
     </form>

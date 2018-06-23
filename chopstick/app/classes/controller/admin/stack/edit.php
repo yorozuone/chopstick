@@ -46,7 +46,6 @@ class edit extends \app\controller_admin
             response::redirect(url::create('/admin/auth/login'));
         }
         $this->dset_stack->post();
-        //
         if ($this->dset_stack->check())
         {
             $this->dset_stack->update();

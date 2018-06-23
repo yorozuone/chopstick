@@ -32,7 +32,6 @@ UPDATE
 SET
     caption = :caption,
     description = :description,
-    datasource = :datasource,
     updated_at = NOW()
 WHERE
     composer_key = :composer_key AND
@@ -44,7 +43,6 @@ EOT;
             ':composer_block_key'   => $this->get_value('composer_block_key'),
             ':caption'              => $this->get_value('caption'),
             ':description'          => $this->get_value('description'),
-            ':datasource'           => $this->get_value('datasource'),
         );
         //
         $con->query($sql, $sql_params);

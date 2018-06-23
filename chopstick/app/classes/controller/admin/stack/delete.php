@@ -21,7 +21,6 @@ class delete extends \app\controller_admin
     public function before()
     {
         parent::before();
-        //
         $this->dset_stack = new dset_stack();
     }
     // --------------------------------------------------------------------------------
@@ -43,11 +42,10 @@ class delete extends \app\controller_admin
     {
         if (!csrf::check())
         {
-                auth::logout();
-                response::redirect(url::create('/admin/auth/login'));
+            auth::logout();
+            response::redirect(url::create('/admin/auth/login'));
         }
         $this->dset_stack->post();
-        //
         if ($this->dset_stack->read() == false)
         {
             response::redirect(url::create('/admin/stack/summary'));
@@ -67,6 +65,6 @@ class delete extends \app\controller_admin
         (
             'dset_stack_values'           => $this->dset_stack->get_values(),
         );
-        echo $this->render('controller/admin/delete/confirm.twig', $vars);
+        echo $this->render('controller/admin/stack/delete/confirm.twig', $vars);
     }
 }

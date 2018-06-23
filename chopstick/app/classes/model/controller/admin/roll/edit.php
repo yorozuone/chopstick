@@ -1,25 +1,27 @@
 <?php
-namespace app\model\controller\admin\block;
+namespace app\model\controller\admin\roll;
 
 use \core\db;
 
-class edit extends \app\model\controller\admin\tblock\base
+class edit extends \app\model\controller\admin\roll\base
 {
     // ################################################################################
     // 検証
     // ################################################################################
-    // ------------------------------------------------------------
+    // --------------------------------------------------------------------------------
     // 検証（更新）
-    // ------------------------------------------------------------
+    // --------------------------------------------------------------------------------
     public function check()
     {
+        $this->validate('required', 'roll_key');
+        $this->validate('required', 'caption');
         return $this->is_valid;
     }
     // ################################################################################
     // データ操作
     // ################################################################################
     // --------------------------------------------------------------------------------
-    // データ操作（更新）
+    // 更新
     // --------------------------------------------------------------------------------
     public function update()
     {
@@ -27,20 +29,21 @@ class edit extends \app\model\controller\admin\tblock\base
         //
         $sql = <<< EOT
 UPDATE
-    cs_block
+    cs_roll
 SET
-    install_version = :install_version,
+    caption = :caption,
+    description = :description,
     updated_at = NOW()
 WHERE
-    block_key = :block_key;
+    roll_key = :roll_key;
 EOT;
         $sql_params = array
         (
-            ':block_key'    => $this->get_value('block_key'),
+            ':caption'      => $this->get_value('caption'),
+            ':description'  => $this->get_value('description'),
             //
-            ':install_version'      => $this->get_value('install_version'),
+            ':roll_key'    => $this->get_value('roll_key'),
         );
-        //
         $con->query($sql, $sql_params);
     }
 }

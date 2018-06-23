@@ -37,7 +37,6 @@ INSERT INTO cs_block
     name,
     description,
     install_version,
-    class_path,
     created_at,
     updated_at
 )
@@ -47,7 +46,6 @@ VALUES
     :name,
     :description,
     :install_version,
-    :class_path,
     NOW(),
     NOW()
 );
@@ -58,7 +56,6 @@ EOT;
             ':name'             => $this->get_value('name'),
             ':description'      => $this->get_value('description'),
             ':install_version'  => $this->get_value('version'),
-            ':class_path'       => $this->get_value('class_path'),
         );
         $con->query($sql_1, $sql_params_1);
         //
