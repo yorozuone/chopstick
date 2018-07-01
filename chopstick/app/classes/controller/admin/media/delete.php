@@ -45,12 +45,10 @@ class delete extends \app\controller_admin
             response::redirect(url::create('/admin/auth/login'));
         }
         $this->dset_media->post();
-        //
         if ($this->dset_media->read() == false)
         {
             response::redirect(url::create('/admin/mediafolder/summary'));
         }
-        //
         $this->dset_media->delete();
         response::redirect(url::create('/admin/media/summary', array($this->dset_media->get_value('mediafolder_id'))));
     }

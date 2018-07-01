@@ -27,9 +27,7 @@ class create extends \app\controller_admin
     public function action_index($params)
     {
         $this->mediafolder_id = isset($params[0]) ? $params[0] : '';
-        //
         $this->dset_media->set_value('mediafolder_id', $this->mediafolder_id);
-        //
         $this->display();
     }
     // --------------------------------------------------------------------------------
@@ -38,12 +36,9 @@ class create extends \app\controller_admin
     public function action_upload($params)
     {
         $this->mediafolder_id = isset($params[0]) ? $params[0] : '';
-        //
         $this->dset_media->set_value('mediafolder_id', $this->mediafolder_id);
         $ret = $this->dset_media->create();
-        //
-        echo $this->dset_media->get_value('error_message');
-        //
+        echo $this->dset_media->get_value('guide_message');
         return $ret;
     }
     // ********************************************************************************

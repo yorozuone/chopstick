@@ -119,14 +119,6 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            {% if dset_page_values.number_of_child_page == 0 %}
-                                <input type="submit" class="btn btn-danger" value="削除">
-                            {% else %}
-                                <span class="btn btn-outline-info">削除</span>
-                            {% endif %}
-                            <a href="{{ cs_url('/admin/page/summary', [dset_page_values.parent_page_id]) }}" class="btn btn-outline-info">戻る</a>
-                        </div>
-                        <div class="form-group">
                             <label class="control-label">公開設定</label>
                             <div>
                                 <p class="form-control-static">
@@ -219,6 +211,21 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    {% if dset_page_values.number_of_child_page == 0 %}
+                        <input type="submit" class="btn btn-danger" value="削除">
+                    {% else %}
+                        <span class="btn btn-outline-info">削除</span>
+                    {% endif %}
+                    <a href="{{ cs_url('/admin/page/summary', [dset_page_values.parent_page_id]) }}" class="btn btn-outline-info">戻る</a>
+                </div>
             </div>
         </div>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">

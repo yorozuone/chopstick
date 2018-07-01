@@ -5,9 +5,6 @@ use \core\response;
 
 class route
 {
-    //
-    const UNIQ_KEY              = 'CORE_LIB_ROUTE';
-    //
     public $config              = array();
     //
     public $default_route_path  = '';

@@ -22,7 +22,6 @@ class edit extends \app\controller_admin
     public function before()
     {
         parent::before();
-        //
         $this->dset_media = new dset_media();
     }
     // --------------------------------------------------------------------------------
@@ -47,17 +46,13 @@ class edit extends \app\controller_admin
             auth::logout();
             response::redirect(url::create('/admin/auth/login'));
         }
-        //
         $this->dset_media->post('media_id');
-        //
         if ($this->dset_media->read() == false)
         {
             response::redirect(url::create('/admin/mediafolder/media/summary'));
         }
         $this->dset_media->post();
-        //
         $this->dset_media->check();
-        //
         if ($this->dset_media->is_valid)
         {
             $this->dset_media->update();

@@ -15,7 +15,7 @@ class cs_twigtext extends \app\block
     // --------------------------------------------------------------------------------
     public function before()
     {
-        $this->append('twigtext', 'twigtext', 'twigtext', $this->composer_block_key);
+        $this->append('twigtext', 'twigtext', '');
         $this->set_description('twigtext', 'Twig を入力してください。');
     }
     // --------------------------------------------------------------------------------

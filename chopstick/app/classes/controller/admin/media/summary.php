@@ -22,7 +22,6 @@ class summary extends \app\controller_admin
     public function before()
     {
         parent::before();
-        //
         $this->drec_media = new drec_media();
     }
     // --------------------------------------------------------------------------------
@@ -32,7 +31,6 @@ class summary extends \app\controller_admin
     {
         $this->mediafolder_id = isset($params[0]) ? $params[0] : -1;
         $this->drec_media->set_value('mediafolder_id', $this->mediafolder_id);
-        //
         $this->display();
     }
     // ********************************************************************************

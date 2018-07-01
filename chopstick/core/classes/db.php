@@ -8,8 +8,6 @@ use \core\log;
 
 class db
 {
-    const GLOBALVARS_NAME = 'CORE_DB_CONNECTION';
-    //
     private $_current_connection = null;
     // --------------------------------------------------------------------------------
     // 接続を開く
@@ -46,7 +44,17 @@ class db
     // --------------------------------------------------------------------------------
     public function query($sql, $param = array())
     {
-        log::write($sql, 'notice');
+        $log = $sql;
+        $log = str_replace("\r", ' ', $log);
+        $log = str_replace("\n", ' ', $log);
+        $log = preg_replace('/[ ]+/', ' ', $log);
+        log::write($log, 'notice');
+        //
+        $log = print_r($param, true);
+        $log = str_replace("\r", ' ', $log);
+        $log = str_replace("\n", ' ', $log);
+        $log = preg_replace('/[ ]+/', ' ', $log);
+        log::write($log, 'notice');
         //
         try
         {
@@ -62,7 +70,7 @@ class db
         }
         catch (PDOException $e)
         {
-            debug::alert('[core/db/query] '.$e->getMessage());
+            log::write('[core/db/query] '.$e->getMessage());
             return false;
         }
     }

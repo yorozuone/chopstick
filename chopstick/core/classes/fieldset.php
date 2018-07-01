@@ -6,6 +6,7 @@ use \core\field;
 class fieldset
 {
     public $is_valid = true;
+    //
     private $fields = array();
     // ################################################################################
     // コンストラクタ

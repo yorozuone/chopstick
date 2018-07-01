@@ -3,9 +3,6 @@ namespace core;
 
 class file
 {
-    //
-    const UNIQ_KEY = 'CORE_LIB_FILE';
-    //
     const TYPE_FILE     = 1;
     const TYPE_FOLDER   = 2;
     // --------------------------------------------------------------------------------

@@ -22,7 +22,8 @@ class base extends \core\fieldset
         $this->append('description',            '説明');
         $this->append('mime_type',              'mime_type');
         //
-        $this->append('mediafolder_caption',    'メディアフォルダーId');
+        $this->append('mediafolder_caption',    'メディアフォルダー見出し');
+        $this->append('guide_message',          'ガイド・メッセージ');
     }
     // ################################################################################
     // 検証

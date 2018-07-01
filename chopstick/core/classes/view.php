@@ -3,8 +3,6 @@ namespace core;
 
 class view
 {
-    const GLOBALVARS_NAME = 'CORE_VIEW';
-    //
     public $paths = '';             // テンプレートパス設定
     public $cache = false;          // キャッシュ設定
     public $debug = true;           // デバッグ設定

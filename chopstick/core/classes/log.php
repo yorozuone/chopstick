@@ -6,12 +6,15 @@ class log
     // --------------------------------------------------------------------------------
     // ログを出力
     // --------------------------------------------------------------------------------
-    public static function write($msg, $level='notice')
+    public static function write($log, $level='notice')
     {
         $config = config::read('log');
         //
-        $fn = $config['path'].date('Ymd').'.txt';
+        $t = time();
         //
-        error_log($msg."\r\n\r\n", 3, $fn);
+        $fn = $config['path'].date('Ymd', $t).'.txt';
+        $log = str_replace("\r", '', $log);
+        $log = str_replace("\n", '', $log);
+        error_log(date('Y-m-d H:i:s', $t).':'.$log.PHP_EOL, 3, $fn);
     }
 }
