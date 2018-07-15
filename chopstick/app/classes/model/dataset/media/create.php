@@ -1,9 +1,9 @@
 <?php
-namespace app\model\controller\admin\media;
+namespace app\model\dataset\media;
 
 use \core\db;
 
-class create extends \app\model\controller\admin\media\base
+class create extends \app\model\dataset\media\base
 {
     // ################################################################################
     // 検証
@@ -21,7 +21,7 @@ class create extends \app\model\controller\admin\media\base
     // ------------------------------------------------------------
     // アップロード
     // ------------------------------------------------------------
-    public function create()
+    public function update()
     {
         if (!isset($_FILES['cs_media']))
         {
@@ -29,11 +29,12 @@ class create extends \app\model\controller\admin\media\base
             return false;
         }
         $cs_uniqid = uniqid();
+        //
         $cs_img_name = $_FILES['cs_media']['name'];
         $cs_tmp_name = $_FILES['cs_media']['tmp_name'];
         //
         $cs_img_folder = CS_BASE_DIR.'media/'.$cs_uniqid;
-        $cs_thm_folder = CS_BASE_DIR.'media/_thumbnail/'.$cs_uniqid;
+        $cs_thm_folder = CS_BASE_DIR.'media/'.$cs_uniqid.'/thumbnail';
         //
         $cs_tmp_path = $_FILES['cs_media']['tmp_name'];
         $cs_img_path = $cs_img_folder.'/'.$cs_img_name;
@@ -87,10 +88,10 @@ VALUES
 EOT;
         $sql_params = array
         (
-            ':mediafolder_id'   => $this->get_value('mediafolder_id'),
-            ':page_id'          => $this->get_value('page_id') == '' ? NULL : $this->get_value('page_id'),
-            ':stack_key'        => $this->get_value('stack_key') == '' ? NULL : $this->get_value('stack_key'),
-            ':folder_name'      => $cs_img_folder,
+            ':mediafolder_id'   => $this->get_value('mediafolder_id')   == '' ? NULL : $this->get_value('mediafolder_id'),
+            ':page_id'          => $this->get_value('page_id')          == '' ? NULL : $this->get_value('page_id'),
+            ':stack_key'        => $this->get_value('stack_key')        == '' ? NULL : $this->get_value('stack_key'),
+            ':folder_name'      => $cs_uniqid,
             ':file_name'        => $cs_img_name,
             ':mime_type'        => $cs_mime_type,
         );

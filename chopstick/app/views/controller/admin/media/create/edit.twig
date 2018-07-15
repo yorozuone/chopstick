@@ -28,7 +28,7 @@
             type: 'POST',
             contentType: false,
             processData: false,
-            url: '{{ cs_url('/admin/media/create/upload/', [ dset_media_values.mediafolder_id ]) }}',
+            url: '{{ cs_url('/api/media/upload/', [ dset_media_values.mediafolder_id ]) }}',
             data: formData,
         }).then(
             function(data)

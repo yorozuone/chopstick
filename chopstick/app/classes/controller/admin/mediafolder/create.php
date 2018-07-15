@@ -7,7 +7,7 @@ use \core\response;
 use \core\url;
 
 // dataset
-use \app\model\controller\admin\mediafolder\create as dset_folder;
+use \app\model\dataset\mediafolder\create as dset_folder;
 
 class create extends \app\controller_admin
 {

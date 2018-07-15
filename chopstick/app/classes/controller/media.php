@@ -3,9 +3,10 @@ namespace app\controller;
 
 use \core\db;
 
-class cms_media extends \app\controller
+class media extends \app\controller
 {
     private $media_id   = '';
+    private $folder_name  = '';
     private $file_name  = '';
     private $mime_type  = '';
     // --------------------------------------------------------------------------------
@@ -23,7 +24,7 @@ class cms_media extends \app\controller
         $this->query($params);
         //
         header('Content-Type: '.$this->mime_type);
-        readfile(CS_BASE_DIR.'media/'.$this->file_name);
+        readfile(CS_BASE_DIR.'media/'.$this->folder_name.'/'.$this->file_name);
     }
     // --------------------------------------------------------------------------------
     // 既定
@@ -33,7 +34,7 @@ class cms_media extends \app\controller
         $this->query($params);
         //
         header('Content-Type: '.$this->mime_type);
-        readfile(CS_BASE_DIR.'media/thumbnail/'.$this->file_name);
+        readfile(CS_BASE_DIR.'media/'.$this->folder_name.'/thumbnail/'.$this->file_name);
     }
     // --------------------------------------------------------------------------------
     // 変数設定
@@ -47,6 +48,7 @@ class cms_media extends \app\controller
         $sql = <<< EOT
 SELECT
     mime_type,
+    folder_name,
     file_name
 FROM
     cs_media
@@ -62,6 +64,7 @@ EOT;
         if (isset($rs[0]))
         {
             $this->file_name = $rs[0]['file_name'];
+            $this->folder_name = $rs[0]['folder_name'];
             $this->mime_type = $rs[0]['mime_type'];
         }
     }

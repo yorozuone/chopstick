@@ -2,46 +2,6 @@
 
 {% block area_body_tail %}
 <script type="text/javascript">
-    // File APIに対応していない場合に表示を隠す
-    if (!window.File) {
-        document.getElementById('file_upload_section').style.display = "none";
-    }
-    // ブラウザ上でファイルを展開させない
-    function onDragOver(event) {
-        event.preventDefault();
-    }
-    // Drop 領域にドロップしたファイルのプロパティ情報読み取り
-    function onDrop(event) {
-        // ブラウザ上でファイルを展開させない
-        event.preventDefault();
-        // ドロップされたファイルの files プロパティ参照
-        var files = event.dataTransfer.files;
-        for (var i=0; i<files.length; i++) {
-            imageFileUpload(files[i]);
-        }
-    }
-    // ファイルアップロード
-    function imageFileUpload(f) {
-        var formData = new FormData();
-        formData.append('cs_media', f);
-        $.ajax({
-            type: 'POST',
-            contentType: false,
-            processData: false,
-            url: '{{ cs_url('/admin/media/create/upload/', [ dset_media_values.mediafolder_id ]) }}',
-            data: formData,
-        }).then(
-            function(data)
-            {
-                $('#progress').prepend('<div class="alert alert-success" role="alert">' + data + '</div>');
-            },
-            function() {
-                $('#progress').prepend('<div class="alert alert-danger" role="alert">通信に失敗しました。</div>');
-            }
-        );
-    }
-</script>
-<script type="text/javascript">
     $(document).delegate('[name=OnClickSubmit]', 'click', function(){
         $('#stdForm').submit();
     });
@@ -373,15 +333,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <br>
-        <div  id="file_upload_section" class="card" ondragover="onDragOver(event)" ondrop="onDrop(event)">
-            <div class="card-body">
-                ファイルをドラッグアンドドロップしてください。
-            </div>
-        </div>
-        <br>
-        <div id="progress">
+
         </div>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <input type="hidden" name="composer_key" value="{{ dset_page_values.composer_key }}">

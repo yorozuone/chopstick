@@ -6,7 +6,7 @@ use \core\csrf;
 use \core\response;
 use \core\url;
 
-use \app\model\controller\admin\mediafolder\delete as dset_folder;
+use \app\model\dataset\mediafolder\delete as dset_folder;
 
 class delete extends \app\controller_admin
 {

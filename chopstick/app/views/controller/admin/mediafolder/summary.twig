@@ -3,7 +3,7 @@
 {% block area_body %}
 
     <h1 class="display-4">
-        ファイル・フォルダ一覧
+        メディア・フォルダ一覧
     </h1>
 
     <nav aria-label="breadcrumb">
@@ -36,16 +36,16 @@
                     {% for v in drec_folder %}
                         <tr folder_id="{{ v.mediafolder_id }}">
                             <td nowrap>
-                                <a href="{{ cs_url('/admin/media/summary', [v.mediafolder_id]) }}" class="btn btn-xs btn-info">ファイル一覧</a>
-                                <a href="{{ cs_url('/admin/media/create', [v.mediafolder_id]) }}" class="btn btn-xs btn-primary">登録</a>
+                                <a href="{{ cs_url('/admin/media/summary', [v.mediafolder_id]) }}" class="btn btn-info">ファイル一覧</a>
+                                <a href="{{ cs_url('/admin/media/create', [v.mediafolder_id]) }}" class="btn btn-primary">登録</a>
                                 {{ v.caption }}
                             </td>
                             <td nowrap>
                                 {{ v.updated_at | date('Y/m/d H:i', "Asia/Tokyo") }}
                             </td>
                             <td nowrap style="text-align: right;">
-                                <a href="{{ cs_url('/admin/mediafolder/edit', [v.mediafolder_id]) }}" class="btn btn-xs btn-primary">編集</a>
-                                <a href="{{ cs_url('/admin/mediafolder/delete', [v.mediafolder_id]) }}" class="btn btn-xs btn-danger">削除</a>
+                                <a href="{{ cs_url('/admin/mediafolder/edit', [v.mediafolder_id]) }}" class="btn btn-primary">編集</a>
+                                <a href="{{ cs_url('/admin/mediafolder/delete', [v.mediafolder_id]) }}" class="btn btn-danger">削除</a>
                             </td>
                         </tr>
                     {% endfor %}

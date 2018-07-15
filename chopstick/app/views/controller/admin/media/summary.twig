@@ -44,18 +44,18 @@
                     {% for v in drec_media %}
                         <tr folder_id="{{ v.media_id }}">
                             <td nowrap>
-                                    <img src="{{ cs_url('/cms_media/thumbnail', [v.media_id]) }}">
+                                    <img src="{{ cs_url('/media/thumbnail', [v.media_id]) }}">
                             </td>
                             <td nowrap>
-                                {{ cs_url('/cms_media', [v.media_id]) }}<br>
+                                {{ cs_url('/media', [v.media_id]) }}<br>
                                 {{ v.description }}
                             </td>
                             <td nowrap>
                                 {{ v.updated_at | date('Y/m/d H:i', "Asia/Tokyo") }}
                             </td>
                             <td nowrap style="text-align: right;">
-                                <a href="{{ cs_url('/admin/media/edit', [v.media_id]) }}" class="btn btn-xs btn-primary">編集</a>
-                                <a href="{{ cs_url('/admin/media/delete', [v.media_id]) }}" class="btn btn-xs btn-danger">削除</a>
+                                <a href="{{ cs_url('/admin/media/edit', [v.media_id]) }}" class="btn btn-primary">編集</a>
+                                <a href="{{ cs_url('/admin/media/delete', [v.media_id]) }}" class="btn btn-danger">削除</a>
                             </td>
                         </tr>
                     {% endfor %}

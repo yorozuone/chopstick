@@ -1,8 +1,8 @@
 <?php
 return array
 (
-    'root'      => 'cms_page/index',
-    '404'       => 'cms_page/index',
+    'root'      => 'page/index',
+    '404'       => 'page/index',
     'replace'   => array
         (
             '/^login$/' => 'admin/auth/login',

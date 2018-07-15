@@ -6,7 +6,7 @@ use \core\csrf;
 use \core\response;
 use \core\url;
 
-use \app\model\controller\admin\media\delete as dset_media;
+use \app\model\dataset\media\delete as dset_media;
 
 class delete extends \app\controller_admin
 {
@@ -49,7 +49,7 @@ class delete extends \app\controller_admin
         {
             response::redirect(url::create('/admin/mediafolder/summary'));
         }
-        $this->dset_media->delete();
+        $this->dset_media->update();
         response::redirect(url::create('/admin/media/summary', array($this->dset_media->get_value('mediafolder_id'))));
     }
     // ********************************************************************************

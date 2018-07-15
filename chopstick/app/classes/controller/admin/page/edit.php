@@ -110,6 +110,7 @@ class edit extends \app\controller_admin
             'dset_page_error_messages'  => $this->dset_page->get_error_messages(),
             //
             'drec_page_tree'            => \app\model\datasource\page::fetch_tree(),
+            'drec_media'                => \app\model\datasource\media::fetch_all_page($this->dset_page->get_value('page_id')),
             'drec_category_tree'        => \app\model\datasource\category::fetch_tree(),
             'drec_template'             => \app\model\datasource\template::fetch_all(),
         );

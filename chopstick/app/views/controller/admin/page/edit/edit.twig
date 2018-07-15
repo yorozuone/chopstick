@@ -19,6 +19,7 @@
         for (var i=0; i<files.length; i++) {
             imageFileUpload(files[i]);
         }
+        media_summary();
     }
     // ファイルアップロード
     function imageFileUpload(f) {
@@ -26,9 +27,10 @@
         formData.append('cs_media', f);
         $.ajax({
             type: 'POST',
+            async: false,
             contentType: false,
             processData: false,
-            url: '{{ cs_url('/admin/media/create/upload/', [ dset_media_values.mediafolder_id ]) }}',
+            url: '{{ cs_url('/api/media/upload_page/', [ dset_page_values.page_id ]) }}',
             data: formData,
         }).then(
             function(data)
@@ -42,8 +44,83 @@
     }
 </script>
 <script type="text/javascript">
+    function media_summary()
+    {
+        $.ajax({
+            type: 'GET',
+            async: false,
+            dataType: 'json',
+            url: '{{ cs_url('/api/media/fetch_all_page/', [ dset_page_values.page_id]) }}'
+        }).then(
+            function(data)
+            {
+                if (data.length==0)
+                {
+                    html = '<div class="alert alert-success" role="alert">ファイルが登録されていません。</div>';
+                }
+                else
+                {
+                    html = '';
+                    html += '<div class="table-responsive">';
+                    html += '<table id="pagelist-sortable" class="table table-striped">';
+                    html += '<thead>';
+                    html += '<tr>';
+                    html += '<th nowrap></th>';
+                    html += '<th nowrap>ファイル名</th>';
+                    html += '<th nowrap>更新日時</th>';
+                    html += '<th nowrap></th>';
+                    html += '</tr>';
+                    html += '</thead>';
+                    html += '<tbody>';
+                    for(var i in data)
+                    {
+                        html += '<tr folder_id="' + data[i].media_id +'">';
+                        html += '<td nowrap>';
+                        html += '<img src="{{ cs_url('/media/thumbnail/') }}' + data[i].media_id + '">';
+                        html += '</td>';
+                        html += '<td nowrap>';
+                        html += '{{ cs_url('/media/') }}' + data[i].media_id + '<br>'
+                        if (data[i].description != null)
+                        {
+                            html += data[i].description
+                        }
+                        html += '</td>';
+                        html += '<td nowrap>';
+                        html += data[i].updated_at;
+                        html += '</td>';
+                        html += '<td nowrap style="text-align: right;">';
+                        html += '<buttun name="OnClickDeleteMedia" class="btn btn-danger" media_id="' + data[i].media_id + '">削除</button>';
+                        html += '</td>';
+                    }
+                    html += '</tbody>';
+                    html += '</table>';
+                    html += '</div>';
+                }
+                $('#media_summary').html(html);
+            }
+        )
+    }
+    $(document).ready(function(){
+        media_summary();
+    });
     $(document).delegate('[name=OnClickSubmit]', 'click', function(){
         $('#stdForm').submit();
+    });
+    $(document).delegate('[name=OnClickDeleteMedia]', 'click', function(){
+        if(confirm("削除してもよろしいですか？"))
+        {
+            $.ajax({
+                type: 'GET',
+                async: false,
+                url: '{{ cs_url('/api/media/delete/') }}' + $(this).attr('media_id')
+            }).then(
+                media_summary()
+            );
+        }
+        else 
+        {
+            alert("削除を中止しました。");
+        }
     });
 </script>
 {% endblock %}
@@ -386,6 +463,9 @@
         <br>
         <div id="progress">
         </div>
+        <div id="media_summary">[data]</div>
+        <br>
+        <div>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <input type="hidden" name="page_id" value="{{ dset_page_values.page_id }}">
         <input type="hidden" name="composer_key" value="{{ dset_page_values.composer_key }}">

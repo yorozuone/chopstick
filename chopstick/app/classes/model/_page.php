@@ -3,7 +3,7 @@ namespace app\model;
 
 use \core\db;
 
-class cms_page extends \core\fieldset
+class page extends \core\fieldset
 {
     public function __construct()
     {
@@ -30,6 +30,11 @@ class cms_page extends \core\fieldset
         $this->append('template_key',       'テンプレート・キー');
         $this->append('reserved',           '予約ページ');
         $this->append('order_at',           '並び順');
+        //
+        $this->append('sub_composer',       '', array());
+        $this->append('sub_composer_block', '', array());
+        $this->append('sub_category',       '', array());
+        $this->append('sub_tag',            '', array());
     }
     //
     // --------------------------------------------------------------------------------
@@ -44,7 +49,7 @@ class cms_page extends \core\fieldset
         // ページのデータを読込
         // ------------------------------------------------------------
         //
-        $sql = <<< EOT
+        $sql_1 = <<< EOT
 SELECT
     cs_page.page_id,
     cs_page.parent_page_id,
@@ -67,11 +72,11 @@ FROM
 WHERE
     cs_page.page_id = :page_id
 EOT;
-        $sql_params = array
+        $sql_params_1 = array
         (
             ':page_id' => $this->get_value('page_id'),
         );
-        $rs = $con->query($sql, $sql_params);
+        $rs_1 = $con->query($sql_1, $sql_params_1);
         //
         if (!isset($rs[0]))
         {
@@ -80,66 +85,5 @@ EOT;
         $this->set_values($rs[0]);
         //
         return true;
-    }
-    //
-    // --------------------------------------------------------------------------------
-    //
-    // --------------------------------------------------------------------------------
-    //
-    public function get_composer_block()
-    {
-        $con = new db();
-        //
-        $sql = <<< EOT
-SELECT
-    block_key,
-    composer_block_key,
-    caption,
-    description
-FROM
-    cs_composer_block
-WHERE
-    composer_key = :composer_key
-ORDER BY
-    order_at
-EOT;
-        $sql_params = array
-        (
-            ':composer_key' => $this->get_value('composer_key'),
-        );
-        $rs = $con->query($sql, $sql_params);
-        //
-        return $rs;
-    }
-    //
-    // --------------------------------------------------------------------------------
-    //
-    // --------------------------------------------------------------------------------
-    //
-    public function get_composer_template()
-    {
-        $con = new db();
-        //
-        $sql = <<< EOT
-SELECT
-    composer_template
-FROM
-    cs_composer
-WHERE
-    composer_key = :composer_key
-ORDER BY
-    order_at
-EOT;
-        $sql_params = array
-        (
-            ':composer_key' => $this->get_value('composer_key'),
-        );
-        $rs = $con->query($sql, $sql_params);
-        //
-        if (isset($rs[0]))
-        {
-            return $rs[0]['composer_template'];
-        }
-        return false;
     }
 }

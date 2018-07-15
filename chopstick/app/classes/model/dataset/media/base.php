@@ -1,9 +1,9 @@
 <?php
-namespace app\model\controller\admin\mediafolder;
+namespace app\model\dataset\media;
 
 use \core\db;
 
-class edit extends \core\fieldset
+class base extends \core\fieldset
 {
     // ################################################################################
     // コンストラクタ
@@ -12,44 +12,59 @@ class edit extends \core\fieldset
     {
         parent::__construct();
         //
-        $this->append('mediafolder_id', 'メディアフォルダid');
+        $this->append('media_id',               'メディアId');
         //
-        $this->append('caption',        'フォルダ名');
+        $this->append('mediafolder_id',         'メディアフォルダーId');
+        $this->append('page_id',                'ページId');
+        $this->append('stack_key',              'スタック・キー');
+        $this->append('file_name',              'ファイル名');
+        $this->append('file_name_org',          '元ファイル名');
+        $this->append('description',            '説明');
+        $this->append('mime_type',              'mime_type');
+        //
+        $this->append('mediafolder_caption',    'メディアフォルダー見出し');
+        $this->append('guide_message',          'ガイド・メッセージ');
     }
     // ################################################################################
     // 検証
     // ################################################################################
     // --------------------------------------------------------------------------------
-    // 検証（更新）
+    // 検証（作成）
     // --------------------------------------------------------------------------------
     public function check()
     {
-        $this->validate('required', 'mediafolder_id');
-        $this->validate('required', 'caption');
         return $this->is_valid;
     }
     // ################################################################################
     // データ操作
     // ################################################################################
-    // --------------------------------------------------------------------------------
+    // ------------------------------------------------------------
     // 読込
-    // --------------------------------------------------------------------------------
+    // ------------------------------------------------------------
     public function read()
     {
         $con = new db();
         //
         $sql = <<< EOT
 SELECT
-    mediafolder_id,
-    caption
+    cs_media.media_id,
+    cs_media.mediafolder_id,
+    cs_mediafolder.caption AS mediafolder_caption,
+    cs_media.file_name,
+    cs_media.mime_type,
+    cs_media.description
 FROM
+    cs_media
+LEFT JOIN
     cs_mediafolder
+ON
+    cs_media.mediafolder_id = cs_mediafolder.mediafolder_id
 WHERE
-    mediafolder_id = :mediafolder_id;
+    cs_media.media_id = :media_id;
 EOT;
         $sql_params = array
         (
-            ':mediafolder_id' => $this->get_value('mediafolder_id'),
+            ':media_id' => $this->get_value('media_id'),
         );
         $rs = $con->query($sql, $sql_params);
         //
@@ -60,29 +75,5 @@ EOT;
         $this->set_values($rs[0]);
         //
         return true;
-    }
-    // --------------------------------------------------------------------------------
-    // 更新
-    // --------------------------------------------------------------------------------
-    public function update()
-    {
-        $con = new db();
-        //
-        $sql = <<< EOT
-UPDATE
-    cs_mediafolder
-SET
-    caption = :caption,
-    updated_at = NOW()
-WHERE
-    mediafolder_id = :mediafolder_id;
-EOT;
-        $sql_params = array
-        (
-            ':mediafolder_id'   => $this->get_value('mediafolder_id'),
-            ':caption'          => $this->get_value('caption'),
-        );
-        //
-        $con->query($sql, $sql_params);
     }
 }

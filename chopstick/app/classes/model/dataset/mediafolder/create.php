@@ -1,9 +1,9 @@
 <?php
-namespace app\model\controller\admin\mediafolder;
+namespace app\model\dataset\mediafolder;
 
 use \core\db;
 
-class delete extends \core\fieldset
+class create extends \app\model\dataset\mediafolder\base
 {
     // ################################################################################
     // コンストラクタ
@@ -12,70 +12,47 @@ class delete extends \core\fieldset
     {
         parent::__construct();
         //
-        $this->append('mediafolder_id', 'フォルダid');
-        //
-        $this->append('caption',        'フォルダ名');
+        $this->append('caption',    'フォルダ名');
     }
     // ################################################################################
     // 検証
     // ################################################################################
     // --------------------------------------------------------------------------------
-    // 検証（削除）
+    // 検証（作成）
     // --------------------------------------------------------------------------------
     public function check()
     {
+        $this->validate('required', 'caption' );
+        //
         return $this->is_valid;
     }
     // ################################################################################
     // データ操作
     // ################################################################################
     // --------------------------------------------------------------------------------
-    // 読込
+    // 作成
     // --------------------------------------------------------------------------------
-    public function read()
+    public function create()
     {
         $con = new db();
         //
         $sql = <<< EOT
-SELECT
-    mediafolder_id,
-    caption
-FROM
-    cs_mediafolder
-WHERE
-    mediafolder_id = :mediafolder_id;
+INSERT INTO cs_mediafolder
+(
+    caption,
+    created_at,
+    updated_at
+)
+VALUES
+(
+    :caption,
+    NOW(),
+    NOW()
+);
 EOT;
         $sql_params = array
         (
-            ':mediafolder_id' => $this->get_value('mediafolder_id'),
-        );
-        $rs = $con->query($sql, $sql_params);
-        //
-        if (isset($rs[0]) == false)
-        {
-            return false;
-        }
-        $this->set_values($rs[0]);
-        //
-        return true;
-    }
-    // --------------------------------------------------------------------------------
-    // 削除
-    // --------------------------------------------------------------------------------
-    public function delete()
-    {
-        $con = new db();
-        //
-        $sql = <<< EOT
-DELETE
-FROM
-    cs_mediafolder
-WHERE
-    mediafolder_id = :mediafolder_id;
-EOT;
-        $sql_params = array
-        (
-            ':mediafolder_id' => $this->get_value('mediafolder_id'),
+            ':caption' => $this->get_value('caption'),
         );
         //
         $con->query($sql, $sql_params);

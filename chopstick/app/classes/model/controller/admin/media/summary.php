@@ -24,7 +24,8 @@ class summary extends \core\fieldset
         $sql = <<< EOT
 SELECT
     cs_media.media_id,
-    cs_media.description
+    cs_media.description,
+    cs_media.updated_at
 FROM
     cs_media
 JOIN

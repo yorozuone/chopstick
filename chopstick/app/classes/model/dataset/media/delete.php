@@ -1,9 +1,9 @@
 <?php
-namespace app\model\controller\admin\media;
+namespace app\model\dataset\media;
 
 use \core\db;
 
-class delete extends \app\model\controller\admin\media\base
+class delete extends \app\model\dataset\media\base
 {
     // ################################################################################
     // 検証
@@ -21,7 +21,7 @@ class delete extends \app\model\controller\admin\media\base
     // ------------------------------------------------------------
     // 削除
     // ------------------------------------------------------------
-    public function delete()
+    public function update()
     {
         $con = new db();
         //

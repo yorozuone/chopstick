@@ -53,9 +53,9 @@
                                 {{ v.updated_at | date('Y/m/d H:i:s', "Asia/Tokyo") }}
                             </td>
                             <td style="text-align: right;">
-                                <a href="{{ cs_url('/admin/user/edit', [v.user_id]) }}" class="btn btn-xs btn-primary">編集</a>
-                                <a href="{{ cs_url('/admin/user/update_password', [v.user_id]) }}" class="btn btn-xs btn-danger">パスワード変更</a>
-                                <a href="{{ cs_url('/admin/user/delete', [v.user_id]) }}" class="btn btn-xs btn-danger">削除</a>
+                                <a href="{{ cs_url('/admin/user/edit', [v.user_id]) }}" class="btn btn-primary">編集</a>
+                                <a href="{{ cs_url('/admin/user/update_password', [v.user_id]) }}" class="btn btn-danger">パスワード変更</a>
+                                <a href="{{ cs_url('/admin/user/delete', [v.user_id]) }}" class="btn btn-danger">削除</a>
                             </td>
                         </tr>
                     {% endfor %}

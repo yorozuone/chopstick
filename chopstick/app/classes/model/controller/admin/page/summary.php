@@ -11,7 +11,6 @@ class summary extends \core\fieldset
     public function __construct()
     {
         parent::__construct();
-        //
         $this->append('parent_page_id', '親ページ', 0);
     }
     // --------------------------------------------------------------------------------

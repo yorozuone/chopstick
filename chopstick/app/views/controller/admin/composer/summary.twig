@@ -65,8 +65,8 @@
                                 <div class="composer_sortable_handle" style="cursor:move">[=]</div>
                             </td>
                             <td nowrap>
-                                <a href="{{ cs_url('/admin/composer_block/summary', [v.composer_key]) }}" class="btn btn-xs btn-info">コンポーザー・ブロック一覧</a>
-                                <a href="{{ cs_url('/admin/composer_block/create', [v.composer_key]) }}" class="btn btn-xs btn-primary">登録</a>
+                                <a href="{{ cs_url('/admin/composer_block/summary', [v.composer_key]) }}" class="btn btn-info">コンポーザー・ブロック一覧</a>
+                                <a href="{{ cs_url('/admin/composer_block/create', [v.composer_key]) }}" class="btn btn-primary">登録</a>
                             </td>
                             <td nowrap>
                                 {{ v.composer_key }}
@@ -78,8 +78,8 @@
                                 {{ v.updated_at | date('Y/m/d H:i:s', "Asia/Tokyo") }}
                             </td>
                             <td nowrap style="text-align: right;">
-                                <a href="{{ cs_url('/admin/composer/edit', [v.composer_key]) }}" class="btn btn-xs btn-primary">編集</a>
-                                <a href="{{ cs_url('/admin/composer/delete', [v.composer_key]) }}" class="btn btn-xs btn-danger">削除</a>
+                                <a href="{{ cs_url('/admin/composer/edit', [v.composer_key]) }}" class="btn btn-primary">編集</a>
+                                <a href="{{ cs_url('/admin/composer/delete', [v.composer_key]) }}" class="btn btn-danger">削除</a>
                             </td>
                         </tr>
                     {% endfor %}

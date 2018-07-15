@@ -72,8 +72,8 @@
                                 <div class="category_sortable_handle" style="cursor:move">[=]</span>
                             </td>
                             <td>
-                                <a href="{{ cs_url('/admin/category/summary', [v.category_id]) }}" class="btn btn-xs btn-info">下層一覧</a>
-                                <a href="{{ cs_url('/admin/category/create', [v.category_id]) }}" class="btn btn-xs btn-primary">登録</a>
+                                <a href="{{ cs_url('/admin/category/summary', [v.category_id]) }}" class="btn btn-info">下層一覧</a>
+                                <a href="{{ cs_url('/admin/category/create', [v.category_id]) }}" class="btn btn-primary">登録</a>
                                 <a href="{{ cs_url('admin/category/summary', [v.category_id]) }}">{{ v.caption }}</a>
                             </td>
                             <td>
@@ -81,9 +81,9 @@
                             </td>
                             <td style="text-align: right;">
                                 {% if v.category_id != 0 %}
-                                    <a href="{{ cs_url('/admin/category/edit', [v.category_id]) }}" class="btn btn-xs btn-primary">編集</a>
+                                    <a href="{{ cs_url('/admin/category/edit', [v.category_id]) }}" class="btn btn-primary">編集</a>
                                     {% if v.number_of_child_category == 0 %}
-                                        <a href="{{ cs_url('/admin/category/delete', [v.category_id]) }}" class="btn btn-xs btn-danger">削除</a>
+                                        <a href="{{ cs_url('/admin/category/delete', [v.category_id]) }}" class="btn btn-danger">削除</a>
                                     {% endif %}
                                 {% endif %}
                             </td>

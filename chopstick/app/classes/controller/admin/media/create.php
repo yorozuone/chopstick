@@ -5,7 +5,7 @@ use \core\response;
 use \core\url;
 
 // dataset
-use \app\model\controller\admin\media\create as dset_media;
+use \app\model\dataset\media\create as dset_media;
 
 class create extends \app\controller_admin
 {
@@ -37,7 +37,7 @@ class create extends \app\controller_admin
     {
         $this->mediafolder_id = isset($params[0]) ? $params[0] : '';
         $this->dset_media->set_value('mediafolder_id', $this->mediafolder_id);
-        $ret = $this->dset_media->create();
+        $ret = $this->dset_media->update();
         echo $this->dset_media->get_value('guide_message');
         return $ret;
     }

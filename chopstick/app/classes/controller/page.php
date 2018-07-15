@@ -4,14 +4,15 @@ namespace app\controller;
 use \core\auth;
 use \core\config;
 use \core\debug;
+use \core\theme;
 use \core\globalvars;
 use \core\view;
 
 // dataset
-use \app\model\cms_page as dset_page;
+use \app\model\page as dset_page;
 use \app\model\helper\page as helper_page;
 
-class cms_page extends \app\controller
+class page extends \app\controller
 {
     private $dset_page;
     // ********************************************************************************
@@ -70,7 +71,7 @@ class cms_page extends \app\controller
         {
             case '404':
                 header("HTTP/1.0 404 Not Found");
-                echo $this->render('controller/cms_page/404.twig');
+                echo $this->render('controller/page/404.twig');
                 break;
             default:
                 $rs = $this->dset_page->get_composer_block();
@@ -105,9 +106,9 @@ class cms_page extends \app\controller
                     'composer_html'     => $composer_html,
                     'values'            => $this->dset_page->get_values(),
                 );
-                $vars['extends_template'] = 'theme/default/'.$vars['values']['template_key'].'.twig';
+                $vars['extends_template'] = 'theme/'.theme::get_current().'/'.$vars['values']['template_key'].'.twig';
 
-                echo $this->render('controller/cms_page/index.twig', $vars);
+                echo $this->render('controller/page/index.twig', $vars);
                 break;
         }
     }

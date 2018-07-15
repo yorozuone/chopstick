@@ -86,12 +86,12 @@
                                 {{ v.updated_at | date('Y/m/d H:i:s', "Asia/Tokyo") }}
                             </td>
                             <td nowrap style="text-align: right;">
-                                <a href="{{ cs_urlp(v.page_id) }}"><span class="btn btn-xs btn-info">公開画面</span></a>
-                                <a href="{{ cs_url('/admin/page/edit', [v.page_id]) }}" class="btn btn-xs btn-primary">編集</a>
+                                <a href="{{ cs_urlp(v.page_id) }}"><span class="btn btn-info">公開画面</span></a>
+                                <a href="{{ cs_url('/admin/page/edit', [v.page_id]) }}" class="btn btn-primary">編集</a>
                                 {% if v.reserved == 1 %}
-                                    <span class="btn btn-xs btn-danger disabled">削除</span>
+                                    <span class="btn btn-danger disabled">削除</span>
                                 {% else %}                                        
-                                    <a href="{{ cs_url('/admin/page/delete', [v.page_id]) }}" class="btn btn-xs btn-danger">削除</a>
+                                    <a href="{{ cs_url('/admin/page/delete', [v.page_id]) }}" class="btn btn-danger">削除</a>
                                 {% endif %}
                             </td>
                         </tr>

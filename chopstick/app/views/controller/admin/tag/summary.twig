@@ -43,8 +43,8 @@
                                 {{ v.updated_at | date('Y/m/d H:i:s', "Asia/Tokyo") }}
                             </td>
                             <td nowrap style="text-align: right;">
-                                <a href="{{ cs_url('/admin/tag/edit', [v.tag_id]) }}" class="btn btn-xs btn-primary">編集</a>
-                                <a href="{{ cs_url('/admin/tag/delete', [v.tag_id]) }}" class="btn btn-xs btn-danger">削除</a>
+                                <a href="{{ cs_url('/admin/tag/edit', [v.tag_id]) }}" class="btn btn-primary">編集</a>
+                                <a href="{{ cs_url('/admin/tag/delete', [v.tag_id]) }}" class="btn btn-danger">削除</a>
                             </td>
                         </tr>
                     {% endfor %}

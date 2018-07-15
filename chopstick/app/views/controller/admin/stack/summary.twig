@@ -77,8 +77,8 @@
                                 {{ v.updated_at | date('Y/m/d H:i', "Asia/Tokyo") }}
                             </td>
                             <td nowrap style="text-align: right;">
-                                <a href="{{ cs_url('/admin/stack/edit', [v.stack_key]) }}" class="btn btn-xs btn-primary">編集</a>
-                                <a href="{{ cs_url('/admin/stack/delete', [v.stack_key]) }}" class="btn btn-xs btn-danger">削除</a>
+                                <a href="{{ cs_url('/admin/stack/edit', [v.stack_key]) }}" class="btn btn-primary">編集</a>
+                                <a href="{{ cs_url('/admin/stack/delete', [v.stack_key]) }}" class="btn btn-danger">削除</a>
                             </td>
                         </tr>
                     {% endfor %}

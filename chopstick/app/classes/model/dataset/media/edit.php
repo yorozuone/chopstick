@@ -1,9 +1,9 @@
 <?php
-namespace app\model\controller\admin\media;
+namespace app\model\dataset\media;
 
 use \core\db;
 
-class edit extends \app\model\controller\admin\media\base
+class edit extends \app\model\dataset\media\base
 {
     // ################################################################################
     // 検証

@@ -73,8 +73,8 @@
                                 {{ v.updated_at | date('Y/m/d H:i:s', "Asia/Tokyo") }}
                             </td>
                             <td nowrap style="text-align: right;">
-                                <a href="{{ cs_url('/admin/composer_block/edit', [v.composer_key, v.composer_block_key]) }}" class="btn btn-xs btn-primary">編集</a>
-                                <a href="{{ cs_url('/admin/composer_block/delete', [v.composer_key, v.composer_block_key]) }}" class="btn btn-xs btn-danger">削除</a>
+                                <a href="{{ cs_url('/admin/composer_block/edit', [v.composer_key, v.composer_block_key]) }}" class="btn btn-primary">編集</a>
+                                <a href="{{ cs_url('/admin/composer_block/delete', [v.composer_key, v.composer_block_key]) }}" class="btn btn-danger">削除</a>
                             </td>
                         </tr>
                     {% endfor %}

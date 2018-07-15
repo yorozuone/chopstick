@@ -12,19 +12,19 @@
                 </tr>
                 <tr>
                     <td nowrap>
-                        <a href="{{ cs_url("admin/page/summary", [values.parent_page_id]) }}" class="btn btn-xs btn-info">一覧</a>
-                        <a href="{{ cs_url("admin/page/edit", [values.page_id]) }}" class="btn btn-xs btn-primary">編集</a>
-                        <a href="{{ cs_url("admin/page/delete", [values.page_id]) }}" class="btn btn-xs btn-danger">削除</a>
+                        <a href="{{ cs_url("admin/page/summary", [values.parent_page_id]) }}" class="btn btn-info">一覧</a>
+                        <a href="{{ cs_url("admin/page/edit", [values.page_id]) }}" class="btn btn-primary">編集</a>
+                        <a href="{{ cs_url("admin/page/delete", [values.page_id]) }}" class="btn btn-danger">削除</a>
                     </td>
                     <td>
-                        {% if values.publish_status == '-2' %}<span class="btn btn-xs btn-danger">下書</span>{% endif %}
-                        {% if values.publish_status == '-1' %}<span class="btn btn-xs btn-danger">レビュー待</span>{% endif %}
-                        {% if values.publish_status == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
+                        {% if values.publish_status == '-2' %}<span class="btn btn-danger">下書</span>{% endif %}
+                        {% if values.publish_status == '-1' %}<span class="btn btn-danger">レビュー待</span>{% endif %}
+                        {% if values.publish_status == '1' %}<span class="btn btn-success">公開</span>{% endif %}
                     </td>
                     <td nowrap>
-                        {% if values.publish_type == '0' %}<span class="btn btn-xs btn-danger">非公開</span>{% endif %}
-                        {% if values.publish_type == '1' %}<span class="btn btn-xs btn-success">公開</span>{% endif %}
-                        {% if values.publish_type == '2' %}<span class="btn btn-xs btn-danger">時間指定</span>{% endif %}
+                        {% if values.publish_type == '0' %}<span class="btn btn-danger">非公開</span>{% endif %}
+                        {% if values.publish_type == '1' %}<span class="btn btn-success">公開</span>{% endif %}
+                        {% if values.publish_type == '2' %}<span class="btn btn-danger">時間指定</span>{% endif %}
                     </td>
                     <td nowrap>
                             {% if values.publish_start == '' %}
@@ -41,8 +41,8 @@
                             {% endif %}
                     </td>
                     <td nowrap>
-                        <a href="{{ cs_url("admin/menu") }}" class="btn btn-xs btn-info">管理画面</a>
-                        <a href="{{ cs_url('/admin/auth/logout') }}" class="btn btn-xs btn-info">ログアウト</a>
+                        <a href="{{ cs_url("admin/menu") }}" class="btn btn-info">管理画面</a>
+                        <a href="{{ cs_url('/admin/auth/logout') }}" class="btn btn-info">ログアウト</a>
                     </td>
                 </tr>
             </table>
