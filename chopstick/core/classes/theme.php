@@ -7,6 +7,7 @@ class theme
 {
     public static function get_current()
     {
-        return 'default';
+        $conf = config::read('theme');
+        return isset($conf['theme']) ? $conf['theme'] : 'default';
     }
 }
