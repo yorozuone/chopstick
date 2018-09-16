@@ -25,7 +25,7 @@ class controller extends \app\twig_function
         );
         $vars = array
         (
-            'drec_news' => self::drec_news($config['limit']),
+            'rs_news' => self::rs_news($config['limit']),
         );
         $vars = array_merge_recursive($config, $vars);
         //
@@ -34,7 +34,7 @@ class controller extends \app\twig_function
     // --------------------------------------------------------------------------------
     //
     // --------------------------------------------------------------------------------
-    public static function drec_news($limit=10)
+    public static function rs_news($limit=10)
     {
         $con = new db();
         //

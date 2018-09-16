@@ -42,7 +42,7 @@
 
     <br>
 
-    {% if drec_composer_block|length == 0 %}
+    {% if rs_composer_block|length == 0 %}
         <div class="alert alert-success" role="alert">コンポーザー・ブロックが登録されていません。</div>
     {% else %}
         <p class="h4">コンポーザー・ブロック一覧</p>
@@ -58,7 +58,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for v in drec_composer_block %}
+                    {% for v in rs_composer_block %}
                         <tr block_key="{{ v.block_key }}">
                             <td nowrap>
                                 <div class="block_sortable_handle" style="cursor:move">[=]</div>

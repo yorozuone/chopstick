@@ -65,7 +65,7 @@ class create extends \app\controller_admin
         $vars = array
         (
             'is_valid'                  => $this->dset_stack->is_valid,
-            'drec_stackgroup'           => $this->dset_stack->fetch_stackgroup(),
+            'rs_stackgroup'           => $this->dset_stack->fetch_stackgroup(),
             'dset_stack_values'         => $this->dset_stack->get_values(),
             'dset_stack_error_messages' => $this->dset_stack->get_error_messages(),
         );

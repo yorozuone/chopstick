@@ -42,7 +42,7 @@
 
     <br>
 
-    {% if drec_composer|length == 0 %}
+    {% if rs_composer|length == 0 %}
         <div class="alert alert-success" role="alert">コンポーザーが登録されていません。</div>
     {% else %}
         <p class="h4">コンポーザー一覧</p>
@@ -59,7 +59,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for v in drec_composer %}
+                    {% for v in rs_composer %}
                         <tr composer_key="{{ v.composer_key }}">
                             <td nowrap>
                                 <div class="composer_sortable_handle" style="cursor:move">[=]</div>

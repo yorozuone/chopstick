@@ -4,11 +4,11 @@ namespace app\controller\admin\composer;
 use \core\response;
 use \core\url;
 
-use \app\model\controller\admin\composer\summary as drec_composer;
+use \app\model\controller\admin\composer\summary as rs_composer;
 
 class summary extends \app\controller_admin
 {
-    private $drec_composer;
+    private $rs_composer;
     // ********************************************************************************
     // **** アクション
     // ********************************************************************************
@@ -19,7 +19,7 @@ class summary extends \app\controller_admin
     {
         parent::before();
         //
-        $this->drec_composer = new drec_composer();
+        $this->rs_composer = new rs_composer();
     }
     // --------------------------------------------------------------------------------
     // 既定
@@ -33,7 +33,7 @@ class summary extends \app\controller_admin
     // --------------------------------------------------------------------------------
     public function action_sort($params)
     {
-        $this->drec_composer->sort($params);
+        $this->rs_composer->sort($params);
     }
     // ********************************************************************************
     // **** 表示
@@ -43,11 +43,11 @@ class summary extends \app\controller_admin
     // --------------------------------------------------------------------------------
     private function display()
     {
-        $drec_composer = new drec_composer();
+        $rs_composer = new rs_composer();
         //
         $vars = array
         (
-            'drec_composer' => $this->drec_composer->fetch_all(),
+            'rs_composer' => $this->rs_composer->fetch_all(),
         );
         echo $this->render('controller/admin/composer/summary.twig', $vars);
     }

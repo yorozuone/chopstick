@@ -3,14 +3,14 @@ namespace app;
 
 use \core\view;
 
-class block extends \core\fieldset
+class block
 {
-    protected $page_id = '';
-    protected $composer_block_key = '';
+    protected $page_id              = '';
+    protected $composer_block_key   = '';
     //
-    public static $title = '';
-    public static $description = '';
-    public static $version = '';
+    public static $block_name           = '';
+    public static $block_description    = '';
+    public static $block_version        = '';
     // --------------------------------------------------------------------------------
     // コンストラクタ
     // --------------------------------------------------------------------------------
@@ -34,5 +34,12 @@ class block extends \core\fieldset
     public function set_page_id($page_id)
     {
         $this->page_id = $page_id;
+    }
+    // --------------------------------------------------------------------------------
+    // field 名の取得
+    // --------------------------------------------------------------------------------
+    public function get_field_name($name)
+    {
+        return $this->composer_block_key.'_'.$name;
     }
 }

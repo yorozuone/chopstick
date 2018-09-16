@@ -38,22 +38,30 @@ EOT;
             $rs_1[$k]['installed'] = true;
         }
         //
-        $rs_2 = file::get_list('classes/block');
+        $rs_2 = scandir(file::path_join(CS_BASE_DIR, 'app/classes/block'));
         foreach($rs_2 as $v)
         {
-            if (array_search($v['filename'], array_column($rs_1, 'block_key')) === false)
+            switch($v)
             {
-                $block_class = $v['section'].'\\block\\'.$v['filename'];
-                if (class_exists($block_class))
-                {
-                    $obj = array();
-                    $obj['block_key']   = $v['filename'];
-                    $obj['name']        = $block_class::$block_name;
-                    $obj['description'] = $block_class::$block_description;
-                    $obj['version']     = $block_class::$block_version;
-                    $obj['installed']   = false;
-                    $rs_1[] = $obj;
-                }
+                case '.':
+                case '..':
+                    break;
+                default:
+                    if (array_search($v, array_column($rs_1, 'block_key')) === false)
+                    {
+                        $block_class = '\\app\\block\\'.$v.'\\controller';
+                        if (class_exists($block_class))
+                        {
+                            $obj = array();
+                            $obj['block_key']   = $v;
+                            $obj['name']        = $block_class::$block_name;
+                            $obj['description'] = $block_class::$block_description;
+                            $obj['version']     = $block_class::$block_version;
+                            $obj['installed']   = false;
+                            $rs_1[] = $obj;
+                        }
+                    }
+                    break;
             }
         }
         return $rs_1;

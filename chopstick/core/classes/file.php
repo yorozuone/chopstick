@@ -11,29 +11,15 @@ class file
     public static function path_join(string ...$paths)
     {
         $path = '';
-        //
         if (count($paths) == 0)
         {
             return $path;
         }
-        //
         $path = $paths[0];
-        //
         for($i=1; $i<count($paths); $i++)
         {
-            $path_1 = $path;
-            $path_2 = $paths[$i];
-            //
-            if (substr($path_1, -1) == DIRECTORY_SEPARATOR)
-            {
-                $path_1 = substr($path_1, 0, -1);
-            }
-            //
-            if (substr($path_2, 0, 1) == DIRECTORY_SEPARATOR)
-            {
-                $path_2 = substr($path_2, 1);
-            }
-            //
+            $path_1 = rtrim($path, DIRECTORY_SEPARATOR);
+            $path_2 = ltrim($paths[$i], DIRECTORY_SEPARATOR);
             $path = $path_1.DIRECTORY_SEPARATOR.$path_2;
         }
         return $path;

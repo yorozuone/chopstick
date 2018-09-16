@@ -19,7 +19,7 @@
 
     <br>
 
-    {% if drec_folder|length == 0 %}
+    {% if rs_folder|length == 0 %}
         <div class="alert alert-success" role="alert">フォルダが登録されていません。</div>
     {% else %}
         <p class="h4">フォルダ一覧</p>
@@ -33,7 +33,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for v in drec_folder %}
+                    {% for v in rs_folder %}
                         <tr folder_id="{{ v.mediafolder_id }}">
                             <td nowrap>
                                 <a href="{{ cs_url('/admin/media/summary', [v.mediafolder_id]) }}" class="btn btn-info">ファイル一覧</a>

@@ -24,7 +24,7 @@ class controller extends \app\twig_function
         );
         $vars = array
         (
-            'drec_breadcrumb' => self::drec_breadcrumb(\app\model\helper\page::get_current_page_id()),
+            'rs_breadcrumb' => self::rs_breadcrumb(\app\model\helper\page::get_current_page_id()),
         );
         $vars = array_merge_recursive($config, $vars);
         //
@@ -33,7 +33,7 @@ class controller extends \app\twig_function
     // --------------------------------------------------------------------------------
     //
     // --------------------------------------------------------------------------------
-    private static function drec_breadcrumb($page_id)
+    private static function rs_breadcrumb($page_id)
     {
         $con = new db();
         //
@@ -49,20 +49,20 @@ WHERE
     publish_type != 0;
 EOT;
         $rs_src = $con->query($sql);
-        self::recursion_drec_breadcrumb($rs_src, $page_id, $rs2);
+        self::recursion_rs_breadcrumb($rs_src, $page_id, $rs2);
         return is_array($rs2) ? array_reverse($rs2) : array();
     }
     // ----------
     //
     // ----------
-    private static function recursion_drec_breadcrumb($rs_src, $page_id, &$rs_dst)
+    private static function recursion_rs_breadcrumb($rs_src, $page_id, &$rs_dst)
     {
         foreach($rs_src as $v)
         {
             if ($v['page_id'] == $page_id)
             {
                 $rs_dst[] = $v;
-                self::recursion_drec_breadcrumb($rs_src, $v['parent_page_id'], $rs_dst);
+                self::recursion_rs_breadcrumb($rs_src, $v['parent_page_id'], $rs_dst);
             }
         }
     }

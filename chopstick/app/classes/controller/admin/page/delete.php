@@ -8,11 +8,11 @@ use \core\url;
 use \core\validation;
 
 // dataset
-use \app\model\controller\admin\page\delete as dset_page;
+use \app\model\controller\admin\page\delete as dataset_page;
 
 class delete extends \app\controller_admin
 {
-    private $dset_page;
+    private $dataset_page;
     //
     private $composer_blocks;
     // ********************************************************************************
@@ -24,8 +24,7 @@ class delete extends \app\controller_admin
     public function before()
     {
         parent::before();
-        //
-        $this->dset_page = new dset_page();
+        $this->dataset_page = new dataset_page();
     }
     // ********************************************************************************
     // **** アクション
@@ -35,14 +34,14 @@ class delete extends \app\controller_admin
     // --------------------------------------------------------------------------------
     public function action_index($params)
     {
-        $this->dset_page->set_value('page_id', isset($params[0]) ? $params[0] : 0);
-        $this->dset_page->read();
-        if ($this->dset_page->read() == false)
+        $this->dataset_page->set_value('page_id', isset($params[0]) ? $params[0] : 0);
+        $this->dataset_page->read();
+        if ($this->dataset_page->read() == false)
         {
             response::redirect(url::create('/admin/page/summary'));
         }
         //
-        $this->composer_blocks = $this->dset_page->fetch_composer_block();
+        $this->composer_blocks = $this->dataset_page->fetch_composer_block();
         foreach($this->composer_blocks  as $v)
         {
             $v->read();
@@ -60,20 +59,20 @@ class delete extends \app\controller_admin
             response::redirect(url::create('/admin/auth/login'));
         }
         //
-        $this->dset_page->post();
-        $this->composer_blocks = $this->dset_page->fetch_composer_block();
+        $this->dataset_page->post();
+        $this->composer_blocks = $this->dataset_page->fetch_composer_block();
         foreach($this->composer_blocks as $v)
         {
             $v->block_post();
         }
         //
-        $this->dset_page->delete();
+        $this->dataset_page->delete();
         foreach($this->composer_blocks as $v)
         {
-            $v->set_value('page_id', $this->dset_page->get_value('page_id'));
+            $v->set_value('page_id', $this->dataset_page->get_value('page_id'));
             $v->delete();
         }
-        response::redirect(url::create('/admin/page/summary', array($this->dset_page->get_value('parent_page_id'))));
+        response::redirect(url::create('/admin/page/summary', array($this->dataset_page->get_value('parent_page_id'))));
     }
     // ********************************************************************************
     // **** 表示
@@ -85,8 +84,8 @@ class delete extends \app\controller_admin
     {
         $vars = array
         (
-            'dset_page_values'          => $this->dset_page->get_values(),
-            'dset_page_error_messages'  => $this->dset_page->get_error_messages(),
+            'values'            => $this->dataset_page->get_values(),
+            'error_messages'    => $this->dataset_page->get_error_messages(),
         );
         if (isset($this->composer_blocks))
         {

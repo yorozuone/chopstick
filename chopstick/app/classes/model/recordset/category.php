@@ -1,12 +1,12 @@
 <?php
-namespace app\model\datasource;
+namespace app\model\recordset;
 
 use \core\db;
 
-class page
+class category
 {
     // --------------------------------------------------------------------------------
-    // 表示用ページ一覧取得
+    // 表示用 category_tree を取得
     // --------------------------------------------------------------------------------
     public static function fetch_tree()
     {
@@ -14,33 +14,35 @@ class page
         //
         $sql = <<< EOT
 SELECT
-    page_id,
-    parent_page_id,
-    page_title
+    category_id,
+    parent_category_id,
+    caption,
+    order_at
 FROM
-        cs_page
+    cs_category
 ORDER BY
-    order_at,
-    page_id
+    order_at
 EOT;
         $rs_src = $con->query($sql);
+        //
         $rs_dst = array();
         self::recursion_fetch_tree($rs_src, 0, $rs_dst, 1);
+        //
         return $rs_dst;
     }
     // ----------
-    // 表示用ページ一覧取得（再帰）
+    // 表示用 category_tree を取得（再帰）
     // ----------
-    private static function recursion_fetch_tree($rs_src, $parent_page_id, &$rs_dst, $hierarchy=1)
+    private static function recursion_fetch_tree($rs_src, $parent_category_id, &$rs_dst, $hierarchy=1)
     {
         foreach($rs_src as $src)
         {
-            if ($src['parent_page_id'] == $parent_page_id)
+            if ($src['parent_category_id'] == $parent_category_id)
             {
                 $obj = $src;
-                $obj['tree_title'] = '└'.str_repeat('─', $hierarchy-1).' '.$src['page_title'];
+                $obj['tree_caption'] = '└'.str_repeat('─', $hierarchy-1).' '.$src['caption'];
                 $rs_dst[] = $obj;
-                self::recursion_fetch_tree($rs_src, $src['page_id'], $rs_dst, $hierarchy+1);
+                self::recursion_fetch_tree($rs_src, $src['category_id'], $rs_dst, $hierarchy+1);
             }
         }
     }

@@ -70,11 +70,11 @@ class edit extends \app\controller_admin
         $vars = array
         (
             'is_valid'                  => $this->dset_user->is_valid,
-            'drec_group'                => $this->dset_user->fetch_group_all(),
+            'rs_group'                => $this->dset_user->fetch_group_all(),
             'dset_user_values'          => $this->dset_user->get_values(),
             'dset_user_error_messages'  => $this->dset_user->get_error_messages(),
         );
-        array_unshift($vars['drec_group'], array('group_key'=>'', 'caption'=>'(所属グループを選択してください)'));
+        array_unshift($vars['rs_group'], array('group_key'=>'', 'caption'=>'(所属グループを選択してください)'));
         echo $this->render('controller/admin/user/edit/edit.twig', $vars);
     }
 }

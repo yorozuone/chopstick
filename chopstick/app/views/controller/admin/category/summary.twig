@@ -45,13 +45,13 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ cs_url('admin/category/summary') }}">(root)</a></li>
-            {% for v in drec_breadcrumb %}
+            {% for v in rs_breadcrumb %}
                 <li class="breadcrumb-item"><a href="{{ cs_url('admin/category/summary', [v.category_id]) }}">{{ v.caption }}</a></li>
             {% endfor %}
         </ol>
     </nav>
 
-    {% if drec_category|length == 0 %}
+    {% if rs_category|length == 0 %}
         <div class="alert alert-success" role="alert">カテゴリが登録されていません。</div>
     {% else %}
         <p class="h4">カテゴリ一覧</p>
@@ -66,7 +66,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for v in drec_category %}
+                    {% for v in rs_category %}
                         <tr category_id="{{ v.category_id }}">
                             <td>
                                 <div class="category_sortable_handle" style="cursor:move">[=]</span>

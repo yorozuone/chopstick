@@ -1,9 +1,9 @@
 <?php
-namespace app\model\datasource;
+namespace app\model\recordset;
 
 use \core\db;
 
-class roll
+class group
 {
     // --------------------------------------------------------------------------------
     // 
@@ -14,14 +14,14 @@ class roll
         //
         $sql = <<< EOT
 SELECT
-    roll_key,
+    group_key,
     caption,
     description,
     reserved,
     created_at,
     updated_at
 FROM
-    cs_roll
+    cs_group
 ORDER BY
     order_at
 EOT;

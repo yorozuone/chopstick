@@ -61,7 +61,7 @@ EOT;
     // --------------------------------------------------------------------------------
     public function get_class_path()
     {
-        return '\\app\\block\\'.$this->get_value('block_key');
+        return '\\app\\block\\'.$this->get_value('block_key').'\\controller';
     }
     // --------------------------------------------------------------------------------
     // データ操作（読込）

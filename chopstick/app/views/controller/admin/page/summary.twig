@@ -37,7 +37,7 @@
     </nav>
 
     <div>
-        <a href="{{ cs_url('/admin/page/create', [drec_page_values.parent_page_id]) }}" class="btn btn-success">ページ登録</a>
+        <a href="{{ cs_url('/admin/page/create', [rs_page_values.parent_page_id]) }}" class="btn btn-success">ページ登録</a>
     </div>
 
     <br>
@@ -51,7 +51,7 @@
         </ol>
     </nav>
 
-    {% if drec_page|length == 0 %}
+    {% if rs_page|length == 0 %}
         <div class="alert alert-success" role="alert">ページが登録されていません。</div>
     {% else %}
         <p class="h4">ページ一覧</p>
@@ -68,7 +68,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for v in drec_page %}
+                    {% for v in rs_page %}
                         <tr page_id="{{ v.page_id }}">
                             <td nowrap>
                                 <div class="page_sortable_handle" style="cursor:move">[=]</div>

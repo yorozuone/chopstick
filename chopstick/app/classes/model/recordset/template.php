@@ -1,5 +1,5 @@
 <?php
-namespace app\model\datasource;
+namespace app\model\recordset;
 
 use \core\file;
 
@@ -12,7 +12,7 @@ class template
     {
         $rs_1 = array();
         //
-        $rs_2 = file::get_list('views/theme/default');
+        $rs_2 = file::get_list('views/controller/page/template');
         foreach($rs_2 as $v)
         {
             $obj = array();

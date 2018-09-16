@@ -8,21 +8,13 @@ class url
     // --------------------------------------------------------------------------------
     public static function create($url, $params = array())
     {
-        // 文字列先頭が、'/' の場合、削除します。
-        if (substr($url, 0, 1) == '/')
-        {
-            $url = substr($url, 1);
-        }
-        // $param が指定されている場合、URL に追加します。
+        $url = ltrim($url, '/');
+        $url = rtrim($url, '/');
         if (count($params) > 0)
         {
-            if (substr($url,-1) != '/')
-            {
-                $url .= '/';
-            }
-            $url .= implode('/', $params);
+            $url .= '/'.implode('/', $params);
         }
-        // URL をデコードして終了
+        //
         return url::base() . $url;
     }
     // --------------------------------------------------------------------------------

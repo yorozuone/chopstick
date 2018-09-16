@@ -1,12 +1,12 @@
 <?php
-namespace app\model\datasource;
+namespace app\model\recordset;
 
 use \core\db;
 
-class block
+class composer
 {
     // --------------------------------------------------------------------------------
-    // 表示用 block を取得
+    // 表示用コンポーザー一覧
     // --------------------------------------------------------------------------------
     public static function fetch_all()
     {
@@ -14,13 +14,10 @@ class block
         //
         $sql = <<< EOT
 SELECT
-    block_key,
-    name,
-    description,
-    created_at,
-    updated_at
+    composer_key,
+    caption
 FROM
-    cs_block
+    cs_composer
 ORDER BY
     order_at
 EOT;

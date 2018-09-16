@@ -6,11 +6,11 @@ use \core\csrf;
 use \core\response;
 use \core\url;
 
-use \app\model\controller\admin\composer_block\edit as dset_composer_block;
+use \app\model\controller\admin\composer_block\edit as dataset_composer_block;
 
 class edit extends \app\controller_admin
 {
-    private $dset_composer_block = null;
+    private $dataset_composer_block = null;
     // ********************************************************************************
     // **** アクション
     // ********************************************************************************
@@ -20,16 +20,16 @@ class edit extends \app\controller_admin
     public function before()
     {
         parent::before();
-        $this->dset_composer_block = new dset_composer_block();
+        $this->dataset_composer_block = new dataset_composer_block();
     }
     // --------------------------------------------------------------------------------
     // 既定
     // --------------------------------------------------------------------------------
     public function action_index($params)
     {
-        $this->dset_composer_block->set_value('composer_key',       isset($params[0]) ? $params[0] : '');
-        $this->dset_composer_block->set_value('composer_block_key', isset($params[1]) ? $params[1] : '');
-        if ($this->dset_composer_block->read() == false)
+        $this->dataset_composer_block->set_value('composer_key',       isset($params[0]) ? $params[0] : '');
+        $this->dataset_composer_block->set_value('composer_block_key', isset($params[1]) ? $params[1] : '');
+        if ($this->dataset_composer_block->read() == false)
         {
             response::redirect(url::create('/admin/composer_block/summary'));
         }
@@ -45,11 +45,11 @@ class edit extends \app\controller_admin
             auth::logout();
             response::redirect(url::create('/admin/auth/login'));
         }
-        $this->dset_composer_block->post();
-        if ($this->dset_composer_block->check())
+        $this->dataset_composer_block->post();
+        if ($this->dataset_composer_block->check())
         {
-            $this->dset_composer_block->update();
-            response::redirect(url::create('/admin/composer_block/summary', array($this->dset_composer_block->get_value('composer_key'))));
+            $this->dataset_composer_block->update();
+            response::redirect(url::create('/admin/composer_block/summary', array($this->dataset_composer_block->get_value('composer_key'))));
         }
         else
         {
@@ -66,9 +66,9 @@ class edit extends \app\controller_admin
     {
         $vars = array
         (
-            'is_valid'                              => $this->dset_composer_block->is_valid,
-            'dset_composer_block_values'            => $this->dset_composer_block->get_values(),
-            'dset_composer_block_error_messages'    => $this->dset_composer_block->get_error_messages(),
+            'is_valid'          => $this->dataset_composer_block->is_valid,
+            'values'            => $this->dataset_composer_block->get_values(),
+            'error_messages'    => $this->dataset_composer_block->get_error_messages(),
         );
         echo $this->render('controller/admin/composer_block/edit/edit.twig', $vars);
     }

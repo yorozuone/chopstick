@@ -4,7 +4,7 @@ namespace app\controller\admin\tag;
 use \core\response;
 use \core\url;
 
-use \app\model\controller\admin\tag\summary as drec_tag;
+use \app\model\controller\admin\tag\summary as rs_tag;
 
 class summary extends \app\controller_admin
 {
@@ -33,11 +33,11 @@ class summary extends \app\controller_admin
     // --------------------------------------------------------------------------------
     private function display()
     {
-        $drec_tag = new drec_tag();
+        $rs_tag = new rs_tag();
         //
         $vars = array
         (
-            'drec_tag' => $drec_tag->fetch_all(),
+            'rs_tag' => $rs_tag->fetch_all(),
         );
         echo $this->render('controller/admin/tag/summary.twig', $vars);
     }

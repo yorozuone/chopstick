@@ -27,7 +27,6 @@ class create extends \app\model\controller\admin\block\base
         {
             return false;
         }
-        //
         $con = new db();
         //
         $sql_1 = <<< EOT

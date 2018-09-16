@@ -4,7 +4,6 @@ namespace app\controller;
 use \core\auth;
 use \core\config;
 use \core\debug;
-use \core\theme;
 use \core\globalvars;
 use \core\view;
 
@@ -78,7 +77,7 @@ class page extends \app\controller
                 $composer_block_vars = array();
                 foreach($rs as $v)
                 {
-                    $block_name = '\\app\\block\\'.$v['block_key'];
+                    $block_name = '\\app\\block\\'.$v['block_key'].'\\controller';
                     $composer_block = new $block_name($this->dset_page->get_value('page_id'), $v['composer_block_key']);
                     $composer_block_vars[$v['composer_block_key']] = $composer_block->get_view_html();
                 }
@@ -106,8 +105,7 @@ class page extends \app\controller
                     'composer_html'     => $composer_html,
                     'values'            => $this->dset_page->get_values(),
                 );
-                $vars['extends_template'] = 'theme/'.theme::get_current().'/'.$vars['values']['template_key'].'.twig';
-
+                $vars['extends_template'] = 'controller/page/template/'.$vars['values']['template_key'].'.twig';
                 echo $this->render('controller/page/index.twig', $vars);
                 break;
         }

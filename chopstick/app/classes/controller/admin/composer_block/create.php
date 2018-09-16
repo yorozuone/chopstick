@@ -6,11 +6,12 @@ use \core\csrf;
 use \core\response;
 use \core\url;
 
-use \app\model\controller\admin\composer_block\create as dset_composer_block;
+use \app\model\recordset\block as recordset_block;
+use \app\model\controller\admin\composer_block\create as dataset_composer_block;
 
 class create extends \app\controller_admin
 {
-    private $dset_composer_block = null;
+    private $dataset_composer_block = null;
     // ********************************************************************************
     // **** アクション
     // ********************************************************************************
@@ -20,14 +21,14 @@ class create extends \app\controller_admin
     public function before()
     {
         parent::before();
-        $this->dset_composer_block = new dset_composer_block();
+        $this->dataset_composer_block = new dataset_composer_block();
     }
     // --------------------------------------------------------------------------------
     // 既定
     // --------------------------------------------------------------------------------
     public function action_index($params)
     {
-        $this->dset_composer_block->set_value('composer_key', isset($params[0]) ? $params[0] : '');
+        $this->dataset_composer_block->set_value('composer_key', isset($params[0]) ? $params[0] : '');
         $this->display();
     }
     // --------------------------------------------------------------------------------
@@ -40,11 +41,11 @@ class create extends \app\controller_admin
             auth::logout();
             response::redirect(url::create('/admin/auth/login'));
         }
-        $this->dset_composer_block->post();
-        if ($this->dset_composer_block->check())
+        $this->dataset_composer_block->post();
+        if ($this->dataset_composer_block->check())
         {
-            $this->dset_composer_block->create();
-            response::redirect(url::create('/admin/composer_block/summary', array($this->dset_composer_block->get_value('composer_key'))));
+            $this->dataset_composer_block->create();
+            response::redirect(url::create('/admin/composer_block/summary', array($this->dataset_composer_block->get_value('composer_key'))));
         }
         else
         {
@@ -61,14 +62,14 @@ class create extends \app\controller_admin
     {
         $vars = array
         (
-            'drec_block'                            => \app\model\datasource\block::fetch_all(),
-            'is_valid'                              => $this->dset_composer_block->is_valid,
-            'dset_composer_block_values'            => $this->dset_composer_block->get_values(),
-            'dset_composer_block_error_messages'    => $this->dset_composer_block->get_error_messages(),
+            'rs_block'        => recordset_block::fetch_all(),
+            'is_valid'          => $this->dataset_composer_block->is_valid,
+            'values'            => $this->dataset_composer_block->get_values(),
+            'error_messages'    => $this->dataset_composer_block->get_error_messages(),
         );
         array_unshift
         (
-            $vars['drec_block'],
+            $vars['rs_block'],
             array
             (
                 'block_key'=>'',

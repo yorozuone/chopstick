@@ -1,5 +1,5 @@
 <?php
-namespace app\model\datasource;
+namespace app\model\recordset;
 
 use \core\db;
 

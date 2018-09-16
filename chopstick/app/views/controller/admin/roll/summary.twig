@@ -42,7 +42,7 @@
 
     <br>
 
-    {% if drec_roll|length == 0 %}
+    {% if rs_roll|length == 0 %}
         <div class="alert alert-success" role="alert">ロールが登録されていません。</div>
     {% else %}
         <p class="h4">ロール一覧</p>
@@ -58,7 +58,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for v in drec_roll %}
+                    {% for v in rs_roll %}
                         <tr roll_key="{{ v.roll_key }}">
                             <td nowrap>
                                 <div class="roll_sortable_handle" style="cursor:move">[=]</div>

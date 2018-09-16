@@ -7,11 +7,11 @@ use \core\response;
 use \core\url;
 
 // dataset
-use \app\model\controller\admin\page\create as dset_page;
+use \app\model\controller\admin\page\create as dataset_page;
 
 class create extends \app\controller_admin
 {
-    private $dset_page;
+    private $dataset_page;
     private $blocks = array();
     // ********************************************************************************
     // **** 既定の処理
@@ -22,8 +22,7 @@ class create extends \app\controller_admin
     public function before()
     {
         parent::before();
-        //
-        $this->dset_page = new dset_page();
+        $this->dataset_page = new dataset_page();
     }
     // ********************************************************************************
     // **** アクション
@@ -33,8 +32,7 @@ class create extends \app\controller_admin
     // --------------------------------------------------------------------------------
     public function action_index($params)
     {
-        $this->dset_page->set_value('parent_page_id', isset($params[0]) ? $params[0] : 0);
-        //
+        $this->dataset_page->set_value('parent_page_id', isset($params[0]) ? $params[0] : 0);
         $this->display('composer');
     }
     // --------------------------------------------------------------------------------
@@ -42,12 +40,10 @@ class create extends \app\controller_admin
     // --------------------------------------------------------------------------------
     public function action_entry($params)
     {
-        $this->dset_page->set_value('parent_page_id', isset($params[0]) ? $params[0] : 0);
-        $this->dset_page->set_value('composer_key',   isset($params[1]) ? $params[1] : 'default');
-        //
+        $this->dataset_page->set_value('parent_page_id', isset($params[0]) ? $params[0] : 0);
+        $this->dataset_page->set_value('composer_key',   isset($params[1]) ? $params[1] : 'default');
         // コンポーザー・ブロック情報取得
-        //
-        $this->composer_blocks = $this->dset_page->fetch_composer_block();
+        $this->composer_blocks = $this->dataset_page->fetch_composer_block();
         //
         $this->display('edit');
     }
@@ -61,33 +57,30 @@ class create extends \app\controller_admin
             auth::logout();
             response::redirect(url::create('/admin/auth/login'));
         }
-        //
-        $this->dset_page->post();
-        $this->composer_blocks = $this->dset_page->fetch_composer_block();
+        $this->dataset_page->post();
+        $this->composer_blocks = $this->dataset_page->fetch_composer_block();
         foreach($this->composer_blocks as $v)
         {
             $v->block_post();
         }
-        //
-        $is_valid = $this->dset_page->check();
+        $is_valid = $this->dataset_page->check();
         foreach($this->composer_blocks as $v)
         {
-            if ($v->check() == false)
+            if ($v->block_check() == false)
             {
                 $is_valid = false;
             }
         }
-        //
         if ($is_valid)
         {
-            $this->dset_page->create();
+            $this->dataset_page->create();
             //
             foreach($this->composer_blocks as $v)
             {
-                $v->set_page_id($this->dset_page->get_value('page_id'));
+                $v->set_page_id($this->dataset_page->get_value('page_id'));
                 $v->create();
             }
-            response::redirect(url::create('/admin/page/summary', array($this->dset_page->get_value('parent_page_id'))));
+            response::redirect(url::create('/admin/page/summary', array($this->dataset_page->get_value('parent_page_id'))));
         }
         else 
         {
@@ -104,15 +97,14 @@ class create extends \app\controller_admin
     {
         $vars = array
         (
-            'is_valid'                  => $this->dset_page->is_valid,
+            'is_valid'          => $this->dataset_page->is_valid,
+            'values'            => $this->dataset_page->get_values(),
+            'error_messages'    => $this->dataset_page->get_error_messages(),
             //
-            'dset_page_values'          => $this->dset_page->get_values(),
-            'dset_page_error_messages'  => $this->dset_page->get_error_messages(),
-            //
-            'drec_composer'             => \app\model\datasource\composer::fetch_all(),
-            'drec_page_tree'            => \app\model\datasource\page::fetch_tree(),
-            'drec_category_tree'        => \app\model\datasource\category::fetch_tree(),
-            'drec_template'             => \app\model\datasource\template::fetch_all(),
+            'rs_composer'       => \app\model\recordset\composer::fetch_all(),
+            'rs_page_tree'      => \app\model\recordset\page::fetch_tree(),
+            'rs_category_tree'  => \app\model\recordset\category::fetch_tree(),
+            'rs_template'       => \app\model\recordset\template::fetch_all(),
         );
         if (isset($this->composer_blocks))
         {
@@ -120,7 +112,7 @@ class create extends \app\controller_admin
         }
         array_unshift
         (
-            $vars['drec_page_tree'],
+            $vars['rs_page_tree'],
             array
             (
                 'page_id'=>0,

@@ -1,22 +1,26 @@
 <?php
-namespace app\block;
+namespace app\block\cs_twigtext;
 
 use \core\db;
 use \core\input;
 use \core\view;
 
-class cs_twigtext extends \app\block
+class controller extends \app\block
 {
     public static $block_name           = 'Chostick Twig Block';
     public static $block_description    = 'Twig を入力します。';
     public static $block_version        = '1.0.0';
+    //
+    private $dataset;
     // --------------------------------------------------------------------------------
     //
     // --------------------------------------------------------------------------------
     public function before()
     {
-        $this->append('twigtext', 'twigtext', '');
-        $this->set_description('twigtext', 'Twig を入力してください。');
+        $this->dataset = new \core\fieldset();
+        //
+        $this->dataset->append('twigtext', 'twigtext', '');
+        $this->dataset->set_description('twigtext', 'Twig を入力してください。');
     }
     // --------------------------------------------------------------------------------
     //
@@ -79,7 +83,7 @@ EOT;
         {
             return false;
         }
-        $this->set_values($rs[0]);
+        $this->dataset->set_values($rs[0]);
         //
         return true;
     }
@@ -112,7 +116,7 @@ EOT;
         (
             ':page_id' => $this->page_id,
             ':composer_block_key' => $this->composer_block_key,
-            ':twigtext' => $this->get_value('twigtext'),
+            ':twigtext' => $this->dataset->get_value('twigtext'),
         );
         $rs = $con->query($sql, $sql_params);
         //
@@ -151,21 +155,12 @@ EOT;
             ':page_id' => $this->page_id,
             ':composer_block_key' => $this->composer_block_key,
             //
-            ':twigtext_1' => $this->get_value('twigtext'),
-            ':twigtext_2' => $this->get_value('twigtext'),
+            ':twigtext_1' => $this->dataset->get_value('twigtext'),
+            ':twigtext_2' => $this->dataset->get_value('twigtext'),
         );
         $rs = $con->query($sql, $sql_params);
         //
         return true;
-    }
-    // --------------------------------------------------------------------------------
-    // 更新
-    // --------------------------------------------------------------------------------
-    public function check()
-    {
-        $this->validate('required', 'twigtext');
-        //
-        return $this->is_valid;
     }
     // --------------------------------------------------------------------------------
     // 削除
@@ -196,8 +191,16 @@ EOT;
     // --------------------------------------------------------------------------------
     public function block_post()
     {
-        $input = input::post($this->composer_block_key.'_twigtext');
-        $this->set_value('twigtext', $input[$this->composer_block_key.'_twigtext']);
+        $input = input::post($this->get_field_name('twigtext'));
+        $this->dataset->set_value('twigtext', $input[$this->get_field_name('twigtext')]);
+    }
+    // --------------------------------------------------------------------------------
+    // 更新
+    // --------------------------------------------------------------------------------
+    public function block_check()
+    {
+        $this->dataset->validate('required', 'twigtext');
+        return $this->dataset->is_valid;
     }
     // --------------------------------------------------------------------------------
     //
@@ -219,7 +222,7 @@ EOT;
         $vars = array
         (
             'composer_block_key' => $this->composer_block_key,
-            'values' => $this->to_array(),
+            'values' => $this->dataset->to_array(),
         );
         return $view->render($html, $vars, 2);
     }
@@ -237,7 +240,7 @@ EOT;
         $view = new view();
         $vars = array
         (
-            'values' => $this->to_array(),
+            'values' => $this->dataset->to_array(),
         );
         return $view->render($html, $vars, 2);
     }
@@ -249,6 +252,6 @@ EOT;
         $this->read();
         //        
         $view = new view();
-        return $view->render($this->get_value('twigtext'), array(), 2);
+        return $view->render($this->dataset->get_value('twigtext'), array(), 2);
     }
 }

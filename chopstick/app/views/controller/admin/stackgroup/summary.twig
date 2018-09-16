@@ -42,7 +42,7 @@
 
     <br>
 
-    {% if drec_stackgroup|length == 0 %}
+    {% if rs_stackgroup|length == 0 %}
         <div class="alert alert-success" role="alert">スタック・グループが登録されていません。</div>
     {% else %}
         <p class="h4">スタック・グループ一覧</p>
@@ -57,7 +57,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for v in drec_stackgroup %}
+                    {% for v in rs_stackgroup %}
                         <tr stackgroup_id="{{ v.stackgroup_id }}">
                             <td nowrap>
                                 <div class="stackgroup_sortable_handle" style="cursor:move">[=]</div>

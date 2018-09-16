@@ -42,7 +42,7 @@
 
     <br>
 
-    {% if drec_stack|length == 0 %}
+    {% if rs_stack|length == 0 %}
         <div class="alert alert-success" role="alert">スタックが登録されていません。</div>
     {% else %}
         <p class="h4">スタック一覧</p>
@@ -59,7 +59,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for v in drec_stack %}
+                    {% for v in rs_stack %}
                         <tr stack_key="{{ v.stack_key }}">
                             <td nowrap>
                                 <div class="stack_sortable_handle" style="cursor:move">[=]</div>

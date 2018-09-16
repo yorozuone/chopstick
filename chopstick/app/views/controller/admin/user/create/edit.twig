@@ -62,7 +62,7 @@
                 <div class="form-group">
                     <label for="group_key">所属グループ</label>
                     <select class="form-control" id="group_key" name="group_key">
-                        {% for obj in drec_group %}
+                        {% for obj in rs_group %}
                             <option value="{{ obj.group_key }}"{% if obj.group_key == dset_user_values.group_key %} selected{% endif %}>{{ obj.caption }}</option>
                         {% endfor %}
                     </select>

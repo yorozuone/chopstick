@@ -5,7 +5,7 @@ use \core\db;
 use \core\response;
 use \core\url;
 
-use \app\model\controller\admin\stackgroup\summary as drec_stackgroup;
+use \app\model\controller\admin\stackgroup\summary as rs_stackgroup;
 
 class summary extends \app\controller_admin
 {
@@ -31,8 +31,8 @@ class summary extends \app\controller_admin
     // --------------------------------------------------------------------------------
     public function action_sort($params)
     {
-        $drec_stackgroup = new drec_stackgroup();
-        $drec_stackgroup->sort($params);
+        $rs_stackgroup = new rs_stackgroup();
+        $rs_stackgroup->sort($params);
     }
     // ********************************************************************************
     // **** 表示
@@ -42,11 +42,11 @@ class summary extends \app\controller_admin
     // --------------------------------------------------------------------------------
     private function display()
     {
-        $drec_stackgroup = new drec_stackgroup();
+        $rs_stackgroup = new rs_stackgroup();
         //
         $vars = array
         (
-            'drec_stackgroup' => $drec_stackgroup->fetch_all(),
+            'rs_stackgroup' => $rs_stackgroup->fetch_all(),
         );
         echo $this->render('controller/admin/stackgroup/summary.twig', $vars);
     }

@@ -1,12 +1,12 @@
 <?php
-namespace app\model\datasource;
+namespace app\model\recordset;
 
 use \core\db;
 
-class group
+class block
 {
     // --------------------------------------------------------------------------------
-    // 
+    // 表示用 block を取得
     // --------------------------------------------------------------------------------
     public static function fetch_all()
     {
@@ -14,14 +14,13 @@ class group
         //
         $sql = <<< EOT
 SELECT
-    group_key,
-    caption,
+    block_key,
+    name,
     description,
-    reserved,
     created_at,
     updated_at
 FROM
-    cs_group
+    cs_block
 ORDER BY
     order_at
 EOT;

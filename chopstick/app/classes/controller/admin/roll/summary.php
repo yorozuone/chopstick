@@ -6,11 +6,11 @@ use \core\response;
 use \core\url;
 
 // cs_roll
-use \app\model\controller\admin\roll\summary as drec_roll;
+use \app\model\controller\admin\roll\summary as rs_roll;
 
 class summary extends \app\controller_admin
 {
-    private $drec_roll;
+    private $rs_roll;
     // ********************************************************************************
     // **** アクション
     // ********************************************************************************
@@ -20,7 +20,7 @@ class summary extends \app\controller_admin
     public function before()
     {
         parent::before();
-        $this->drec_roll = new drec_roll;
+        $this->rs_roll = new rs_roll;
     }
     // --------------------------------------------------------------------------------
     // 既定
@@ -34,7 +34,7 @@ class summary extends \app\controller_admin
     // --------------------------------------------------------------------------------
     public function action_sort($params)
     {
-        $this->drec_roll->sort($params);
+        $this->rs_roll->sort($params);
     }
     // ********************************************************************************
     // **** 表示
@@ -46,7 +46,7 @@ class summary extends \app\controller_admin
     {
         $vars = array
         (
-            'drec_roll' => $this->drec_roll->fetch_all(),
+            'rs_roll' => $this->rs_roll->fetch_all(),
         );
         echo $this->render('controller/admin/roll/summary.twig', $vars);
     }

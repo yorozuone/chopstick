@@ -5,7 +5,7 @@ use \core\db;
 use \core\response;
 use \core\url;
 
-use \app\model\controller\admin\mediafolder\summary as drec_folder;
+use \app\model\controller\admin\mediafolder\summary as rs_folder;
 
 class summary extends \app\controller_admin
 {
@@ -34,11 +34,11 @@ class summary extends \app\controller_admin
     // --------------------------------------------------------------------------------
     private function display()
     {
-        $drec_folder = new drec_folder();
+        $rs_folder = new rs_folder();
         //
         $vars = array
         (
-            'drec_folder' => $drec_folder->fetch_all(),
+            'rs_folder' => $rs_folder->fetch_all(),
         );
         //
         echo $this->render('controller/admin/mediafolder/summary.twig', $vars);

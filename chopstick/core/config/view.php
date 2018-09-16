@@ -4,8 +4,6 @@ return array
     'paths'     => array
                     (
                         CS_BASE_DIR.'app/views/',
-                        CS_BASE_DIR.'core/views/',
-                        CS_BASE_DIR.'site/views/',
                     ),
     'cache'     => CS_MODE == 'production' ? CS_BASE_DIR.'cache/' : false,
     'debug'     => CS_MODE == 'production' ? false : true,

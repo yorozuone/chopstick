@@ -20,7 +20,7 @@
 
     <br>
 
-    {% if drec_tag|length == 0 %}
+    {% if rs_tag|length == 0 %}
         <div class="alert alert-success" role="alert">タグが登録されていません。</div>
     {% else %}
         <p class="h4">タグ一覧</p>
@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for v in drec_tag %}
+                    {% for v in rs_tag %}
                         <tr tag_id="{{ v.tag_id }}">
                             <td nowrap>
                                 {{ v.caption }}

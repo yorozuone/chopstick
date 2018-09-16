@@ -4,11 +4,11 @@ namespace app\controller\admin\page;
 use \core\response;
 use \core\url;
 
-use \app\model\controller\admin\page\summary as drec_page;
+use \app\model\controller\admin\page\summary as rs_page;
 
 class summary extends \app\controller_admin
 {
-    private $drec_page;
+    private $rs_page;
     // ********************************************************************************
     // **** アクション
     // ********************************************************************************
@@ -19,14 +19,14 @@ class summary extends \app\controller_admin
     {
         parent::before();
         //
-        $this->drec_page = new drec_page();
+        $this->rs_page = new rs_page();
     }
     // --------------------------------------------------------------------------------
     // 既定
     // --------------------------------------------------------------------------------
     public function action_index($params)
     {
-        $this->drec_page->set_value('parent_page_id', isset($params[0]) ? $params[0] : 0);
+        $this->rs_page->set_value('parent_page_id', isset($params[0]) ? $params[0] : 0);
         //
         $this->display();
     }
@@ -35,7 +35,7 @@ class summary extends \app\controller_admin
     // --------------------------------------------------------------------------------
     public function action_sort($params)
     {
-        $this->drec_page->sort($params);
+        $this->rs_page->sort($params);
     }
     // ********************************************************************************
     // **** 表示
@@ -47,9 +47,9 @@ class summary extends \app\controller_admin
     {
         $vars = array
         (
-            'drec_page' => $this->drec_page->fetch_all(),
-            'drec_page_values' => $this->drec_page->get_values(),
-            'dr_beradcrumb' => \app\model\helper\page::fetch_beradcrumb($this->drec_page->get_value('parent_page_id')),
+            'rs_page' => $this->rs_page->fetch_all(),
+            'rs_page_values' => $this->rs_page->get_values(),
+            'dr_beradcrumb' => \app\model\helper\page::fetch_beradcrumb($this->rs_page->get_value('parent_page_id')),
         );
         echo $this->render('controller/admin/page/summary.twig', $vars);
     }

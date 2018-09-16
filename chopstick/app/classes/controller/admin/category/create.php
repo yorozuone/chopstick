@@ -66,11 +66,11 @@ class create extends \app\controller_admin
         (
             'dset_category_values'            => $this->dset_category->get_values(),
             'dset_category_error_messages'    => $this->dset_category->get_error_messages(),
-            'drec_category_tree'              => \app\model\datasource\category::fetch_tree(),
+            'rs_category_tree'              => \app\model\recordset\category::fetch_tree(),
         );
         array_unshift
         (
-            $vars['drec_category_tree'],
+            $vars['rs_category_tree'],
             array
             (
                 'category_id'=>0,

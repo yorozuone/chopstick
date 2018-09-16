@@ -1,12 +1,12 @@
 <?php
-namespace app\model\datasource;
+namespace app\model\recordset;
 
 use \core\db;
 
-class composer
+class roll
 {
     // --------------------------------------------------------------------------------
-    // 表示用コンポーザー一覧
+    // 
     // --------------------------------------------------------------------------------
     public static function fetch_all()
     {
@@ -14,10 +14,14 @@ class composer
         //
         $sql = <<< EOT
 SELECT
-    composer_key,
-    caption
+    roll_key,
+    caption,
+    description,
+    reserved,
+    created_at,
+    updated_at
 FROM
-    cs_composer
+    cs_roll
 ORDER BY
     order_at
 EOT;

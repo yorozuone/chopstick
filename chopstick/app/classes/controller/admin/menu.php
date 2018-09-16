@@ -12,7 +12,7 @@ class menu extends \app\controller_admin
     {
         $vars = array
         (
-            'drec_page_disabled' => \app\model\controller\admin\menu::fetch_disabled_page(),
+            'rs_page_disabled' => \app\model\controller\admin\menu::fetch_disabled_page(),
         );
         echo $this->render('controller/admin/menu/index.twig', $vars);
     }

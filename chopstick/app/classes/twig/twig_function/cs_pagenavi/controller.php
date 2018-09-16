@@ -26,7 +26,7 @@ class controller extends \app\twig_function
         );
         $vars = array
         (
-            'drec_pagenavi' => self::drec_pagenavi($config['parent_page_id'], $config['depth']),
+            'rs_pagenavi' => self::rs_pagenavi($config['parent_page_id'], $config['depth']),
         );
         $vars = array_merge_recursive($config, $vars);
         //
@@ -35,7 +35,7 @@ class controller extends \app\twig_function
     // --------------------------------------------------------------------------------
     // ツリー構造を取得(再帰)
     // --------------------------------------------------------------------------------
-    private static function drec_pagenavi($parent_page_id = 0, $depth = 0)
+    private static function rs_pagenavi($parent_page_id = 0, $depth = 0)
     {
         $con = new db();
         //
@@ -69,14 +69,14 @@ EOT;
         );
         $rs_src = $con->query($sql, $sql_params);
         $rs_dst = array();
-        self::recursion_drec_pagenavi($rs_src, 0, $rs_dst, 1, $depth);
+        self::recursion_rs_pagenavi($rs_src, 0, $rs_dst, 1, $depth);
         //
         return $rs_dst;
     }
     // ----------
     // ツリー構造を取得(再帰)
     // ----------
-    private static function recursion_drec_pagenavi($rs_src, $parent_page_id, &$rs_dst, $hierarchy=1, $depth=0)
+    private static function recursion_rs_pagenavi($rs_src, $parent_page_id, &$rs_dst, $hierarchy=1, $depth=0)
     {
         if (($depth != 0) and ($hierarchy == $depth + 1))
         {
@@ -89,7 +89,7 @@ EOT;
                 $obj = $src;
                 $obj['tree_title'] = '└'.str_repeat('─', $hierarchy-1).' '.$src['page_title'];
                 $rs_dst[] = $obj;
-                self::recursion_drec_pagenavi($rs_src, $src['page_id'], $rs_dst, $hierarchy+1, $depth);
+                self::recursion_rs_pagenavi($rs_src, $src['page_id'], $rs_dst, $hierarchy+1, $depth);
             }
         }
     }

@@ -223,7 +223,7 @@ EOT;
         //
         foreach($rs_1 as $v)
         {
-            $block = '\\app\\block\\'.$v['block_key'];
+            $block = '\\app\\block\\'.$v['block_key'].'\\controller';
             $block_obj = new $block($this->get_value('page_id'), $v['composer_block_key']);
             $rs_2[] = $block_obj;
         }

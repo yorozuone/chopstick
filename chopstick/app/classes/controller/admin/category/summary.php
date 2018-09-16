@@ -4,7 +4,7 @@ namespace app\controller\admin\category;
 use \core\response;
 use \core\url;
 
-use \app\model\controller\admin\category\summary as drec_category;
+use \app\model\controller\admin\category\summary as rs_category;
 
 class summary extends \app\controller_admin
 {
@@ -24,8 +24,8 @@ class summary extends \app\controller_admin
     public function action_index()
     {
         $parent_category_id = isset($this->route->params[0]) ? $this->route->params[0] : 0;
-        $this->drec_category = new drec_category();
-        $this->drec_category->set_value('parent_category_id', $parent_category_id);
+        $this->rs_category = new rs_category();
+        $this->rs_category->set_value('parent_category_id', $parent_category_id);
         $this->display();
     }
     // --------------------------------------------------------------------------------
@@ -45,9 +45,9 @@ class summary extends \app\controller_admin
     {
         $vars = array
         (
-            'parent_category_id'    => $this->drec_category->get_value('parent_category_id'),
-            'drec_category'         => $this->drec_category->fetch_all(),
-            'drec_breadcrumb'       => $this->drec_category->fetch_beradcrumb(),
+            'parent_category_id'    => $this->rs_category->get_value('parent_category_id'),
+            'rs_category'         => $this->rs_category->fetch_all(),
+            'rs_breadcrumb'       => $this->rs_category->fetch_beradcrumb(),
         );
         echo $this->render('controller/admin/category/summary.twig', $vars);
     }

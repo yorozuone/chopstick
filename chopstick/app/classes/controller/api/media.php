@@ -12,7 +12,7 @@ class media extends \app\controller_admin
     public function action_fetch_all_page($params)
     {
         $page_id = isset($params[0]) ? $params[0] : '';
-        echo json_encode(\app\model\datasource\media::fetch_all_page($page_id));
+        echo json_encode(\app\model\recordset\media::fetch_all_page($page_id));
     }
     // --------------------------------------------------------------------------------
     // アップロード

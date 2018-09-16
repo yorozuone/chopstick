@@ -22,7 +22,7 @@
 
     <br>
 
-    {% if drec_user|length == 0 %}
+    {% if rs_user|length == 0 %}
         <div class="alert alert-success" role="alert">ユーザーが登録されていません。</div>
     {% else %}
         <p class="h4">ユーザー一覧</p>
@@ -38,7 +38,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for v in drec_user %}
+                    {% for v in rs_user %}
                         <tr user_id="{{ v.user_id }}">
                             <td>
                                 {{ v.username }}

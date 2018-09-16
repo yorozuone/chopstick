@@ -7,11 +7,11 @@ use \core\response;
 use \core\url;
 
 // dataset
-use \app\model\controller\admin\page\edit as dset_page;
+use \app\model\controller\admin\page\edit as dataset_page;
 
 class edit extends \app\controller_admin
 {
-    private $dset_page;
+    private $dataset_page;
     private $cblocks = array();
     // ********************************************************************************
     // **** 既定の処理
@@ -23,7 +23,7 @@ class edit extends \app\controller_admin
     {
         parent::before();
         //
-        $this->dset_page = new dset_page();
+        $this->dataset_page = new dataset_page();
     }
     // ********************************************************************************
     // **** アクション
@@ -33,18 +33,18 @@ class edit extends \app\controller_admin
     // --------------------------------------------------------------------------------
     public function action_index($params)
     {
-        $this->dset_page->set_value('page_id', isset($params[0]) ? $params[0] : 0);
+        $this->dataset_page->set_value('page_id', isset($params[0]) ? $params[0] : 0);
         //
-        $this->dset_page->read();
+        $this->dataset_page->read();
         //
-        if ($this->dset_page->read() == false)
+        if ($this->dataset_page->read() == false)
         {
             response::redirect(url::create('/admin/page/summary'));
         }
         // ------------------------------------------------------------
         // コンポーザー・ブロック情報取得
         // ------------------------------------------------------------
-        $this->composer_blocks = $this->dset_page->fetch_composer_block();
+        $this->composer_blocks = $this->dataset_page->fetch_composer_block();
         //
         foreach($this->composer_blocks  as $v)
         {
@@ -63,17 +63,17 @@ class edit extends \app\controller_admin
             response::redirect(url::create('/admin/auth/login'));
         }
         //
-        $this->dset_page->post();
-        $this->composer_blocks = $this->dset_page->fetch_composer_block();
+        $this->dataset_page->post();
+        $this->composer_blocks = $this->dataset_page->fetch_composer_block();
         foreach($this->composer_blocks as $v)
         {
             $v->block_post();
         }
         //
-        $is_valid = $this->dset_page->check();
+        $is_valid = $this->dataset_page->check();
         foreach($this->composer_blocks as $v)
         {
-            if ($v->check() == false)
+            if ($v->block_check() == false)
             {
                 $is_valid = false;
             }
@@ -81,13 +81,13 @@ class edit extends \app\controller_admin
         //
         if ($is_valid)
         {
-            $this->dset_page->update();
+            $this->dataset_page->update();
             //
             foreach($this->composer_blocks as $v)
             {
                 $v->update();
             }
-            response::redirect(url::create('/admin/page/summary', array($this->dset_page->get_value('parent_page_id'))));
+            response::redirect(url::create('/admin/page/summary', array($this->dataset_page->get_value('parent_page_id'))));
         }
         else
         {
@@ -104,15 +104,14 @@ class edit extends \app\controller_admin
     {
         $vars = array
         (
-            'is_valid'                  => $this->dset_page->is_valid,
+            'is_valid'              => $this->dataset_page->is_valid,
+            'values'                => $this->dataset_page->get_values(),
+            'error_messages'        => $this->dataset_page->get_error_messages(),
             //
-            'dset_page_values'          => $this->dset_page->get_values(),
-            'dset_page_error_messages'  => $this->dset_page->get_error_messages(),
-            //
-            'drec_page_tree'            => \app\model\datasource\page::fetch_tree(),
-            'drec_media'                => \app\model\datasource\media::fetch_all_page($this->dset_page->get_value('page_id')),
-            'drec_category_tree'        => \app\model\datasource\category::fetch_tree(),
-            'drec_template'             => \app\model\datasource\template::fetch_all(),
+            'rs_page_tree'        => \app\model\recordset\page::fetch_tree(),
+            'rs_media'            => \app\model\recordset\media::fetch_all_page($this->dataset_page->get_value('page_id')),
+            'rs_category_tree'    => \app\model\recordset\category::fetch_tree(),
+            'rs_template'         => \app\model\recordset\template::fetch_all(),
         );
         if (isset($this->composer_blocks))
         {
@@ -120,7 +119,7 @@ class edit extends \app\controller_admin
         }
         array_unshift
         (
-            $vars['drec_page_tree'],
+            $vars['rs_page_tree'],
             array
             (
                 'page_id'=>0,

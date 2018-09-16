@@ -29,7 +29,7 @@ class controller extends \app\twig_function
         );
         $vars = array
         (
-            'drec_pagelist' => self::drec_pagelist($config['parent_page_id'], $config['limit']),
+            'rs_pagelist' => self::rs_pagelist($config['parent_page_id'], $config['limit']),
         );
         $vars = array_merge_recursive($config, $vars);
         //
@@ -38,7 +38,7 @@ class controller extends \app\twig_function
     // --------------------------------------------------------------------------------
     //
     // --------------------------------------------------------------------------------
-    public static function drec_pagelist($parent_page_id, $limit)
+    public static function rs_pagelist($parent_page_id, $limit)
     {
         $con = new db();
         //

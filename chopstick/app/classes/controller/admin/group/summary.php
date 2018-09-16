@@ -6,11 +6,11 @@ use \core\response;
 use \core\url;
 
 // cs_group
-use \app\model\controller\admin\group\summary as drec_group;
+use \app\model\controller\admin\group\summary as rs_group;
 
 class summary extends \app\controller_admin
 {
-    private $drec_group;
+    private $rs_group;
     // ********************************************************************************
     // **** アクション
     // ********************************************************************************
@@ -20,7 +20,7 @@ class summary extends \app\controller_admin
     public function before()
     {
         parent::before();
-        $this->drec_group = new drec_group;
+        $this->rs_group = new rs_group;
     }
     // --------------------------------------------------------------------------------
     // 既定
@@ -34,7 +34,7 @@ class summary extends \app\controller_admin
     // --------------------------------------------------------------------------------
     public function action_sort($params)
     {
-        $this->drec_group->sort($params);
+        $this->rs_group->sort($params);
     }
     // ********************************************************************************
     // **** 表示
@@ -46,7 +46,7 @@ class summary extends \app\controller_admin
     {
         $vars = array
         (
-            'drec_group'              => $this->drec_group->fetch_all(),
+            'rs_group'              => $this->rs_group->fetch_all(),
         );
         echo $this->render('controller/admin/group/summary.twig', $vars);
     }

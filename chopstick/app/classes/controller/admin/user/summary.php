@@ -6,7 +6,7 @@ use \core\fieldset;
 use \core\response;
 use \core\url;
 
-use \app\model\controller\admin\user\summary as drec_user;
+use \app\model\controller\admin\user\summary as rs_user;
 
 class summary extends \app\controller_admin
 {
@@ -35,11 +35,11 @@ class summary extends \app\controller_admin
     // --------------------------------------------------------------------------------
     private function display()
     {
-        $drec_user = new drec_user();
+        $rs_user = new rs_user();
         //
         $vars = array
         (
-            'drec_user' => $drec_user->fetch_all(),
+            'rs_user' => $rs_user->fetch_all(),
         );
         echo $this->render('controller/admin/user/summary.twig', $vars);
     }

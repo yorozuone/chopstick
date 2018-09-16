@@ -1,5 +1,5 @@
 <div id="{{ id }}" class="{{ class }}">
-    {% for v in drec_pagelist %}
+    {% for v in rs_pagelist %}
         {% if v.external_link == '' %}
             <a href="{{ cs_urlp(v.page_id) }}">{{ v.page_title }}</a>
         {% else %}

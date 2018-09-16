@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <label for="parent_category_id">親カテゴリ</label>
                     <select class="form-control" id="parent_category_id" name="parent_category_id">
-                        {% for obj in drec_category_tree %}
+                        {% for obj in rs_category_tree %}
                             <option value="{{ obj.category_id }}"{% if obj.category_id == dset_category_values.parent_category_id %} selected{% endif %}>{{ obj.tree_caption }}</option>
                         {% endfor %}
                     </select>

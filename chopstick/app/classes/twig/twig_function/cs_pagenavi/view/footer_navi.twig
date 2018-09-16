@@ -4,12 +4,12 @@
     <div style="background-color:#f5f5ef;">
         <div class="row" style="margin-left:24px; margin-right:24px">
             <div class="GlobalFooterNav">
-                {% for v1 in drec_pagenavi %}
+                {% for v1 in rs_pagenavi %}
                     {% if v1.parent_page_id == 0 %}
                         <div class="col-md-2">
                             <h3><a href="{{ cs_urlp(v1.page_id) }}" class="GolobalFooterMenuNavItem">{{ v1.page_title }}</a></h3>
                             {% set html = '' %}
-                            {% for v2 in drec_pagenavi %}
+                            {% for v2 in rs_pagenavi %}
                                 {% set cnt = 0 %}
                                 {% if v1.page_id == v2.parent_page_id %}
                                     {% set cnt = cnt + 1 %}

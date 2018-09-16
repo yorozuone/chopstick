@@ -26,7 +26,7 @@
         <li class="active">{{ mediafolder_caption }}</li>
     </ol>
 
-    {% if drec_media|length == 0 %}
+    {% if rs_media|length == 0 %}
         <div class="alert alert-success" role="alert">ファイルが登録されていません。</div>
     {% else %}
         <p class="h4">ファイル一覧</p>
@@ -41,7 +41,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for v in drec_media %}
+                    {% for v in rs_media %}
                         <tr folder_id="{{ v.media_id }}">
                             <td nowrap>
                                     <img src="{{ cs_url('/media/thumbnail', [v.media_id]) }}">

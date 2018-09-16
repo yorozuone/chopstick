@@ -101,9 +101,16 @@ class field
         $input = input::post($this->name);
         if (isset($input[$this->name]))
         {
-            if (mb_check_encoding($input[$this->name], 'UTF-8'))
+            if (is_array($input[$this->name]))
             {
                 $this->value = $input[$this->name];
+            }
+            else
+            {
+                if (mb_check_encoding($input[$this->name], 'UTF-8'))
+                {
+                    $this->value = $input[$this->name];
+                }
             }
         }
     }

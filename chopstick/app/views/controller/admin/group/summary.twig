@@ -42,7 +42,7 @@
 
     <br>
 
-    {% if drec_group|length == 0 %}
+    {% if rs_group|length == 0 %}
         <div class="alert alert-success" role="alert">グループが登録されていません。</div>
     {% else %}
         <p class="h4">グループ一覧</p>
@@ -58,7 +58,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for v in drec_group %}
+                    {% for v in rs_group %}
                         <tr group_key="{{ v.group_key }}">
                             <td nowrap>
                                 <div class="group_sortable_handle" style="cursor:move">[=]</div>

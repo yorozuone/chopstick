@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <label for="stackgroup_id">スタック・グループ</label>
                             <select class="form-control" id="stackgroup_id" name="stackgroup_id">
-                                {% for obj in drec_stackgroup %}
+                                {% for obj in rs_stackgroup %}
                                     <option value="{{ obj.stackgroup_id }}"{% if obj.stackgroup_id == dset_stack_values.stackgroup_id %} selected{% endif %}>{{ obj.caption }}</option>
                                 {% endfor %}
                             </select>

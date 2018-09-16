@@ -1,5 +1,5 @@
 <div id="{{ id }}" class="{{ class }}">
-    {% for v in drec_news %}
+    {% for v in rs_news %}
         {% if v.external_link == '' %}
             <span class="badge badge-danger">NEW</span> <a href="{{ cs_urlp(v.page_id) }}">{{ v.updated_at|date("Y/m/d") }} - {{ v.page_title }}</a>
         {% else %}

@@ -4,12 +4,12 @@ namespace app\controller\admin\composer_block;
 use \core\response;
 use \core\url;
 
-use \app\model\controller\admin\composer_block\summary as drec_composer_block;
+use \app\model\controller\admin\composer_block\summary as rs_composer_block;
 
 class summary extends \app\controller_admin
 {
     private $composer_key;
-    private $drec_composer_block;
+    private $rs_composer_block;
     // ********************************************************************************
     // **** アクション
     // ********************************************************************************
@@ -26,8 +26,8 @@ class summary extends \app\controller_admin
     public function action_index()
     {
         $this->composer_key = isset($this->route->params[0]) ? $this->route->params[0] :-10;
-        $this->drec_composer_block = new drec_composer_block();
-        $this->drec_composer_block->set_value('composer_key', $this->composer_key);
+        $this->rs_composer_block = new rs_composer_block();
+        $this->rs_composer_block->set_value('composer_key', $this->composer_key);
         $this->display();
     }
     // --------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ class summary extends \app\controller_admin
         $vars = array
         (
             'composer_key'          => $this->composer_key,
-            'drec_composer_block'   => $this->drec_composer_block->fetch_all(),
+            'rs_composer_block'   => $this->rs_composer_block->fetch_all(),
         );
         echo $this->render('controller/admin/composer_block/summary.twig', $vars);
     }

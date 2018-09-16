@@ -8,12 +8,12 @@ use \core\url;
 
 // dataset
 use \app\model\controller\admin\group\create as dset_group;
-use \app\model\datasource\roll as drec_roll;
+use \app\model\recordset\roll as rs_roll;
 
 class create extends \app\controller_admin
 {
     private $dset_group;
-    private $drec_roll;
+    private $rs_roll;
     // ********************************************************************************
     // **** アクション
     // ********************************************************************************
@@ -24,7 +24,7 @@ class create extends \app\controller_admin
     {
         parent::before();
         $this->dset_group = new dset_group();
-        $this->drec_roll = new drec_roll();
+        $this->rs_roll = new rs_roll();
     }
     // --------------------------------------------------------------------------------
     // 既定
@@ -62,17 +62,17 @@ class create extends \app\controller_admin
     // --------------------------------------------------------------------------------
     public function display()
     {
-        $drec_roll = $this->drec_roll->fetch_all();
+        $rs_roll = $this->rs_roll->fetch_all();
         $roll_keys = $this->dset_group->get_value('roll_keys');
-        foreach($drec_roll as $k => $v)
+        foreach($rs_roll as $k => $v)
         {
             if (array_search($v['roll_key'], $roll_keys) === false)
             {
-                $drec_roll[$k]['checked'] = 0;
+                $rs_roll[$k]['checked'] = 0;
             }
             else
             {                
-                $drec_roll[$k]['checked'] = 1;
+                $rs_roll[$k]['checked'] = 1;
             }
         }
         $vars = array
@@ -80,7 +80,7 @@ class create extends \app\controller_admin
             'is_valid'                  => $this->dset_group->is_valid,
             'dset_group_values'         => $this->dset_group->get_values(),
             'dset_group_error_messages' => $this->dset_group->get_error_messages(),
-            'drec_roll'                 => $drec_roll,
+            'rs_roll'                 => $rs_roll,
         );
         echo $this->render('controller/admin/group/create/edit.twig', $vars);
     }

@@ -50,7 +50,7 @@
                             {% endif %}
                         </div>
                         <label>ロール</label>
-                        {% for v in drec_roll %}
+                        {% for v in rs_roll %}
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="{{ v.roll_key }}" id="roll_key_{{ v.roll_key }}" name="roll_keys[]"{% if v.checked == 1 %} checked{% endif %}>
                                 <label class="form-check-label" for="{{ v.roll_key }}">
