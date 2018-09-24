@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+{% block area_head_top %}
+{% endblock %}
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,16 +19,19 @@
     {% if constant('CS_MODE') == 'staging' %}
         {% set prefix_title = '[ステージング] ' %}
     {% endif %}
-    <title>{{ prefix_title }}{{ values.head_title }} | chopstick cms</title>
+    <title>{{ prefix_title }}{% if values.head_tile == '' %}{{ values.page_title }}{% else %}{{ values.head_title }}{% endif %} | chopstick cms</title>
 
     <!-- MyStyle -->
     <link href="{{ cs_url("/assets/css/mystyle.css") }}" rel="stylesheet">
 
-{% block area_head %}
+{% block area_head_bottom %}
 {% endblock %}
 
 </head>
 <body>
+
+{% block area_body_top %}
+{% endblock %}
 
 {% if constant('CS_MODE') == 'development' %}
 
@@ -82,7 +89,7 @@
 
 {{ cs_stack({'stack_key':'AnalyzeTag'})}}
 
-{% block area_body_tail %}
+{% block area_body_bottom %}
 {% endblock %}
 
 </body>

@@ -40,7 +40,6 @@ class delete extends \app\controller_admin
         {
             response::redirect(url::create('/admin/page/summary'));
         }
-        //
         $this->composer_blocks = $this->dataset_page->fetch_composer_block();
         foreach($this->composer_blocks  as $v)
         {

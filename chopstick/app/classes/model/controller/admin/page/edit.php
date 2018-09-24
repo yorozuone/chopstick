@@ -18,10 +18,6 @@ class edit extends \app\model\controller\admin\page\base
         $this->validate('required',     'publish_type');
         $this->validate('required',     'page_title');
         $this->validate('max_length',   'page_title', 256);
-        $this->validate('required',     'head_title');
-        $this->validate('max_length',   'head_title', 256);
-        $this->validate('required',     'breadcrumb_caption');
-        $this->validate('max_length',   'breadcrumb_caption', 256);
         $this->validate('required',     'permanent_name');
         $this->validate('max_length',   'permanent_name', 64);
         $this->validate('alnum',        'permanent_name', array('-', '_'));
@@ -159,6 +155,7 @@ UPDATE
     cs_page
 SET
     parent_page_id = :parent_page_id,
+    page_status = 1,
     page_type = :page_type,
     page_title = :page_title,
     head_title = :head_title,
@@ -171,8 +168,10 @@ SET
     publish_list = :publish_list,
     permanent_name = :permanent_name,
     external_link = :external_link,
-    area_head = :area_head,
-    area_body_tail = :area_body_tail,
+    area_head_top = :area_head_top,
+    area_head_bottom = :area_head_bottom,
+    area_body_top = :area_body_top,
+    area_body_bottom = :area_body_bottom,
     template_key = :template_key,
     updated_at = NOW()
 WHERE
@@ -194,8 +193,10 @@ EOT;
             ':publish_list'         => $this->get_value('publish_list'),
             ':permanent_name'       => $this->get_value('permanent_name'),
             ':external_link'        => $this->get_value('external_link'),
-            ':area_head'            => $this->get_value('area_head'),
-            ':area_body_tail'       => $this->get_value('area_body_tail'),
+            ':area_head_top'        => $this->get_value('area_head_top'),
+            ':area_head_bottom'     => $this->get_value('area_head_bottom'),
+            ':area_body_top'        => $this->get_value('area_body_top'),
+            ':area_body_bottom'     => $this->get_value('area_body_bottom'),
             ':template_key'         => $this->get_value('template_key'),
         );
         //

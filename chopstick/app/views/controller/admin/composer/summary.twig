@@ -1,6 +1,6 @@
 {% extends "/controller/admin/default.twig" %}
 
-{% block area_body_tail %}
+{% block area_body_bottom %}
 <script type="text/javascript">
     $(function() {
         $('#composer_sortable tbody').sortable({
@@ -42,7 +42,7 @@
 
     <br>
 
-    {% if rs_composer|length == 0 %}
+    {% if recordset_composer|length == 0 %}
         <div class="alert alert-success" role="alert">コンポーザーが登録されていません。</div>
     {% else %}
         <p class="h4">コンポーザー一覧</p>
@@ -59,7 +59,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for v in rs_composer %}
+                    {% for v in recordset_composer %}
                         <tr composer_key="{{ v.composer_key }}">
                             <td nowrap>
                                 <div class="composer_sortable_handle" style="cursor:move">[=]</div>

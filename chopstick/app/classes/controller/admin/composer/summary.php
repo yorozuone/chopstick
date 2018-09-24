@@ -4,11 +4,11 @@ namespace app\controller\admin\composer;
 use \core\response;
 use \core\url;
 
-use \app\model\controller\admin\composer\summary as rs_composer;
+use \app\model\controller\admin\composer\summary as recordset_composer;
 
 class summary extends \app\controller_admin
 {
-    private $rs_composer;
+    private $recordset_composer;
     // ********************************************************************************
     // **** アクション
     // ********************************************************************************
@@ -19,7 +19,7 @@ class summary extends \app\controller_admin
     {
         parent::before();
         //
-        $this->rs_composer = new rs_composer();
+        $this->recordset_composer = new recordset_composer();
     }
     // --------------------------------------------------------------------------------
     // 既定
@@ -33,7 +33,7 @@ class summary extends \app\controller_admin
     // --------------------------------------------------------------------------------
     public function action_sort($params)
     {
-        $this->rs_composer->sort($params);
+        $this->recordset_composer->sort($params);
     }
     // ********************************************************************************
     // **** 表示
@@ -43,11 +43,11 @@ class summary extends \app\controller_admin
     // --------------------------------------------------------------------------------
     private function display()
     {
-        $rs_composer = new rs_composer();
+        $recordset_composer = new recordset_composer();
         //
         $vars = array
         (
-            'rs_composer' => $this->rs_composer->fetch_all(),
+            'recordset_composer' => $this->recordset_composer->fetch_all(),
         );
         echo $this->render('controller/admin/composer/summary.twig', $vars);
     }

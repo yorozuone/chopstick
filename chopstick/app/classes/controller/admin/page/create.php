@@ -33,7 +33,7 @@ class create extends \app\controller_admin
     public function action_index($params)
     {
         $this->dataset_page->set_value('parent_page_id', isset($params[0]) ? $params[0] : 0);
-        $this->display('composer');
+        $this->display();
     }
     // --------------------------------------------------------------------------------
     // 既定
@@ -42,50 +42,12 @@ class create extends \app\controller_admin
     {
         $this->dataset_page->set_value('parent_page_id', isset($params[0]) ? $params[0] : 0);
         $this->dataset_page->set_value('composer_key',   isset($params[1]) ? $params[1] : 'default');
-        // コンポーザー・ブロック情報取得
-        $this->composer_blocks = $this->dataset_page->fetch_composer_block();
-        //
-        $this->display('edit');
-    }
-    // --------------------------------------------------------------------------------
-    // 作成
-    // --------------------------------------------------------------------------------
-    public function action_update($params)
-    {
-        if (!csrf::check())
+        if ($this->dataset_page->check() == false)
         {
-            auth::logout();
-            response::redirect(url::create('/admin/auth/login'));
+            response::redirect(url::create('/admin/page/create', array($this->dataset_page->get_value('parent_page_id'))));
         }
-        $this->dataset_page->post();
-        $this->composer_blocks = $this->dataset_page->fetch_composer_block();
-        foreach($this->composer_blocks as $v)
-        {
-            $v->block_post();
-        }
-        $is_valid = $this->dataset_page->check();
-        foreach($this->composer_blocks as $v)
-        {
-            if ($v->block_check() == false)
-            {
-                $is_valid = false;
-            }
-        }
-        if ($is_valid)
-        {
-            $this->dataset_page->create();
-            //
-            foreach($this->composer_blocks as $v)
-            {
-                $v->set_page_id($this->dataset_page->get_value('page_id'));
-                $v->create();
-            }
-            response::redirect(url::create('/admin/page/summary', array($this->dataset_page->get_value('parent_page_id'))));
-        }
-        else 
-        {
-            $this->display('edit');
-        }
+        $this->dataset_page->create();       
+        response::redirect(url::create('/admin/page/edit', array($this->dataset_page->get_value('page_id'))));
     }
     // ********************************************************************************
     // **** 表示
@@ -93,33 +55,13 @@ class create extends \app\controller_admin
     // --------------------------------------------------------------------------------
     // 表示
     // --------------------------------------------------------------------------------
-    public function display($template_name = 'edit')
+    public function display()
     {
         $vars = array
         (
-            'is_valid'          => $this->dataset_page->is_valid,
-            'values'            => $this->dataset_page->get_values(),
-            'error_messages'    => $this->dataset_page->get_error_messages(),
-            //
-            'rs_composer'       => \app\model\recordset\composer::fetch_all(),
-            'rs_page_tree'      => \app\model\recordset\page::fetch_tree(),
-            'rs_category_tree'  => \app\model\recordset\category::fetch_tree(),
-            'rs_template'       => \app\model\recordset\template::fetch_all(),
+            'rs_composer' => \app\model\recordset\composer::fetch_all(),
+            'values' => $this->dataset_page->get_values(),
         );
-        if (isset($this->composer_blocks))
-        {
-            $vars['composer_blocks'] = $this->composer_blocks;
-        }
-        array_unshift
-        (
-            $vars['rs_page_tree'],
-            array
-            (
-                'page_id'=>0,
-                'page_title'=>'(root)',
-                'tree_title'=>'(root)'
-            )
-        );
-        echo $this->render('controller/admin/page/create/'.$template_name.'.twig', $vars);
+        echo $this->render('controller/admin/page/create/composer.twig', $vars);
     }
 }

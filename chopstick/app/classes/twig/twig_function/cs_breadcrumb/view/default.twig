@@ -1,9 +1,18 @@
 <div id="{{ id }}" class="{{ class }}">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ cs_urlp(1) }}">HOME</a></li>
+        {% set ii = 0 %}
         {% for obj in rs_breadcrumb %}
-            {%if obj.page_id != 1 %}
-                <li class="breadcrumb-item"><a href="{{ cs_urlp(obj.page_id) }}">{{ obj.breadcrumb_caption }}</a></li>
+            {% set ii = ii + 1 %}
+            {% if obj.breadcrumb_caption == '' %}
+                {% set breadcrumb_caption =  obj.page_title %}
+            {% else %}
+                {% set breadcrumb_caption =  obj.breadcrumb_caption %}
+            {% endif %}
+            {% if rs_breadcrumb|length == ii %}
+                <li class="breadcrumb-item">{{ breadcrumb_caption }}</li>
+            {% else %}
+                <li class="breadcrumb-item"><a href="{{ cs_urlp(obj.page_id) }}">{{ breadcrumb_caption }}</a></li>
             {% endif %}
         {% endfor %}
     </ol>

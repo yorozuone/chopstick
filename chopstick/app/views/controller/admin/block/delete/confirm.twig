@@ -20,21 +20,21 @@
             <div class="card-body">
                 <div class="form-group">
                     <div class="form-group">
-                        <label class="control-label">ブロック名</label>
+                        <label class="control-label caption">ブロック名</label>
                         <div>
-                            <p class="form-control-static">{{ dset_block_values.name }}</p>
+                            <p class="form-control-static">{{ values.name }}</p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label">説明</label>
+                        <label class="control-label caption">説明</label>
                         <div>
-                            <p class="form-control-static">{{ dset_block_values.description }}</p>
+                            <p class="form-control-static">{{ values.description }}</p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label">インストール・バージョン</label>
+                        <label class="control-label caption">インストール・バージョン</label>
                         <div>
-                            <p class="form-control-static">{{ dset_block_values.install_version }}</p>
+                            <p class="form-control-static">{{ values.install_version }}</p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -45,7 +45,7 @@
             </div>
         </div>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <input type="hidden" name="block_key" value="{{ dset_block_values.block_key }}">
+        <input type="hidden" name="block_key" value="{{ values.block_key }}">
     </form>
 
 {% endblock %}

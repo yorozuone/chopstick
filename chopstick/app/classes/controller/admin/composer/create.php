@@ -6,11 +6,11 @@ use \core\csrf;
 use \core\response;
 use \core\url;
 
-use \app\model\controller\admin\composer\create as dset_composer;
+use \app\model\controller\admin\composer\create as dataset_composer;
 
 class create extends \app\controller_admin
 {
-    private $dset_composer = null;
+    private $dataset_composer = null;
     // ********************************************************************************
     // **** アクション
     // ********************************************************************************
@@ -20,7 +20,7 @@ class create extends \app\controller_admin
     public function before()
     {
         parent::before();
-        $this->dset_composer = new dset_composer();
+        $this->dataset_composer = new dataset_composer();
     }
     // --------------------------------------------------------------------------------
     // 既定
@@ -40,11 +40,11 @@ class create extends \app\controller_admin
             response::redirect(url::create('/admin/auth/login'));
         }
         // 受信
-        $this->dset_composer->post();
+        $this->dataset_composer->post();
         // チェック後処理
-        if ($this->dset_composer->check())
+        if ($this->dataset_composer->check())
         {
-            $this->dset_composer->create();
+            $this->dataset_composer->create();
             response::redirect(url::create('/admin/composer/summary'));
         }
         else 
@@ -62,9 +62,10 @@ class create extends \app\controller_admin
     {
         $vars = array
         (
-            'is_valid'                      => $this->dset_composer->is_valid,
-            'dset_composer_values'          => $this->dset_composer->get_values(),
-            'dset_composer_error_messages'  => $this->dset_composer->get_error_messages(),
+            'is_valid'              => $this->dataset_composer->is_valid,
+            'values'                => $this->dataset_composer->get_values(),
+            'error_messages'        => $this->dataset_composer->get_error_messages(),
+            'recordset_template'    => \app\model\recordset\template::fetch_all(),
         );
         echo $this->render('controller/admin/composer/create/edit.twig', $vars);
     }

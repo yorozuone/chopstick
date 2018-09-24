@@ -26,7 +26,7 @@
                             {% endif %}
                         {% endfor %}
                         <div class="form-group">
-                            <label for="roll_key">ロール・キー</label>
+                            <label for="roll_key" class="caption">ロール・キー</label>
                             <input type="text" value="{{ dset_roll_values.roll_key }}" class="form-control" id="roll_key" name="roll_key" placeholder="ロール・キー">
                             {% if dset_roll_error_messages.roll_key != '' %}
                                 <p class="help-block">
@@ -35,7 +35,7 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="caption">見出し</label>
+                            <label for="caption" class="caption">見出し</label>
                             <input type="text" value="{{ dset_roll_values.caption }}" class="form-control" id="caption" name="caption" placeholder="見出し">
                             {% if dset_roll_error_messages.caption != '' %}
                                 <p class="help-block">
@@ -44,7 +44,7 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="description">説明</label>
+                            <label for="description" class="caption">説明</label>
                             <input type="text" value="{{ dset_roll_values.description }}" class="form-control" id="description" name="description" placeholder="説明">
                             {% if dset_roll_error_messages.description != '' %}
                                 <p class="help-block">

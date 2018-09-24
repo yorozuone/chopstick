@@ -8,12 +8,12 @@ use \core\globalvars;
 use \core\view;
 
 // dataset
-use \app\model\page as dset_page;
+use \app\model\page as dataset_page;
 use \app\model\helper\page as helper_page;
 
 class page extends \app\controller
 {
-    private $dset_page;
+    private $dataset_page;
     // ********************************************************************************
     // **** アクション
     // ********************************************************************************
@@ -24,7 +24,7 @@ class page extends \app\controller
     {
         parent::before();
         //
-        $this->dset_page = new dset_page();
+        $this->dataset_page = new dataset_page();
     }
     // --------------------------------------------------------------------------------
     // 既定
@@ -32,13 +32,13 @@ class page extends \app\controller
     public function action_index($params)
     {
         // ページの読み込みチェック
-        $this->dset_page->set_value('page_id', \app\model\helper\page::get_current_page_id());
-        if (!$this->dset_page->read())
+        $this->dataset_page->set_value('page_id', \app\model\helper\page::get_current_page_id());
+        if (!$this->dataset_page->read())
         {
             $this->display('404');
             return false;
         }
-        globalvars::set_value('APP_CMS_PAGE', $this->dset_page->get_values());
+        globalvars::set_value('APP_CMS_PAGE', $this->dataset_page->get_values());
         // ------------------------------------------------------------
         // 認証チェック
         // ------------------------------------------------------------
@@ -48,7 +48,7 @@ class page extends \app\controller
         }
         else
         {
-            if (\app\model\helper\page::is_visible($this->dset_page->get_values()))
+            if (\app\model\helper\page::is_visible($this->dataset_page->get_values()))
             {
                 $this->display();
             }
@@ -73,22 +73,17 @@ class page extends \app\controller
                 echo $this->render('controller/page/404.twig');
                 break;
             default:
-                $rs = $this->dset_page->get_composer_block();
+                $rs = $this->dataset_page->get_composer_block();
                 $composer_block_vars = array();
                 foreach($rs as $v)
                 {
                     $block_name = '\\app\\block\\'.$v['block_key'].'\\controller';
-                    $composer_block = new $block_name($this->dset_page->get_value('page_id'), $v['composer_block_key']);
-                    $composer_block_vars[$v['composer_block_key']] = $composer_block->get_view_html();
+                    $composer_block = new $block_name($this->dataset_page->get_value('page_id'), $v['composer_block_key']);
+                    $composer_block_vars[$v['composer_block_key']] = $composer_block->body_view_html();
                 }
                 $composer_block_view = new view();
-                //
-                $composer_template = $this->dset_page->get_composer_template();
-                //
-                // composer_html が指定されていなかったら、そのまま並べる
-                //
                 $composer_html = '';
-                if ($composer_template == '')
+                if ($this->dataset_page->get_value('composer_output_mode') == 1)
                 {
                     foreach($composer_block_vars as $v)
                     {
@@ -97,16 +92,17 @@ class page extends \app\controller
                 }
                 else
                 {
+                    $composer_template = $this->dataset_page->get_value('composer_template');
                     $composer_html = $composer_block_view->render($composer_template, $composer_block_vars, 2);
                 }
                 //
                 $vars = array
                 (
-                    'composer_html'     => $composer_html,
-                    'values'            => $this->dset_page->get_values(),
+                    'composer_html' => $composer_html,
+                    'values'        => $this->dataset_page->get_values(),
                 );
                 $vars['extends_template'] = 'controller/page/template/'.$vars['values']['template_key'].'.twig';
-                echo $this->render('controller/page/index.twig', $vars);
+                echo $this->render('controller/page/default.twig', $vars);
                 break;
         }
     }

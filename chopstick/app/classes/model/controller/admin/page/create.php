@@ -14,72 +14,8 @@ class create extends \app\model\controller\admin\page\base
     public function check()
     {
         $this->validate('required',     'parent_page_id');
-        $this->validate('required',     'page_type');
-        $this->validate('required',     'publish_type');
-        $this->validate('required',     'page_title');
-        $this->validate('max_length',   'page_title', 256);
-        $this->validate('required',     'head_title');
-        $this->validate('max_length',   'head_title', 256);
-        $this->validate('required',     'breadcrumb_caption');
-        $this->validate('max_length',   'breadcrumb_caption', 256);
-        $this->validate('required',     'permanent_name');
-        $this->validate('max_length',   'permanent_name', 64);
-        $this->validate('alnum',        'permanent_name', array('-', '_'));
-        $this->validate('max_length',   'external_link', 256);
-        // 外部リンク
-        if ($this->get_value('page_type') == 2)  {
-            $this->validate('required', 'external_link');
-        }
-        // 期間指定
-        if ($this->get_value('publish_type') == 3)
-        {
-            if (($this->get_value('publish_start') == '') AND ($this->get_value('publish_end') == ''))
-            {
-                $this->set_error('publish_type', '公開設定で、時間指定を選択した場合は、開始日時、終了日時のどちらかは必ず入力してください。');
-            }
-        }
-        // 開始日時
-        if ($this->get_value('publish_start') != '')
-        {
-            $this->validate('datetime', 'publish_start');
-        }
-        // 終了日時
-        if ($this->get_value('publish_end') != '')
-        {
-            $this->validate('datetime', 'publish_end');
-        }
-        // パーマネント名検証
-        if ($this->is_create_permanent_name() == false)
-        {
-            $this->set_error('permanent_name', 'パーマネント名は、ほかのページで使われています。');
-        }
+        $this->validate('required',     'composer_key');
         return $this->is_valid;
-    }
-    // --------------------------------------------------------------------------------
-    // 作成時にパーマネント名が、他のページで使われていないか検証
-    // --------------------------------------------------------------------------------
-    public function is_create_permanent_name()
-    {
-        $con = new db();
-        //
-        $sql = <<< EOT
-SELECT
-    COUNT(*) AS CNT
-FROM
-    cs_page
-WHERE
-    parent_page_id = :parent_page_id AND
-    permanent_name = :permanent_name
-EOT;
-        $sql_params = array
-        (
-            ':parent_page_id' => $this->get_value('parent_page_id'),
-            ':permanent_name' => $this->get_value('permanent_name'),
-        );
-        //
-        $rs = $con->query($sql, $sql_params);
-        //
-        return (($rs[0]['CNT'] == 0) ? true : false);
     }
     // ################################################################################
     // データ操作
@@ -115,6 +51,7 @@ EOT;
 INSERT INTO cs_page
 (
     parent_page_id,
+    page_status,
     composer_key,
     page_type,
     page_title,
@@ -128,16 +65,20 @@ INSERT INTO cs_page
     publish_list,
     permanent_name,
     external_link,
-    area_head,
-    area_body_tail,
+    area_head_top,
+    area_head_bottom,
+    area_body_top,
+    area_body_bottom,
     template_key,
     order_at,
     created_at,
     updated_at
+
 )
 VALUE
 (
     :parent_page_id,
+    0,
     :composer_key,
     :page_type,
     :page_title,
@@ -151,8 +92,10 @@ VALUE
     :publish_list,
     :permanent_name,
     :external_link,
-    :area_head,
-    :area_body_tail,
+    :area_head_top,
+    :area_head_bottom,
+    :area_body_top,
+    :area_body_bottom,
     :template_key,
     :order_at,
     NOW(),
@@ -175,8 +118,10 @@ EOT;
             ':publish_list'         => $this->get_value('publish_list'),
             ':permanent_name'       => $this->get_value('permanent_name'),
             ':external_link'        => $this->get_value('external_link'),
-            ':area_head'            => $this->get_value('area_head'),
-            ':area_body_tail'       => $this->get_value('area_body_tail'),
+            ':area_head_top'        => $this->get_value('area_head_top'),
+            ':area_head_bottom'     => $this->get_value('area_head_bottom'),
+            ':area_body_top'        => $this->get_value('area_body_top'),
+            ':area_body_bottom'     => $this->get_value('area_body_bottom'),
             ':template_key'         => $this->get_value('template_key'),
             ':order_at'             => $this->get_value('order_at'),
         );
@@ -191,67 +136,5 @@ SELECT
 EOT;
         $rs_3 = $con->query($sql_3);
         $this->set_value('page_id', $rs_3[0]['page_id']);
-        // ------------------------------------------------------------
-        // ページ・カテゴリ登録
-        // ------------------------------------------------------------
-        $sql_4 = <<< EOT
-INSERT INTO cs_page_category
-(
-    page_id,
-    category_id,
-    created_at,
-    updated_at
-)
-VALUES
-(
-    :page_id,
-    :category_id,
-    NOW(),
-    NOW()
-);
-EOT;
-        if (is_array($this->get_value('category_ids')))
-        {
-            foreach($this->get_value('category_ids') as $v)
-            {
-                $sql_params_4 = array
-                (
-                    ':page_id' => $this->get_value('page_id'),
-                    ':category_id' => $v,
-                );
-                $con->query($sql_4, $sql_params_4);
-            }
-        }
-        // ------------------------------------------------------------
-        // ページ・タグ登録
-        // ------------------------------------------------------------
-        $sql_5 = <<< EOT
-INSERT INTO cs_page_tag
-(
-    page_id,
-    tag_id,
-    created_at,
-    updated_at
-)
-VALUES
-(
-    :page_id,
-    :tag_id,
-    NOW(),
-    NOW()
-);
-EOT;
-        foreach(explode(' ', $this->get_value('tags')) as $v)
-        {
-            $tag_id = $this->get_tag_id($v);
-            $sql_params_5 = array
-            (
-                ':page_id' => $this->get_value('page_id'),
-                ':tag_id' => $tag_id,
-            );
-            $con->query($sql_5, $sql_params_5);
-        }
-        //
-        return true;
     }
 }

@@ -28,7 +28,7 @@ class create extends \app\model\controller\admin\roll\base
         $con = new db();
         //
         $sql = <<< EOT
-INSERT INTO cs_stack
+INSERT INTO cs_roll
 (
     roll_key,
     caption,

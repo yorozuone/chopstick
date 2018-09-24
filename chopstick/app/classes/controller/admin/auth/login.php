@@ -5,11 +5,11 @@ use \core\auth;
 use \core\csrf;
 use \core\response;
 use \core\url;
-use \app\model\controller\admin\auth\login as dset_login;
+use \app\model\controller\admin\auth\login as dataset_login;
 
 class login extends \app\controller
 {
-    private $dset_login;
+    private $dataset_login;
     // ********************************************************************************
     // ****
     // **** アクション
@@ -22,7 +22,7 @@ class login extends \app\controller
     {
         parent::before();
         //
-        $this->dset_login = new dset_login();
+        $this->dataset_login = new dataset_login();
     }
     // --------------------------------------------------------------------------------
     // 既定
@@ -41,16 +41,16 @@ class login extends \app\controller
             auth::logout();
             response::redirect(url::create('/admin/auth/login'));
         }
-        $this->dset_login->post();
+        $this->dataset_login->post();
         //
-        $this->dset_login->check();
+        $this->dataset_login->check();
         //
-        if ($this->dset_login->is_valid)
+        if ($this->dataset_login->is_valid)
         {
             auth::login
             (
-                $this->dset_login->get_value('username'),
-                $this->dset_login->get_value('password')
+                $this->dataset_login->get_value('username'),
+                $this->dataset_login->get_value('password')
             );
             response::redirect(url::create('/admin/menu'));
         }
@@ -68,8 +68,8 @@ class login extends \app\controller
     {
         $vars = array
         (
-            'values' => $this->dset_login->get_values(),
-            'error_messages' => $this->dset_login->get_error_messages(),
+            'values' => $this->dataset_login->get_values(),
+            'error_messages' => $this->dataset_login->get_error_messages(),
         );
         echo $this->render('controller/admin/auth/login/edit.twig', $vars);
     }

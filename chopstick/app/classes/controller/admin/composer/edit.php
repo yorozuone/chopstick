@@ -6,11 +6,12 @@ use \core\csrf;
 use \core\response;
 use \core\url;
 
-use \app\model\controller\admin\composer\edit as dset_composer;
+use \app\model\controller\admin\composer\edit as dataset_composer;
+use \app\model\recordset\composer_block as recordataset_composer_block;
 
 class edit extends \app\controller_admin
 {
-    private $dset_composer = null;
+    private $dataset_composer = null;
     // ********************************************************************************
     // **** アクション
     // ********************************************************************************
@@ -20,7 +21,7 @@ class edit extends \app\controller_admin
     public function before()
     {
         parent::before();
-        $this->dset_composer = new dset_composer();
+        $this->dataset_composer = new dataset_composer();
     }
     // --------------------------------------------------------------------------------
     // 既定
@@ -28,8 +29,8 @@ class edit extends \app\controller_admin
     public function action_index($params)
     {
         $composer_key = isset($this->route->params[0]) ? $this->route->params[0] : '';
-        $this->dset_composer->set_value('composer_key', $composer_key);
-        if ($this->dset_composer->read() == false)
+        $this->dataset_composer->set_value('composer_key', $composer_key);
+        if ($this->dataset_composer->read() == false)
         {
             response::redirect(url::create('/admin/composer/summary'));
         }
@@ -46,13 +47,13 @@ class edit extends \app\controller_admin
             response::redirect(url::create('/admin/auth/login'));
         }
         // 受信
-        $this->dset_composer->post();
+        $this->dataset_composer->post();
         // 存在確認
-        $composer_key = $this->dset_composer->get_value('composer_key');
+        $composer_key = $this->dataset_composer->get_value('composer_key');
         // 入力チェック後、処理実行
-        if ($this->dset_composer->check())
+        if ($this->dataset_composer->check())
         {
-            $this->dset_composer->update();
+            $this->dataset_composer->update();
             response::redirect(url::create('/admin/composer/summary'));
         }
         else
@@ -70,8 +71,9 @@ class edit extends \app\controller_admin
     {
         $vars = array
         (
-            'dset_composer_values'          => $this->dset_composer->get_values(),
-            'dset_composer_error_messages'  => $this->dset_composer->get_error_messages(),
+            'values'                        => $this->dataset_composer->get_values(),
+            'error_messages'                => $this->dataset_composer->get_error_messages(),
+            'recordset_template'            => \app\model\recordset\template::fetch_all(),
         );
         echo $this->render('controller/admin/composer/edit/edit.twig', $vars);
     }

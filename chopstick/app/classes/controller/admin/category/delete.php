@@ -7,11 +7,11 @@ use \core\response;
 use \core\url;
 use \core\validation;
 
-use \app\model\controller\admin\category\delete as dset_category;
+use \app\model\controller\admin\category\delete as dataset_category;
 
 class delete extends \app\controller_admin
 {
-    private $dset_category = null;
+    private $dataset_category = null;
     // ********************************************************************************
     // **** アクション
     // ********************************************************************************
@@ -22,13 +22,13 @@ class delete extends \app\controller_admin
     {
         parent::before();
         $parent_category_id = isset($this->route->params[0]) ? $this->route->params[0] : 0;
-        $this->dset_category = new dset_category();
-        $this->dset_category->set_value('category_id', $parent_category_id);
-        if ($this->dset_category->read() == false)
+        $this->dataset_category = new dataset_category();
+        $this->dataset_category->set_value('category_id', $parent_category_id);
+        if ($this->dataset_category->read() == false)
         {
             response::redirect(url::create('/admin/category/summary'));
         }
-        if ($this->dset_category->exists_child_category())
+        if ($this->dataset_category->exists_child_category())
         {
             $this->display('cant');
             die();
@@ -51,13 +51,13 @@ class delete extends \app\controller_admin
             auth::logout();
             response::redirect(url::create('/admin/auth/login'));
         }
-        $this->dset_category->post();
+        $this->dataset_category->post();
         //
-        if ($this->dset_category->check())
+        if ($this->dataset_category->check())
         {
-            $this->dset_category->delete();
+            $this->dataset_category->delete();
         }
-        response::redirect(url::create('/admin/category/summary', array($this->dset_category->get_value('parent_category_id'))));
+        response::redirect(url::create('/admin/category/summary', array($this->dataset_category->get_value('parent_category_id'))));
     }
     // ********************************************************************************
     // ****
@@ -71,8 +71,8 @@ class delete extends \app\controller_admin
     {
         $vars = array
         (
-            'dset_category_values'            => $this->dset_category->get_values(),
-            'dset_category_error_messages'    => $this->dset_category->get_error_messages(),
+            'values'            => $this->dataset_category->get_values(),
+            'error_messages'    => $this->dataset_category->get_error_messages(),
         );
         echo $this->render('controller/admin/category/delete/'.$template_name.'.twig', $vars);
     }

@@ -7,12 +7,12 @@ use \core\response;
 use \core\url;
 
 // dataset
-use \app\model\controller\admin\group\create as dset_group;
+use \app\model\controller\admin\group\create as dataset_group;
 use \app\model\recordset\roll as rs_roll;
 
 class create extends \app\controller_admin
 {
-    private $dset_group;
+    private $dataset_group;
     private $rs_roll;
     // ********************************************************************************
     // **** アクション
@@ -23,7 +23,7 @@ class create extends \app\controller_admin
     public function before()
     {
         parent::before();
-        $this->dset_group = new dset_group();
+        $this->dataset_group = new dataset_group();
         $this->rs_roll = new rs_roll();
     }
     // --------------------------------------------------------------------------------
@@ -43,10 +43,10 @@ class create extends \app\controller_admin
             auth::logout();
             response::redirect(url::create('/admin/auth/login'));
         }
-        $this->dset_group->post();
-        if ($this->dset_group->check())
+        $this->dataset_group->post();
+        if ($this->dataset_group->check())
         {
-            $this->dset_group->create();
+            $this->dataset_group->create();
             response::redirect(url::create('/admin/group/summary'));
         }
         else
@@ -63,7 +63,7 @@ class create extends \app\controller_admin
     public function display()
     {
         $rs_roll = $this->rs_roll->fetch_all();
-        $roll_keys = $this->dset_group->get_value('roll_keys');
+        $roll_keys = $this->dataset_group->get_value('roll_keys');
         foreach($rs_roll as $k => $v)
         {
             if (array_search($v['roll_key'], $roll_keys) === false)
@@ -77,10 +77,10 @@ class create extends \app\controller_admin
         }
         $vars = array
         (
-            'is_valid'                  => $this->dset_group->is_valid,
-            'dset_group_values'         => $this->dset_group->get_values(),
-            'dset_group_error_messages' => $this->dset_group->get_error_messages(),
-            'rs_roll'                 => $rs_roll,
+            'is_valid'          => $this->dataset_group->is_valid,
+            'values'            => $this->dataset_group->get_values(),
+            'error_messages'    => $this->dataset_group->get_error_messages(),
+            'rs_roll'           => $rs_roll,
         );
         echo $this->render('controller/admin/group/create/edit.twig', $vars);
     }

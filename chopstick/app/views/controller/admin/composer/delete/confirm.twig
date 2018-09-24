@@ -19,21 +19,35 @@
             <div class="card-header">コンポーザーの削除</div>
             <div class="card-body">
                 <div class="form-group">
-                    <label class="control-label">コンポーザー・キー</label>
+                    <label class="control-label caption">コンポーザー・キー</label>
                     <div>
-                        <p class="form-control-static">{{ dset_composer_values.composer_key }}</p>
+                        <p class="form-control-static">{{ values.composer_key }}</p>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">コンポーザー名</label>
+                    <label class="control-label caption">コンポーザー名</label>
                     <div>
-                        <p class="form-control-static">{{ dset_composer_values.caption }}</p>
+                        <p class="form-control-static">{{ values.caption }}</p>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">コンポーザー・テンプレート</label>
+                    <label class="control-label caption">テンプレート</label>
                     <div>
-                        <p class="form-control-static">{{ dset_composer_values.composer_template|nl2br }}</p>
+                        <p class="form-control-static">{{ values.template_key }}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label caption">出力モード</label>
+                    <div>
+                        <p class="form-control-static">{% if values.composer_output_mode == 1 %}標準{% else %}カスタム{% endif %}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label caption">コンポーザー・テンプレート</label>
+                    <div>
+                        <p class="form-control-static">
+                            <pre>{{ values.composer_template }}</pre>
+                        </p>
                     </div>
                 </div>
                 <div class="form-group">
@@ -43,7 +57,7 @@
             </div>
         </div>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <input type="hidden" name="composer_key" value="{{ dset_composer_values.composer_key }}">
+        <input type="hidden" name="composer_key" value="{{ values.composer_key }}">
     </form>
 
 {% endblock %}

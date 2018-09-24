@@ -38,11 +38,23 @@
         {% if has_access('full') == true %}
             <div class="row">
                 <div class="col-md-3">
-                    <p class="h6">コンポーザー・ブロック</p>
+                    <p class="h6">コンポーザー</p>
                     <hr>
                     <a href="{{ cs_url('/admin/composer/summary') }}">コンポーザー管理</a><br>
+                </div>
+                <div class="col-md-3">
+                    <p class="h6">ブロック</p>
+                    <hr>
                     <a href="{{ cs_url('/admin/block/summary') }}">ブロック管理</a><br>
                 </div>
+            </div>
+        {% endif %}
+
+        <br>
+        <br>
+
+        {% if has_access('full') == true %}
+            <div class="row">
                 <div class="col-md-3">
                     <p class="h6">ユーザー<p>
                     <hr>

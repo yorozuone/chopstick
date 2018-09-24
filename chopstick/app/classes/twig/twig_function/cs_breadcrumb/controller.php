@@ -41,6 +41,7 @@ class controller extends \app\twig_function
 SELECT
     page_id,
     parent_page_id,
+    page_title,
     breadcrumb_caption,
     permanent_name
 FROM

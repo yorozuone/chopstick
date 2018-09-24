@@ -84,7 +84,7 @@
                     <div class="card-header">コンポーザー情報 ({{ values.composer_key }})</div>
                     <div class="card-body">
                         {% for composer_block in composer_blocks %}
-                            {{ composer_block.get_confirm_html()|raw }}
+                            {{ composer_block.body_confirm_html()|raw }}
                         {% endfor %}
                     </div>
                 </div>

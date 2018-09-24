@@ -1,6 +1,6 @@
 {% extends "/controller/admin/default.twig" %}
 
-{% block area_body_tail %}
+{% block area_body_bottom %}
 <script type="text/javascript">
     // File APIに対応していない場合に表示を隠す
     if (!window.File) {
@@ -67,7 +67,7 @@
                     html += '<tr>';
                     html += '<th nowrap></th>';
                     html += '<th nowrap>ファイル名</th>';
-                    html += '<th nowrap>更新日時</th>';
+                    html += '<th nowrap>保存日時</th>';
                     html += '<th nowrap></th>';
                     html += '</tr>';
                     html += '</thead>';
@@ -151,16 +151,27 @@
         </div>
     {% endif %}
 
+    {% set menu = '<br>' %}
+    {% set menu = menu ~ '<a href="#menu_base" class="btn btn-info btn-sm">基本</a> ' %}
+    {% set menu = menu ~ '<a href="#menu_composer" class="btn btn-info btn-sm">コンポーザー</a> ' %}
+    {% set menu = menu ~ '<a href="#menu_html" class="btn btn-info btn-sm">HTML</a> ' %}
+    {% set menu = menu ~ '<a href="#menu_publish" class="btn btn-info btn-sm">公開</a> ' %}
+    {% set menu = menu ~ '<a href="#menu_extension" class="btn btn-info btn-sm">表示</a> ' %}
+    {% set menu = menu ~ '<a href="#menu_attribute" class="btn btn-info btn-sm">属性</a> ' %}
+    {% set menu = menu ~ '<a href="#menu_template" class="btn btn-info btn-sm">テンプレート</a> ' %}
+    {% set menu = menu ~ '<a href="#menu_file" class="btn btn-info btn-sm">ファイル</a> ' %}
+    {% set menu = menu ~ '<br><br>' %}
+
+
     <form action="{{ cs_url('/admin/page/edit/update', [ values.composer_key ]) }}" method="post" id="stdForm">
 
-        <div class="row">
-            <div class="col-md-8">
-
+<a name="menu_base"></a>
+{{ menu|raw }}
                 <div class="card">
                     <div class="card-header">基本情報</div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="parent_page_id">親ページ</label>
+                            <label for="parent_page_id" class="caption">親ページ</label>
                             <select class="form-control" id="parent_page_id" name="parent_page_id">
                                 {% for obj in rs_page_tree %}
                                     <option value="{{ obj.page_id }}"{% if obj.page_id == values.parent_page_id %} selected{% endif %}>{{ obj.tree_title }}</option>
@@ -173,7 +184,7 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="page_title">ページ・タイトル</label>
+                            <label for="page_title" class="caption">ページ・タイトル</label>
                             <input type="text" value="{{ values.page_title }}" class="form-control" id="page_title" name="page_title" placeholder="ページタイトル">
                             {% if error_messages.page_title != '' %}
                                 <p class="help-block">
@@ -182,7 +193,7 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="head_title">ヘッダ・タイトル</label>
+                            <label for="head_title" class="caption">ヘッダ・タイトル</label>
                             <input type="text" value="{{ values.head_title }}" class="form-control" id="head_title" name="head_title" placeholder="ページタイトル">
                             {% if error_messages.head_title != '' %}
                                 <p class="help-block">
@@ -191,7 +202,7 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="breadcrumb_caption">パンくず・見出し</label>
+                            <label for="breadcrumb_caption" class="caption">パンくず・見出し</label>
                             <input type="text" value="{{ values.breadcrumb_caption }}" class="form-control" id="breadcrumb_caption" name="breadcrumb_caption" placeholder="ページタイトル">
                             {% if error_messages.breadcrumb_caption != '' %}
                                 <p class="help-block">
@@ -200,7 +211,7 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="permanent_name">パーマネント名</label>
+                            <label for="permanent_name" class="caption">パーマネント名</label>
                             <input type="text" value="{{ values.permanent_name }}" class="form-control" id="permanent_name" name="permanent_name" placeholder="パーマネント名">
                             {% if error_messages.permanent_name != '' %}
                                 <p class="help-block">
@@ -209,7 +220,7 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="page_type">ページ種類</label>
+                            <label for="page_type" class="caption">ページ種類</label>
                             <div class="radio">
                                 <label><input type="radio" name="page_type" id="page_type_1" value="1"{% if values.page_type == 1 %} checked{% endif %}> 通常</label>
                             </div>
@@ -223,7 +234,7 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="external_link">外部リンク</label>
+                            <label for="external_link" class="caption">外部リンク</label>
                             <input type="text" value="{{ values.external_link }}" class="form-control" id="external_link" name="external_link" placeholder="外部リンク">
                             {% if error_messages.external_link != '' %}
                                 <p class="help-block">
@@ -232,49 +243,65 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <span name="OnClickSubmit" class="btn btn-primary">更新</span>
+                            <span name="OnClickSubmit" class="btn btn-primary">保存</span>
                             <a href="{{ cs_url('/admin/page/summary', [values.parent_page_id]) }}" class="btn btn-outline-info">戻る</a>
                         </div>
                     </div>
                 </div>
 
-                <br>
-
-                <div class="card">
-                    <div class="card-header">area_head</div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <textarea class="form-control" id="area_head" name="area_head" rows="5">{{ values.area_head|raw }}</textarea>
-                        </div>
-                        <div class="form-group">
-                            <span name="OnClickSubmit" class="btn btn-primary">更新</span>
-                            <a href="{{ cs_url('/admin/page/summary', [values.parent_page_id]) }}" class="btn btn-outline-info">戻る</a>
-                        </div>
-                    </div>
-                </div>
-
-                <br>
+<a name="menu_composer"></a>
+{{ menu|raw }}
 
                 <div class="card">
                     <div class="card-header">コンポーザー情報 ({{ values.composer_key }})</div>
                     <div class="card-body">
                         {% for composer_block in composer_blocks %}
-                            {{ composer_block.get_entry_html()|raw }}
+                            {{ composer_block.body_edit_html()|raw }}
                         {% endfor %}
                         <div class="form-group">
-                            <span name="OnClickSubmit" class="btn btn-primary">更新</span>
+                            <span name="OnClickSubmit" class="btn btn-primary">保存</span>
                             <a href="{{ cs_url('/admin/page/summary', [values.parent_page_id]) }}" class="btn btn-outline-info">戻る</a>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-4">
+<a name="menu_html"></a>
+{{ menu|raw }}
+
+                <div class="card">
+                    <div class="card-header">HTML 情報</div>
+                    <div class="card-body">
+                        <label for="area_head_top" class="caption">&lt;head&gt; 最上部</label>
+                        <div class="form-group">
+                            <textarea class="form-control" id="area_head_top" name="area_head_top" rows="5">{{ values.area_head_top|raw }}</textarea>
+                        </div>
+                        <label for="area_head_bottom" class="caption">&lt;head&gt; 最下部</label>
+                        <div class="form-group">
+                            <textarea class="form-control" id="area_head_bottom" name="area_head_bottom" rows="5">{{ values.area_head_bottom|raw }}</textarea>
+                        </div>
+                        <label for="area_body_top" class="caption">&lt;body&gt; 最上部</label>
+                        <div class="form-group">
+                            <textarea class="form-control" id="area_body_head" name="area_body_top" rows="5">{{ values.area_body_top|raw }}</textarea>
+                        </div>
+                        <label for="area_body_bottom" class="caption">&lt;body&gt; 最下部</label>
+                        <div class="form-group">
+                            <textarea class="form-control" id="area_body_bottom" name="area_body_bottom" rows="5">{{ values.area_body_bottom|raw }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <span name="OnClickSubmit" class="btn btn-primary">保存</span>
+                            <a href="{{ cs_url('/admin/page/summary', [values.parent_page_id]) }}" class="btn btn-outline-info">戻る</a>
+                        </div>
+                    </div>
+                </div>
+
+
+<a name="menu_publish"></a>
+{{ menu|raw }}
                 <div class="card">
                     <div class="card-header">公開設定</div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="publish_type">状態</label>
+                            <label for="publish_type" class="caption">状態</label>
                             <div class="radio">
                                 <label><input type="radio" name="publish_status" id="publish_status_A" value="-2"{% if values.publish_status == -2 %} checked{% endif %}> 下書</label>
                             </div>
@@ -292,12 +319,7 @@
                         </div>
 
                         <div class="form-group">
-                            <span name="OnClickSubmit" class="btn btn-primary">更新</span>
-                            <a href="{{ cs_url('/admin/page/summary', [values.parent_page_id]) }}" class="btn btn-outline-info">戻る</a>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="publish_type">公開設定</label>
+                            <label for="publish_type" class="caption">公開設定</label>
                             <div class="radio">
                                 <label><input type="radio" name="publish_type" id="publish_type" value="0"{% if values.publish_type == 0 %} checked{% endif %}> 非公開</label>
                             </div>
@@ -314,7 +336,7 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="publish_start">開始日時</label>
+                            <label for="publish_start" class="caption">開始日時</label>
                             <input type="text" value="{{ values.publish_start }}" class="form-control" id="publish_start" name="publish_start" placeholder="公開日時">
                             {% if error_messages.publish_start != '' %}
                                 <p class="help-block">
@@ -323,7 +345,7 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="publish_end">終了日時</label>
+                            <label for="publish_end" class="caption">終了日時</label>
                             <input type="text" value="{{ values.publish_end }}" class="form-control" id="publish_end" name="publish_end" placeholder="終了日時">
                             {% if error_messages.publish_end != '' %}
                                 <p class="help-block">
@@ -332,19 +354,20 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <span name="OnClickSubmit" class="btn btn-primary">更新</span>
+                            <span name="OnClickSubmit" class="btn btn-primary">保存</span>
                             <a href="{{ cs_url('/admin/page/summary', [values.parent_page_id]) }}" class="btn btn-outline-info">戻る</a>
                         </div>
                     </div>
                 </div>
 
-                <br>
+<a name="menu_extension"></a>
+{{ menu|raw }}
 
                 <div class="card">
-                    <div class="card-header">エクステンション設定</div>
+                    <div class="card-header">表示設定</div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="publish_navi">ナビ表示</label>
+                            <label for="publish_navi" class="caption">ナビ表示</label>
                             <div class="radio">
                                 <label><input type="radio" name="publish_navi" id="publish_navi_1" value="1"{% if values.publish_navi == 1 %} checked{% endif %}> 表示</label>
                             </div>
@@ -358,7 +381,7 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="publish_list">リスト表示</label>
+                            <label for="publish_list" class="caption">リスト表示</label>
                             <div class="radio">
                                 <label><input type="radio" name="publish_list" id="publish_list_1" value="1"{% if values.publish_list == 1 %} checked{% endif %}> 表示</label>
                             </div>
@@ -372,19 +395,20 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <span name="OnClickSubmit" class="btn btn-primary">更新</span>
+                            <span name="OnClickSubmit" class="btn btn-primary">保存</span>
                             <a href="{{ cs_url('/admin/page/summary', [values.parent_page_id]) }}" class="btn btn-outline-info">戻る</a>
                         </div>
                     </div>
                 </div>
 
-                <br>
+<a name="menu_attribute"></a>
+{{ menu|raw }}
 
                 <div class="card">
                     <div class="card-header">属性情報</div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="category_ids">カテゴリ</label>
+                            <label for="category_ids" class="caption">カテゴリ</label>
                             <select class="form-control" id="category_ids" name="category_ids[]" multiple="multiple">
                                 {% for obj in rs_category_tree %}
                                     <option value="{{ obj.category_id }}"{% if obj.category_id in values.category_ids %} selected{% endif %}>{{ obj.tree_caption }}</option>
@@ -397,7 +421,7 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="tags">タグ</label>
+                            <label for="tags" class="caption">タグ</label>
                             <input type="text" value="{{ values.tags }}" class="form-control" id="tags" name="tags" placeholder="タグ">
                             {% if error_messages.tags != '' %}
                                 <p class="help-block">
@@ -406,19 +430,20 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <span name="OnClickSubmit" class="btn btn-primary">更新</span>
+                            <span name="OnClickSubmit" class="btn btn-primary">保存</span>
                             <a href="{{ cs_url('/admin/page/summary', [values.parent_page_id]) }}" class="btn btn-outline-info">戻る</a>
                         </div>
                     </div>
                 </div>
 
-                <br>
+<a name="menu_template"></a>
+{{ menu|raw }}
 
                 <div class="card">
                     <div class="card-header">テンプレート設定</div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="template_key">テンプレート</label>
+                            <label for="template_key" class="caption">テンプレート</label>
                             <select class="form-control" id="template_key" name="template_key">
                                 {% for obj in rs_template %}
                                     <option value="{{ obj.template_key }}"{% if obj.template_key == values.template_key %} selected{% endif %}>{{ obj.caption }}</option>
@@ -431,28 +456,36 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <span name="OnClickSubmit" class="btn btn-primary">更新</span>
+                            <span name="OnClickSubmit" class="btn btn-primary">保存</span>
                             <a href="{{ cs_url('/admin/page/summary', [values.parent_page_id]) }}" class="btn btn-outline-info">戻る</a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <br>
-        <div  id="file_upload_section" class="card" ondragover="onDragOver(event)" ondrop="onDrop(event)">
-            <div class="card-body">
-                ファイルをドラッグアンドドロップしてください。
-            </div>
-        </div>
-        <br>
-        <div id="progress">
-        </div>
-        <div id="media_summary">[data]</div>
-        <br>
-        <div>
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <input type="hidden" name="page_id" value="{{ values.page_id }}">
-        <input type="hidden" name="composer_key" value="{{ values.composer_key }}">
+
+<a name="menu_file"></a>
+{{ menu|raw }}
+
+                <div class="card">
+                    <div class="card-header">ファイル操作</div>
+                    <div class="card-body">
+                        <div  id="file_upload_section" class="card" ondragover="onDragOver(event)" ondrop="onDrop(event)">
+                            <div class="card-body">
+                                ファイルをドラッグアンドドロップしてください。
+                            </div>
+                        </div>
+                        <br>
+                        <div id="progress">
+                        </div>
+                        <div id="media_summary">[data]</div>
+                        <br>
+                        <div>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="page_id" value="{{ values.page_id }}">
+                        <input type="hidden" name="composer_key" value="{{ values.composer_key }}">
+                    </div>
+                </div>
+
+
     </form>
 
 {% endblock %}

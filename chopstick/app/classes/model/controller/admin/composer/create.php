@@ -16,6 +16,8 @@ class create extends \app\model\controller\admin\composer\base
         $this->validate('required', 'composer_key');
         $this->validate('alnum',    'composer_key', array('-', '_'));
         $this->validate('required', 'caption');
+        $this->validate('required', 'composer_output_mode');
+        $this->validate('required', 'template_key');
         //
         return $this->is_valid;
     }
@@ -44,6 +46,8 @@ INSERT INTO cs_composer
 (
     composer_key,
     caption,
+    template_key,
+    composer_output_mode,
     composer_template,
     created_at,
     updated_at
@@ -52,6 +56,8 @@ VALUE
 (
     :composer_key,
     :caption,
+    :template_key,
+    :composer_output_mode,
     :composer_template,
     NOW(),
     NOW()
@@ -61,6 +67,8 @@ EOT;
         (
             ':composer_key'         => $this->get_value('composer_key'),
             ':caption'              => $this->get_value('caption'),
+            ':template_key'         => $this->get_value('template_key'),
+            ':composer_output_mode' => $this->get_value('composer_output_mode'),
             ':composer_template'    => $this->get_value('composer_template'),
             ':order_at'             => $order_at,
         );

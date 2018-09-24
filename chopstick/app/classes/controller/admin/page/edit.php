@@ -22,7 +22,6 @@ class edit extends \app\controller_admin
     public function before()
     {
         parent::before();
-        //
         $this->dataset_page = new dataset_page();
     }
     // ********************************************************************************
@@ -34,9 +33,7 @@ class edit extends \app\controller_admin
     public function action_index($params)
     {
         $this->dataset_page->set_value('page_id', isset($params[0]) ? $params[0] : 0);
-        //
         $this->dataset_page->read();
-        //
         if ($this->dataset_page->read() == false)
         {
             response::redirect(url::create('/admin/page/summary'));

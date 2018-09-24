@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+{% block area_head_top %}
+{% endblock %}
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,13 +22,16 @@
     <title>{{ prefix_title }}{{ cms.site_name }}</title>
 
     <!-- MyStyle -->
-    <link href="{{ cs_url("/assets/css/mystyle.css") }}" rel="stylesheet">
+    <link href="{{ cs_url("/assets/css/admin/mystyle.css") }}" rel="stylesheet">
 
-{% block area_head %}
+{% block area_head_bottom %}
 {% endblock %}
 
 </head>
 <body>
+
+{% block area_body_top %}
+{% endblock %}
 
 {% if constant('CS_MODE') == 'development' %}
 
@@ -88,7 +95,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
-{% block area_body_tail %}
+{% block area_body_bottom %}
 {% endblock %}
 
 </body>

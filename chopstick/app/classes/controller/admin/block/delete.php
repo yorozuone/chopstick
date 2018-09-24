@@ -6,11 +6,11 @@ use \core\csrf;
 use \core\response;
 use \core\url;
 
-use \app\model\controller\admin\block\delete as dset_block;
+use \app\model\controller\admin\block\delete as dataset_block;
 
 class delete extends \app\controller_admin
 {
-    private $dset_block = null;
+    private $dataset_block = null;
     // ********************************************************************************
     // **** アクション
     // ********************************************************************************
@@ -22,15 +22,15 @@ class delete extends \app\controller_admin
     {
         parent::before();
         //
-        $this->dset_block = new dset_block();
+        $this->dataset_block = new dataset_block();
     }
     // --------------------------------------------------------------------------------
     // 既定
     // --------------------------------------------------------------------------------
     public function action_index($params)
     {
-        $this->dset_block->set_value('block_key', isset($params[0]) ? $params[0] : '');
-        if ($this->dset_block->read() == false)
+        $this->dataset_block->set_value('block_key', isset($params[0]) ? $params[0] : '');
+        if ($this->dataset_block->read() == false)
         {
             response::redirect(url::create('/admin/block/summary'));
         }
@@ -46,13 +46,13 @@ class delete extends \app\controller_admin
             auth::logout();
             response::redirect(url::create('/admin/auth/login'));
         }
-        $this->dset_block->post();
+        $this->dataset_block->post();
         //
-        if ($this->dset_block->read() == false)
+        if ($this->dataset_block->read() == false)
         {
             response::redirect(url::create('/admin/block/summary'));
         }
-        $this->dset_block->delete();
+        $this->dataset_block->delete();
         response::redirect(url::create('/admin/block/summary'));
     }
     // ********************************************************************************
@@ -65,8 +65,8 @@ class delete extends \app\controller_admin
     {
         $vars = array
         (
-            'dset_block_values'         => $this->dset_block->get_values(),
-            'dset_block_error_messages' => $this->dset_block->get_error_messages(),
+            'values'          => $this->dataset_block->get_values(),
+            'error_messages'  => $this->dataset_block->get_error_messages(),
         );
         echo $this->render('controller/admin/block/delete/confirm.twig', $vars);
     }

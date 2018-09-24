@@ -22,12 +22,15 @@ SELECT
 FROM
     cs_page
 WHERE
-    publish_status = -2 OR
-    publish_status = -1 OR
-    publish_type = 0 OR
-    CASE WHEN publish_type = 2 AND publish_start Is Not Null AND publish_start Is Null THEN publish_start <= :current_datetime_1 END OR
-    CASE WHEN publish_type = 2 AND publish_start Is Null AND publish_start Is Not Null THEN publish_end >= :current_datetime_2 END OR
-    CASE WHEN publish_type = 2 AND publish_start Is Not Null AND publish_start Is Not Null THEN publish_start <= :current_datetime_3 OR publish_end >= :current_datetime_4 END
+    page_status = 1 AND
+    (
+        publish_status = -2 OR
+        publish_status = -1 OR
+        publish_type = 0 OR
+        CASE WHEN publish_type = 2 AND publish_start Is Not Null AND publish_start Is Null THEN publish_start <= :current_datetime_1 END OR
+        CASE WHEN publish_type = 2 AND publish_start Is Null AND publish_start Is Not Null THEN publish_end >= :current_datetime_2 END OR
+        CASE WHEN publish_type = 2 AND publish_start Is Not Null AND publish_start Is Not Null THEN publish_start <= :current_datetime_3 OR publish_end >= :current_datetime_4 END
+    )
 ORDER BY
     updated_at desc
 EOT;

@@ -3,9 +3,9 @@
   {
     "psr-4":
     {
-      "core\\": "chopstick/core",
-      "app\\": "chopstick/app",
-      "site\\": "chopstick/site"
+      "core\\": "chopstick/core/classes",
+      "app\\": "chopstick/app/classes",
+      "site\\": "chopstick/site/classes"
     }
   },
   "config":

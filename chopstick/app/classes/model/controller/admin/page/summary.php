@@ -11,7 +11,6 @@ class summary extends \core\fieldset
     public function __construct()
     {
         parent::__construct();
-        $this->append('parent_page_id', '親ページ', 0);
     }
     // --------------------------------------------------------------------------------
     //
@@ -26,54 +25,35 @@ SELECT
     parent_page_id,
     composer_key,
     page_title,
-    reserved,
-    publish_status,
-    publish_type,
-    publish_start,
-    publish_end,
-    publish_navi,
-    publish_list,
+    permanent_name,
     created_at,
     updated_at
 FROM
     cs_page
 WHERE
-    parent_page_id = :parent_page_id
+    page_status = 1
 ORDER BY
+    parent_page_id,
     order_at,
     page_id
 EOT;
-        $sql_params = array
-        (
-            ':parent_page_id'   => $this->get_value('parent_page_id'),
-        );
-        return $con->query($sql, $sql_params);
+        $rs_src = $con->query($sql);
+        $rs_dst = array();
+        self::recursion_fetch_tree($rs_src, 0, $rs_dst, 1);
+        return $rs_dst;
     }
-    // --------------------------------------------------------------------------------
-    // 並び順
-    // --------------------------------------------------------------------------------
-    public function sort($rs)
+    // ----------
+    // 表示用ページ一覧取得（再帰）
+    // ----------
+    private static function recursion_fetch_tree($rs_src, $parent_page_id, &$rs_dst, $hierarchy=1)
     {
-        $con = new db();
-        //
-        $sql = <<< EOT
-UPDATE
-    cs_page
-SET
-    order_at = :order_at
-WHERE
-    page_id = :page_id
-EOT;
-        $i = 0;
-        foreach($rs as $v)
+        foreach($rs_src as $src)
         {
-            $i++;
-            $sql_params = array
-            (
-                ':page_id'  => $v,
-                ':order_at' => $i,
-            );
-            $con->query($sql, $sql_params);
+            if ($src['parent_page_id'] == $parent_page_id)
+            {
+                $rs_dst[] = $src;
+                self::recursion_fetch_tree($rs_src, $src['page_id'], $rs_dst, $hierarchy+1);
+            }
         }
     }
 }

@@ -7,12 +7,12 @@ use \core\response;
 use \core\url;
 
 // dataset
-use \app\model\controller\admin\group\delete as dset_group;
+use \app\model\controller\admin\group\delete as dataset_group;
 use \app\model\recordset\roll as rs_roll;
 
 class delete extends \app\controller_admin
 {
-    private $dset_group;
+    private $dataset_group;
     private $rs_roll;
     // ********************************************************************************
     // **** アクション
@@ -23,7 +23,7 @@ class delete extends \app\controller_admin
     public function before()
     {
         parent::before();
-        $this->dset_group = new dset_group();
+        $this->dataset_group = new dataset_group();
         $this->rs_roll = new rs_roll();
     }
     // --------------------------------------------------------------------------------
@@ -31,8 +31,8 @@ class delete extends \app\controller_admin
     // --------------------------------------------------------------------------------
     public function action_index($params)
     {
-        $this->dset_group->set_value('group_key', isset($params[0]) ? $params[0] : '');
-        if ($this->dset_group->read() == false)
+        $this->dataset_group->set_value('group_key', isset($params[0]) ? $params[0] : '');
+        if ($this->dataset_group->read() == false)
         {
             response::redirect(url::create('/admin/group'));
         }
@@ -48,12 +48,12 @@ class delete extends \app\controller_admin
             auth::logout();
             response::redirect(url::create('/admin/auth/login'));
         }
-        $this->dset_group->post();
-        if ($this->dset_group->read() == false)
+        $this->dataset_group->post();
+        if ($this->dataset_group->read() == false)
         {
             response::redirect(url::create('/admin/group/summary'));
         }
-        $this->dset_group->delete();
+        $this->dataset_group->delete();
         response::redirect(url::create('/admin/group/summary'));
     }
     // ********************************************************************************
@@ -65,7 +65,7 @@ class delete extends \app\controller_admin
     function display()
     {
         $rs_roll = $this->rs_roll->fetch_all();
-        $roll_keys = $this->dset_group->get_value('roll_keys');
+        $roll_keys = $this->dataset_group->get_value('roll_keys');
         foreach($rs_roll as $k => $v)
         {
             if (array_search($v['roll_key'], $roll_keys) === false)
@@ -79,8 +79,8 @@ class delete extends \app\controller_admin
         }
         $vars = array
         (
-            'dset_group_values'         => $this->dset_group->get_values(),
-            'rs_roll'                 => $rs_roll,
+            'values'    => $this->dataset_group->get_values(),
+            'rs_roll'   => $rs_roll,
         );
         echo $this->render('controller/admin/group/delete/confirm.twig', $vars);
     }

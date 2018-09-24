@@ -20,39 +20,39 @@
                 <div class="card">
                     <div class="card-header">グループ作成</div>
                     <div class="card-body">
-                        {% for error_message in dset_group_error_messages %}
+                        {% for error_message in error_messages %}
                             {% if error_message != '' %}
                                 <div class="alert alert-danger" role="alert">{{ error_message }}</div>
                             {% endif %}
                         {% endfor %}
                         <div class="form-group">
-                            <label for="group_key">グループ・キー</label>
-                            <input type="text" value="{{ dset_group_values.group_key }}" class="form-control" id="group_key" name="group_key" placeholder="グループ・キー">
-                            {% if dset_group_error_messages.group_key != '' %}
+                            <label for="group_key" class="caption">グループ・キー</label>
+                            <input type="text" value="{{ values.group_key }}" class="form-control" id="group_key" name="group_key" placeholder="グループ・キー">
+                            {% if error_messages.group_key != '' %}
                                 <p class="help-block">
-                                    <div class="alert alert-danger" role="alert">{{ dset_group_error_messages.group_key }}</div>
+                                    <div class="alert alert-danger" role="alert">{{ error_messages.group_key }}</div>
                                 </p>
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="caption">見出し</label>
-                            <input type="text" value="{{ dset_group_values.caption }}" class="form-control" id="caption" name="caption" placeholder="見出し">
-                            {% if dset_group_error_messages.caption != '' %}
+                            <label for="caption" class="caption">見出し</label>
+                            <input type="text" value="{{ values.caption }}" class="form-control" id="caption" name="caption" placeholder="見出し">
+                            {% if error_messages.caption != '' %}
                                 <p class="help-block">
-                                    <div class="alert alert-danger" role="alert">{{ dset_group_error_messages.caption }}</div>
+                                    <div class="alert alert-danger" role="alert">{{ error_messages.caption }}</div>
                                 </p>
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            <label for="description">説明</label>
-                            <input type="text" value="{{ dset_group_values.description }}" class="form-control" id="description" name="description" placeholder="説明">
-                            {% if dset_group_error_messages.description != '' %}
+                            <label for="description" class="caption">説明</label>
+                            <input type="text" value="{{ values.description }}" class="form-control" id="description" name="description" placeholder="説明">
+                            {% if error_messages.description != '' %}
                                 <p class="help-block">
-                                    <div class="alert alert-danger" role="alert">{{ dset_group_error_messages.description }}</div>
+                                    <div class="alert alert-danger" role="alert">{{ error_messages.description }}</div>
                                 </p>
                             {% endif %}
                         </div>
-                        <label>ロール</label>
+                        <label class="caption">ロール</label>
                         {% for v in rs_roll %}
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="{{ v.roll_key }}" id="roll_key_{{ v.roll_key }}" name="roll_keys[]"{% if v.checked == 1 %} checked{% endif %}>

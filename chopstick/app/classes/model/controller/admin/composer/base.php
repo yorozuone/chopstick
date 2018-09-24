@@ -12,11 +12,13 @@ class base extends \core\fieldset
     {
         parent::__construct();
         //
-        $this->append('composer_key',       'コンポーザー・キー');
+        $this->append('composer_key',           'コンポーザー・キー');
         //
-        $this->append('caption',            'コンポーザー名');
-        $this->append('composer_template',  'コンポーザー・テンプレート');
-        $this->append('order_at',           '並び順');
+        $this->append('caption',                'コンポーザー名');
+        $this->append('template_key',           'テンプレート・キー',   'default');
+        $this->append('composer_template',      'コンポーザー・テンプレート');
+        $this->append('composer_output_mode',   '出力方法', 1);
+        $this->append('order_at',               '並び順');
     }
     // ################################################################################
     // データ操作
@@ -32,6 +34,8 @@ class base extends \core\fieldset
 SELECT
     composer_key,
     caption,
+    template_key,
+    composer_output_mode,
     composer_template
 FROM
     cs_composer

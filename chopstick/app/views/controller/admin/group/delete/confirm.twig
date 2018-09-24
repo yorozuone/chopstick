@@ -21,25 +21,25 @@
                     <div class="card-header">グループ削除</div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label class="control-label">グループ・キー</label>
+                            <label class="control-label caption">グループ・キー</label>
                             <div>
-                                <p class="form-control-static">{{ dset_group_values.group_key }}</p>
+                                <p class="form-control-static">{{ values.group_key }}</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">見出し</label>
+                            <label class="control-label caption">見出し</label>
                             <div>
-                                {{ dset_group_values.caption }}
+                                {{ values.caption }}
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">説明</label>
+                            <label class="control-label caption">説明</label>
                             <div>
-                                <p class="form-control-static">{{ dset_group_values.description }}</p>
+                                <p class="form-control-static">{{ values.description }}</p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">ロール</label>
+                            <label class="control-label caption">ロール</label>
                             <div>
                                 <p class="form-control-static">
                                 {% for v in rs_roll %}
@@ -52,14 +52,14 @@
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-danger" value="削除">
-                            <a href="{{ cs_url('/admin/group/summary', [ dset_group_values.group_key ]) }}" class="btn btn-outline-info">戻る</a>
+                            <a href="{{ cs_url('/admin/group/summary', [ values.group_key ]) }}" class="btn btn-outline-info">戻る</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <input type="hidden" name="group_key" value="{{ dset_group_values.group_key }}">
+        <input type="hidden" name="group_key" value="{{ values.group_key }}">
     </form>
 
 {% endblock %}

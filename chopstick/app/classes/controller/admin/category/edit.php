@@ -7,11 +7,11 @@ use \core\response;
 use \core\url;
 use \core\validation;
 
-use \app\model\controller\admin\category\edit as dset_category;
+use \app\model\controller\admin\category\edit as dataset_category;
 
 class edit extends \app\controller_admin
 {
-    private $dset_category = null;
+    private $dataset_category = null;
     // ********************************************************************************
     // **** アクション
     // ********************************************************************************
@@ -21,19 +21,19 @@ class edit extends \app\controller_admin
     public function before()
     {
         parent::before();
-        $parent_category_id = isset($this->route->params[0]) ? $this->route->params[0] : 0;
-        $this->dset_category = new dset_category();
-        $this->dset_category->set_value('category_id', $parent_category_id);
-        if ($this->dset_category->read() == false)
-        {
-            response::redirect(url::create('/admin/category/summary'));
-        }
+        $this->dataset_category = new dataset_category();
     }
     // --------------------------------------------------------------------------------
     // 既定
     // --------------------------------------------------------------------------------
     public function action_index()
     {
+        $parent_category_id = isset($this->route->params[0]) ? $this->route->params[0] : 0;
+        $this->dataset_category->set_value('category_id', $parent_category_id);
+        if ($this->dataset_category->read() == false)
+        {
+            response::redirect(url::create('/admin/category/summary'));
+        }
         $this->display();
     }
     // --------------------------------------------------------------------------------
@@ -41,17 +41,19 @@ class edit extends \app\controller_admin
     // --------------------------------------------------------------------------------
     public function action_update()
     {
+
         if (!csrf::check())
         {
             auth::logout();
             response::redirect(url::create('/admin/auth/login'));
         }
-        $this->dset_category->post();
+
+        $this->dataset_category->post();
         //
-        if ($this->dset_category->check())
+        if ($this->dataset_category->check())
         {
-            $this->dset_category->update();
-            response::redirect(url::create('/admin/category/summary', array($this->dset_category->get_value('parent_category_id'))));
+            $this->dataset_category->update();
+            response::redirect(url::create('/admin/category/summary', array($this->dataset_category->get_value('parent_category_id'))));
         }
         else
         {
@@ -68,9 +70,9 @@ class edit extends \app\controller_admin
     {
         $vars = array
         (
-            'dset_category_values'            => $this->dset_category->get_values(),
-            'dset_category_error_messages'    => $this->dset_category->get_error_messages(),
-            'rs_category_tree'              => \app\model\recordset\category::fetch_tree(),
+            'values'            => $this->dataset_category->get_values(),
+            'error_messages'    => $this->dataset_category->get_error_messages(),
+            'rs_category_tree'  => \app\model\recordset\category::fetch_tree(),
         );
         array_unshift
         (
