@@ -1,0 +1,67 @@
+{% extends "/csroot/controller/admin/default.twig" %}
+
+{% block area_body_bottom %}
+{% endblock %}
+
+{% block area_body %}
+
+    <h1 class="display-4">
+        ユーザー一覧
+    </h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('csroot/admin/menu') }}">メニュー</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('admin/user/summary')}}">ユーザー一覧</a></li>
+        </ol>
+    </nav>
+
+    <div>
+        <a href="{{ cs_url('/admin/user/create', [parent_user_id]) }}" class="btn btn-success">ユーザー登録</a>
+    </div>
+
+    <br>
+
+    {% if rs_user|length == 0 %}
+        <div class="alert alert-success" role="alert">ユーザーが登録されていません。</div>
+    {% else %}
+        <p class="h4">ユーザー一覧</p>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th nowrap>ユーザー名</th>
+                        <th nowrap>メールアドレス</th>
+                        <th nowrap>所属グループ</th>
+                        <th nowrap style="width: 200px;">更新日時</th>
+                        <th nowrap style="width: 320px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in rs_user %}
+                        <tr user_id="{{ v.user_id }}">
+                            <td>
+                                {{ v.username }}
+                            </td>
+                            <td>
+                                {{ v.email }}
+                            </td>
+                            <td>
+                                {{ v.group_caption }}
+                            </td>
+                            <td>
+                                {{ v.updated_at | date('Y/m/d H:i:s', "Asia/Tokyo") }}
+                            </td>
+                            <td style="text-align: right;">
+                                <a href="{{ cs_url('/admin/user/edit', [v.user_id]) }}" class="btn btn-primary">編集</a>
+                                <a href="{{ cs_url('/admin/user/update_password', [v.user_id]) }}" class="btn btn-danger">パスワード変更</a>
+                                <a href="{{ cs_url('/admin/user/delete', [v.user_id]) }}" class="btn btn-danger">削除</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+{% endblock %}

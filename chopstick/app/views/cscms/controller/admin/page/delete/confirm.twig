@@ -1,0 +1,222 @@
+{% extends "/csroot/controller/admin/default.twig" %}
+
+{% block area_body %}
+
+    <h1 class="display-4">
+        ページ削除
+    </h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('csroot/admin/menu') }}">メニュー</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('cscms/admin/page/summary') }}">ページ一覧</a></li>
+            <li class="breadcrumb-item active" aria-current="page">ページ確認</li>
+        </ol>
+    </nav>
+
+    <form action="{{ cs_url('/cscms/admin/page/delete/update') }}" method="post">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">基本情報</div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="control-label">親ページ</label>
+                            <div>
+                                <p class="form-control-static">{% if values.parent_page_id == 0 %}(root){% else %}{{ values.parent_page_title }}{% endif %}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">ページ・タイトル</label>
+                            <div>
+                                <p class="form-control-static">{{ values.page_title }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">ヘッダ・タイトル</label>
+                            <div>
+                                <p class="form-control-static">{{ values.head_title }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">パンくず・見出し</label>
+                            <div>
+                                <p class="form-control-static">{{ values.breadcrumb_caption }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">パーマネント名</label>
+                            <div>
+                                <p class="form-control-static">{{ values.permanent_name }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">ページ種別</label>
+                            <div>
+                                <p class="form-control-static">{% if (values.page_type == 1) %}通常{% else %}外部リンク{% endif %}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">外部リンク</label>
+                            <div>
+                                <p class="form-control-static">{{ (values.external_link == '') ? '(未設定)' : values.external_link }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="card">
+                    <div class="card-header">area_head</div>
+                    <div class="card-body">
+                        {% if values.area_head == '' %}
+                            (未登録)
+                        {% else %}
+                            <pre>{{ values.area_head|raw }}</pre>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="card">
+                    <div class="card-header">コンポーザー情報 ({{ values.composer_key }})</div>
+                    <div class="card-body">
+                        {% for composer_block in composer_blocks %}
+                            {{ composer_block.body_confirm_html()|raw }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">公開設定</div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="control-label">状態</label>
+                            <div>
+                                <p class="form-control-static">
+                                    {% if (values.publish_status == -2) %}下書{% endif %}
+                                    {% if (values.publish_status == -1) %}レビュー待ち{% endif %}
+                                    {% if (values.publish_status ==  1) %}公開{% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">公開設定</label>
+                            <div>
+                                <p class="form-control-static">
+                                    {% if (values.publish_type == 0) %}非公開{% endif %}
+                                    {% if (values.publish_type == 1) %}公開{% endif %}
+                                    {% if (values.publish_type == 2) %}時間指定{% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">開始日時</label>
+                            <div>
+                                <p class="form-control-static">{{ (values.publish_start == '') ? '(未設定)' : values.publish_start }}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">終了日時</label>
+                            <div>
+                                <p class="form-control-static">{{ (values.publish_end == '') ? '(未設定)' : values.publish_end }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="card">
+                    <div class="card-header">エクステンション設定</div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="control-label">公開設定 - ナビ</label>
+                            <div>
+                                <p class="form-control-static">
+                                    {% if (values.publish_navi == 0) %}非公開{% endif %}
+                                    {% if (values.publish_navi == 1) %}公開{% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">公開設定 - リスト</label>
+                            <div>
+                                <p class="form-control-static">
+                                    {% if (values.publish_list == 0) %}非公開{% endif %}
+                                    {% if (values.publish_list == 1) %}公開{% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="card">
+                    <div class="card-header">属性設定</div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="control-label">カテゴリ</label>
+                            <div>
+                                {% if values.categorys|length == 0 %}
+                                    (未設定)
+                                {% endif %}
+                                {% for category in values.categorys %}
+                                    <p class="form-control-static">{{ category }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">タグ</label>
+                            <div>
+                                {% if values.tags|length == 0 %}
+                                    (未設定)
+                                {% endif %}
+                                {% for tag in values.tags %}
+                                    <p class="form-control-static">{{ tag }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="card">
+                    <div class="card-header">テンプレート設定</div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="control-label">テンプレート・キー</label>
+                            <p class="form-control-static">{{ values.template_key }}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    {% if values.number_of_child_page == 0 %}
+                        <input type="submit" class="btn btn-danger" value="削除">
+                    {% else %}
+                        <span class="btn btn-outline-info">削除</span>
+                    {% endif %}
+                    <a href="{{ cs_url('/cscms/admin/page/summary', [values.parent_page_id]) }}" class="btn btn-outline-info">戻る</a>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="page_id" value="{{ values.page_id }}">
+    </form>
+
+{% endblock %}

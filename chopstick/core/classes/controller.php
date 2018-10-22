@@ -9,6 +9,7 @@ class controller
     // --------------------------------------------------------------------------------
     public function before()
     {
+        debug::trace('[core/controller/before] : 開始');
         return true;
     }
     // --------------------------------------------------------------------------------
@@ -16,6 +17,7 @@ class controller
     // --------------------------------------------------------------------------------
     public function after()
     {
+        debug::trace('[core/controller/after] : 開始');
         return true;
     }
 }

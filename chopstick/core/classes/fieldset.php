@@ -13,15 +13,15 @@ class fieldset
     // ################################################################################
     public function __construct()
     {
-        //
+        debug::trace('[core/fieldset/__construct] : 開始');
     }
     // --------------------------------------------------------------------------------
     // フィールドを追加
     // --------------------------------------------------------------------------------
     public function append($name, $label = '', $value = '')
     {
+        debug::trace('[core/fieldset/append] : 開始');
         $obj = new field($name, $label, $value);
-        //
         $this->fields[$name] = $obj;
     }
     // --------------------------------------------------------------------------------
@@ -29,8 +29,8 @@ class fieldset
     // --------------------------------------------------------------------------------
     public function to_array()
     {
+        debug::trace('[core/fieldset/to_array] : 開始');
         $obj = array();
-        //
         foreach($this->fields as $k => $v)
         {
             $obj[$k] = $v->to_array();
@@ -43,6 +43,7 @@ class fieldset
     // --------------------------------------------------------------------------------
     public function post($name = '')
     {
+        debug::trace('[core/fieldset/post] : 開始');
         if($name == '')
         {
             foreach($this->fields as $v)
@@ -71,10 +72,12 @@ class fieldset
     // --------------------------------------------------------------------------------
     public function set_value($name, $value)
     {
+        debug::trace('[core/fieldset/set_value] : 開始');
         $this->fields[$name]->set_value($value);
     }
     public function get_value($name)
     {
+        debug::trace('[core/fieldset/get_value] : 開始');
         return $this->fields[$name]->get_value();
     }
     // --------------------------------------------------------------------------------
@@ -82,6 +85,7 @@ class fieldset
     // --------------------------------------------------------------------------------
     public function set_values($values)
     {
+        debug::trace('[core/fieldset/set_values] : 開始');
         foreach($values as $k => $v)
         {
             if (isset($this->fields[$k]))
@@ -100,38 +104,37 @@ class fieldset
         return $obj;
     }
     // --------------------------------------------------------------------------------
-    // ラベル取得
-    // --------------------------------------------------------------------------------
-    public function get_label($name)
-    {
-        return $this->fields[$name]->get_label();
-    }
-    // --------------------------------------------------------------------------------
-    // ラベル取得
+    // ラベル設定・取得
     // --------------------------------------------------------------------------------
     public function set_label($name, $value)
     {
+        debug::trace('[core/fieldset/set_label] : 開始');
         $this->fields[$name]->set_label($value);
     }
-    // --------------------------------------------------------------------------------
-    // 取得
-    // --------------------------------------------------------------------------------
-    public function get_description($name)
+    public function get_label($name)
     {
-        return $this->fields[$name]->get_description();
+        debug::trace('[core/fieldset/get_label] : 開始');
+        return $this->fields[$name]->get_label();
     }
     // --------------------------------------------------------------------------------
-    // 取得
+    // 説明設定・取得
     // --------------------------------------------------------------------------------
     public function set_description($name, $value)
     {
+        debug::trace('[core/fieldset/set_description] : 開始');
         $this->fields[$name]->set_description($value);
+    }
+    public function get_description($name)
+    {
+        debug::trace('[core/fieldset/get_description] : 開始');
+        return $this->fields[$name]->get_description();
     }
     // --------------------------------------------------------------------------------
     // 全てのエラーメッセージを取得
     // --------------------------------------------------------------------------------
     public function get_error_messages()
     {
+        debug::trace('[core/fieldset/get_error_messages] : 開始');
         $obj = array();
         foreach($this->fields as $k => $v)
         {
@@ -144,6 +147,7 @@ class fieldset
     // --------------------------------------------------------------------------------
     public function set_error($name, $error_message)
     {
+        debug::trace('[core/fieldset/set_error] : 開始');
         $this->fields[$name]->set_error_message($error_message);
     }
     // --------------------------------------------------------------------------------
@@ -151,6 +155,7 @@ class fieldset
     // --------------------------------------------------------------------------------
     public function validate(...$args)
     {
+        debug::trace('[core/fieldset/svalidate] : 開始');
         $method = '\\core\\validation\\'.$args[0];
         if ($method::run($this, array_slice($args, 1)) == false)
         {

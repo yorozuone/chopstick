@@ -14,6 +14,7 @@ class auth
     // --------------------------------------------------------------------------------
     public static function is_auth($username, $password)
     {
+        debug::trace('[core/auth/is_auth] : 開始');
         $con = new db();
         //
         $sql = <<< EOT
@@ -44,6 +45,7 @@ EOT;
     // --------------------------------------------------------------------------------
     public static function login($username, $password)
     {
+        debug::trace('[core/auth/login] : 開始');
         if (self::is_auth($username, $password) === false)
         {
             return false;
@@ -85,6 +87,7 @@ EOT;
     // --------------------------------------------------------------------------------
     public static function check()
 	{
+        debug::trace('[core/auth/check] : 開始');
         $core_auth = sessionvars::get_value(self::GLOBALVARS_NAME);
         if (!isset($core_auth))
         {
@@ -101,6 +104,7 @@ EOT;
     // --------------------------------------------------------------------------------
     public static function logout()
 	{
+        debug::trace('[core/auth/logout] : 開始');
         sessionvars::destroy();
     }
     // --------------------------------------------------------------------------------
@@ -108,6 +112,7 @@ EOT;
     // --------------------------------------------------------------------------------
     public static function read()
     {
+        debug::trace('[core/auth/read] : 開始');
         if (!self::check())
         {
             return false;

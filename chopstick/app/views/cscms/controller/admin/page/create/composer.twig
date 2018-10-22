@@ -1,0 +1,30 @@
+{% extends "/csroot/controller/admin/default.twig" %}
+
+{% block area_body %}
+
+    <h1 class="display-4">
+        ページ登録 - コンポーザー選択<
+    </h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('csroot/admin/menu') }}">メニュー</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('cscms/admin/page/summary') }}">ページ一覧</a></li>
+            <li class="breadcrumb-item active" aria-current="page">ページ登録 - コンポーザー選択</li>
+        </ol>
+    </nav>
+
+    <div class="list-group">
+        <a href="#" class="list-group-item active">
+            コンポーザーを選択してください
+        </a>
+        {% for obj in rs_composer %}
+            <a href="{{ cs_url('cscms/admin/page/create/entry/', [values.parent_page_id, obj.composer_key]) }}" class="list-group-item">{{ obj.caption }}</a>
+        {% endfor %}
+    </div>
+
+    <br>
+
+    <a href="{{ cs_url('/cscms/admin/page/summary', [values.parent_page_id]) }}" class="btn btn-outline-info">戻る</a>
+
+{% endblock %}

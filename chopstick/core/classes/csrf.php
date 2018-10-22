@@ -11,6 +11,7 @@ class csrf
     // --------------------------------------------------------------------------------
     public static function create_token()
     {
+        debug::trace('[core/csrf/create_token] : 開始');
         return hash(self::HASH_ALGO, session_id());
     }
     // --------------------------------------------------------------------------------
@@ -18,6 +19,7 @@ class csrf
     // --------------------------------------------------------------------------------
     public static function check()
     {
+        debug::trace('[core/csrf/check] : 開始');
         $input = input::post('csrf_token');
         if ($input['csrf_token'] != self::create_token())
         {

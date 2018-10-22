@@ -1,10 +1,10 @@
 <?php
 return array
 (
-    'root'      => 'page/index',
-    '404'       => 'page/index',
+    'root'      => 'cscms/page',
+    '404'       => 'cscms/page',
     'replace'   => array
         (
-            '/^login$/' => 'admin/auth/login',
+            '/^login$/' => 'csroot/admin/auth/login',
         ),
 );

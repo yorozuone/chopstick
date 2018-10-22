@@ -1,0 +1,27 @@
+{% extends "/csroot/controller/admin/default.twig" %}
+
+{% block area_body %}
+
+    <h1 class="display-4">
+        カテゴリ駆除
+    </h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('csroot/admin/menu') }}">メニュー</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('cscms/admin/category/summary', [dset_category_values.parent_page_id]) }}">カテゴリ一覧</a></li>
+            <li class="breadcrumb-item active" aria-current="page">カテゴリ削除</li>
+        </ol>
+    </nav>
+
+    <h1 class="display-4">
+        削除できないカテゴリ
+    </h1>
+ 
+    <div class="alert alert-danger" role="alert">子カテゴリが存在するカテゴリのため、削除できません。</div>
+
+    <div class="form-group">
+        <a href="{{ cs_url('/cscms/admin/category/summary', [dset_category_values.parent_category_id]) }}" class="btn btn-outline-info">戻る</a>
+    </div>
+
+{% endblock %}

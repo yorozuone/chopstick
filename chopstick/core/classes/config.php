@@ -10,13 +10,13 @@ class config
     // --------------------------------------------------------------------------------
     public static function read($config_name)
     {
+        debug::trace('[core/config/read] : 開始 : '.$config_name.' を読込');
         $config = array();
         foreach(array('core', 'app', 'site') as $v)
         {
             $tmp_config = self::read_config(CS_BASE_DIR.$v.'/config/'  .$config_name.'.php');
             $config = array_replace_recursive($config, $tmp_config);
         }
-//        print_r($config);
         return $config;
     }
     // --------------------------------------------------------------------------------
@@ -24,6 +24,7 @@ class config
     // --------------------------------------------------------------------------------
     private static function read_config($filename)
     {
+        debug::trace('[core/config/read_config] : 開始 : '.$filename.' を読込');
         if (is_readable($filename) == false) 
         {
             return array();

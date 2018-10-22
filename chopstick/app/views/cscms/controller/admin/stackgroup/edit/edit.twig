@@ -1,0 +1,43 @@
+{% extends "/csroot/controller/admin/default.twig" %}
+
+{% block area_body %}
+
+    <h1 class="display-4">
+        スタック・グループ編集
+    </h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('csroot/admin/menu') }}">メニュー</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('cscms/admin/stackgroup/summary', [ dset_stack_values.stackgroup_id] )}}">スタック・グループ一覧</a></li>
+            <li class="breadcrumb-item active" aria-current="page">スタック・グループ編集</li>
+        </ol>
+    </nav>
+
+    <div class="card">
+        <div class="card-header">スタック・グループの編集</div>
+        <div class="card-body">
+            {% for dset_stackgroup_error_message in dset_stackgroup_error_messages %}
+                {% if dset_stackgroup_error_message != '' %}
+                    <div class="alert alert-danger" role="alert">{{ dset_stackgroup_error_message }}</div>
+                {% endif %}
+            {% endfor %}
+            <form action="{{ cs_url('/cscms/admin/stackgroup/edit/update') }}" method="post">
+                <div class="form-group">
+                    <label for="caption">スタック・グループ名</label>
+                    <input type="text" value="{{ dset_stackgroup_values.caption }}" class="form-control" id="caption" name="caption" placeholder="スタック・グループ名">
+                    {% if dset_stackgroup_error_messages.caption != '' %}
+                        <p class="help-block">
+                            <div class="alert alert-danger" role="alert">{{ dset_stackgroup_error_messages.caption }}</div>
+                        </p>
+                    {% endif %}
+                </div>
+                <input type="submit" class="btn btn-primary" value="更新">
+                <a href="{{ cs_url('/cscms/admin/stackgroup/summary') }}" class="btn btn-outline-info">戻る</a>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" id="stackgroup_id" name="stackgroup_id" value="{{ dset_stackgroup_values.stackgroup_id }}">
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

@@ -16,7 +16,7 @@ class controller_admin extends \app\controller
         //
         if (auth::check() == false)
         {
-            response::redirect(url::create('/admin/auth/login'));
+            response::redirect(url::create('/csroot/admin/auth/login'));
         }
     }
 }

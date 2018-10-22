@@ -14,6 +14,7 @@ class db
     // --------------------------------------------------------------------------------
     public function __construct($connection_name = 'default')
     {
+        debug::trace('[core/db/__construct] : 開始');
         if ($this->_current_connection == false)
         {
             $config = config::read('db');
@@ -44,6 +45,7 @@ class db
     // --------------------------------------------------------------------------------
     public function query($sql, $param = array())
     {
+        debug::trace('[core/db/query] : 開始');
         $log = $sql;
         $log = str_replace("\r", ' ', $log);
         $log = str_replace("\n", ' ', $log);

@@ -1,0 +1,84 @@
+{% extends "/csroot/controller/admin/default.twig" %}
+
+{% block area_body_bottom %}
+<script type="text/javascript">
+    $(function() {
+        $('#stackgroup_sortable tbody').sortable({
+            items: 'tr',
+            handle: '.stackgroup_sortable_handle',
+            cursor: 'move',
+            opacity: 0.5,
+            stop: function (event, ui)
+            {
+                var params = [];
+                $("#stackgroup_sortable tbody tr").each(function() {
+                    params.push($(this).attr('stackgroup_id'));
+                });
+                $.ajax({
+                    url: "{{ cs_url('cscms/admin/stackgroup/summary/sort/') }}" + params.join('/')
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+{% block area_body %}
+
+    <h1 class="display-4">
+        スタック・グループ一覧
+    </h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('csroot/admin/menu') }}">メニュー</a></li>
+            <li class="breadcrumb-item active" aria-current="page">スタック・グループ一覧</li>
+        </ol>
+    </nav>
+
+    <div>
+        <a href="{{ cs_url('/cscms/admin/stackgroup/create') }}" class="btn btn-success">スタッグ・グループ登録</a>
+    </div>
+
+    <br>
+
+    {% if rs_stackgroup|length == 0 %}
+        <div class="alert alert-success" role="alert">スタック・グループが登録されていません。</div>
+    {% else %}
+        <p class="h4">スタック・グループ一覧</p>
+        <div class="table-responsive">
+            <table id="stackgroup_sortable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th nowrap style="width: 12px;"></th>
+                        <th nowrap>スタック・グループ名</th>
+                        <th nowrap>更新日時</th>
+                        <th nowrap></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in rs_stackgroup %}
+                        <tr stackgroup_id="{{ v.stackgroup_id }}">
+                            <td nowrap>
+                                <div class="stackgroup_sortable_handle" style="cursor:move">[=]</div>
+                            </td>
+                            <td nowrap>
+                                <a href="{{ cs_url('/cscms/admin/stack/summary', [v.stackgroup_id]) }}" class="btn btn-info">スタック一覧</a> 
+                                <a href="{{ cs_url('/cscms/admin/stack/create', [v.stackgroup_id]) }}" class="btn btn-success">登録</a>
+                                {{ v.caption }}
+                            </td>
+                            <td nowrap>
+                                {{ v.updated_at | date('Y/m/d H:i', "Asia/Tokyo") }}
+                            </td>
+                            <td nowrap style="text-align: right;">
+                                <a href="{{ cs_url('/cscms/admin/stackgroup/edit', [v.stackgroup_id]) }}" class="btn btn-primary">編集</a>
+                                <a href="{{ cs_url('/cscms/admin/stackgroup/delete', [v.stackgroup_id]) }}" class="btn btn-danger">削除</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+{% endblock %}

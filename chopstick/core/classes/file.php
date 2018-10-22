@@ -10,6 +10,7 @@ class file
     // --------------------------------------------------------------------------------
     public static function path_join(string ...$paths)
     {
+        debug::trace('[core/file/path_join] : 開始');
         $path = '';
         if (count($paths) == 0)
         {
@@ -29,6 +30,7 @@ class file
     // --------------------------------------------------------------------------------
     public static function get_file_path($target_path, $scandir = array('site', 'app', 'core'))
     {
+        debug::trace('[core/file/get_file_path] : 開始');
         foreach($scandir as $v_folder)
         {
             $file_name = self::path_join(CS_BASE_DIR, $v_folder, $target_path);
@@ -44,8 +46,8 @@ class file
     // --------------------------------------------------------------------------------
     public static function get_file_paths($target_path, $scandir = array('site', 'app', 'core'))
     {
+        debug::trace('[core/file/get_file_paths] : 開始');
         $paths = array();
-        //
         foreach($scandir as $v_folder)
         {
             $file_name = self::path_join(CS_BASE_DIR, $v_folder, $target_path);
@@ -61,8 +63,8 @@ class file
     // --------------------------------------------------------------------------------
     public static function get_list($target_path, $section = array('site', 'app', 'core'), $type=self::TYPE_FILE)
     {
+        debug::trace('[core/file/get_list] : 開始');
         $paths = array();
-        //
         foreach($section as $p_path_1)
         {
             $p_path_2 = self::path_join(CS_BASE_DIR, $p_path_1, $target_path);

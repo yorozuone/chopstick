@@ -1,0 +1,72 @@
+{% extends "/csroot/controller/admin/default.twig" %}
+
+{% block area_body_bottom %}
+<script type="text/javascript">
+    // File APIに対応していない場合に表示を隠す
+    if (!window.File) {
+        document.getElementById('file_upload_section').style.display = "none";
+    }
+    // ブラウザ上でファイルを展開させない
+    function onDragOver(event) {
+        event.preventDefault();
+    }
+    // Drop 領域にドロップしたファイルのプロパティ情報読み取り
+    function onDrop(event) {
+        // ブラウザ上でファイルを展開させない
+        event.preventDefault();
+        // ドロップされたファイルの files プロパティ参照
+        var files = event.dataTransfer.files;
+        for (var i=0; i<files.length; i++) {
+            imageFileUpload(files[i]);
+        }
+    }
+    // ファイルアップロード
+    function imageFileUpload(f) {
+        var formData = new FormData();
+        formData.append('cs_media', f);
+        $.ajax({
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            url: '{{ cs_url('/cscms/api/media/upload_mediafolder', [ dset_media_values.mediafolder_id ]) }}',
+            data: formData,
+        }).then(
+            function(data)
+            {
+                $('#progress').prepend('<div class="alert alert-success" role="alert">' + data + '</div>');
+            },
+            function() {
+                $('#progress').prepend('<div class="alert alert-danger" role="alert">通信に失敗しました。</div>');
+            }
+        );
+    }
+</script>
+{% endblock %}
+
+{% block area_body %}
+
+    <h1 class="display-4">
+        ファイル登録
+    </h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('csroot/admin/menu') }}">メニュー</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('cscms/admin/media/summary', [dset_media_values.mediafolder_id]) }}">ファイル一覧</a></li>
+            <li class="breadcrumb-item active" aria-current="page">ファイル登録</li>
+        </ol>
+    </nav>
+
+    <div  id="file_upload_section" class="card" ondragover="onDragOver(event)" ondrop="onDrop(event)">
+        <div class="card-body">
+            ファイルをドラッグアンドドロップしてください。
+        </div>
+    </div>
+    <br>
+    <div id="progress">
+    </div>
+    <div class="form-group">
+        <a href="{{ cs_url('/cscms/admin/media/summary', [ dset_media_values.mediafolder_id ]) }}" class="btn btn-outline-info">戻る</a>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% block area_head_top %}{% endblock %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+{% block area_head_bottom %}{% endblock %}
+</head>
+<body>
+{% block area_top %}{% endblock area_top %}
+{% block area_body %}{% endblock area_body %}
+{% block area_body_bottom %}{% endblock area_body_bottom %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">デバッグ情報</div>
+                <div class="card-body">{{ application.debug_tarace|raw }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

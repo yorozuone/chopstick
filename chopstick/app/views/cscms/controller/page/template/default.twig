@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+{% block area_head_top %}
+{% endblock %}
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+    {% set prefix_title = '' %}
+    {% if constant('CS_MODE') == 'development' %}
+        {% set prefix_title = '[開発] ' %}
+    {% endif %}
+    {% if constant('CS_MODE') == 'staging' %}
+        {% set prefix_title = '[ステージング] ' %}
+    {% endif %}
+    <title>{{ prefix_title }}{% if values.head_tile == '' %}{{ values.page_title }}{% else %}{{ values.head_title }}{% endif %} | chopstick cms</title>
+
+    <!-- MyStyle -->
+    <link href="{{ cs_url("/assets/css/mystyle.css") }}" rel="stylesheet">
+
+{% block area_head_bottom %}
+{% endblock %}
+
+</head>
+<body>
+
+{% block area_body_top %}
+{% endblock %}
+
+{% if constant('CS_MODE') == 'development' %}
+
+    {% if GLOBALVARS.CORE_DEBUG_ALERT|length != 0 %}
+        {% for item in GLOBALVARS.CORE_DEBUG_ALERT %}
+            <div class="alert alert-danger">{{ item }}</div>
+        {% endfor %}
+    {% endif %}
+
+    {% if GLOBALVARS.CORE_DEBUG_DUMP|length != 0 %}
+        {% for item in GLOBALVARS.CORE_DEBUG_DUMP %}
+            <pre>{{ item }}</pre>
+        {% endfor %}
+    {% endif %}
+
+{% endif %}
+
+<div class="container">
+{% include 'cscms/controller/page/template/parts/menu.twig' %}
+</div>
+
+<div class="container">
+
+    {{ cs_pagenavi({'template': 'global_navi', 'parent_page_id': '0', 'depth': '1'}) }}
+
+    <br>
+
+        {{ cs_title() }}
+
+        {{ cs_breadcrumb() }}
+
+        <div class="cs_part_body">
+{% block area_body %}
+{% endblock %}
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="container">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        {{ cs_stack({'stack_key':'AdFooter'}) }}
+    </div>
+</div>
+
+<br>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha384-JPbtLYL10d/Z1crlc6GGGGM3PavCzzoUJ1UxH0bXHOfguWHQ6XAWrIzW+MBGGXe5" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+{{ cs_stack({'stack_key':'AnalyzeTag'})}}
+
+{% block area_body_bottom %}
+{% endblock %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">デバッグ情報</div>
+                <div class="card-body">{{ application.debug_tarace|raw }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

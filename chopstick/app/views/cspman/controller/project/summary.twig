@@ -1,0 +1,82 @@
+{% extends "/csroot/controller/admin/default.twig" %}
+
+{% block area_body_bottom %}
+<script type="text/javascript">
+    $(function() {
+        $('#project_sortable tbody').sortable({
+            items: 'tr',
+            handle: '.project_sortable_handle',
+            cursor: 'move',
+            opacity: 0.5,
+            stop: function (event, ui)
+            {
+                var params = [];
+                $("#project_sortable tbody tr").each(function() {
+                    params.push($(this).attr('project_id'));
+                });
+                $.ajax({
+                    url: "{{ cs_url('/cspman/project/summary/sort/') }}" + params.join('/')
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+{% block area_body %}
+
+    <h1 class="display-4">
+        プロジェクト一覧
+    </h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('/csroot/admin/menu') }}">メニュー</a></li>
+            <li class="breadcrumb-item active" aria-current="page">プロジェクト一覧</li>
+        </ol>
+    </nav>
+
+    <div>
+        <a href="{{ cs_url('/cspman/project/create') }}" class="btn btn-success">プロジェクト登録</a>
+    </div>
+
+    <br>
+
+    {% if rs_project|length == 0 %}
+        <div class="alert alert-success" role="alert">プロジェクトが登録されていません。</div>
+    {% else %}
+        <p class="h4">プロジェクト一覧</p>
+        <div class="table-responsive">
+            <table id="project_sortable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th nowrap style="width: 12px;"></th>
+                        <th nowrap>プロジェクト名</th>
+                        <th nowrap>更新日時</th>
+                        <th nowrap></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in rs_project %}
+                        <tr project_id="{{ v.project_id }}">
+                            <td nowrap>
+                                <div class="project_sortable_handle" style="cursor:move">[=]</div>
+                            </td>
+                            <td nowrap>
+                                <a href="{{ cs_url('/cspman/project_task/summary', [v.project_id]) }}">{{ v.project_name }}</a> 
+                            </td>
+                            <td nowrap>
+                                {{ v.updated_at | date('Y/m/d H:i', "Asia/Tokyo") }}
+                            </td>
+                            <td nowrap style="text-align: right;">
+                                <a href="{{ cs_url('/cspman/project/edit', [v.project_id]) }}" class="btn btn-primary">編集</a>
+                                <a href="{{ cs_url('/cspman/project/delete', [v.stackgroup_id]) }}" class="btn btn-danger">削除</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+{% endblock %}

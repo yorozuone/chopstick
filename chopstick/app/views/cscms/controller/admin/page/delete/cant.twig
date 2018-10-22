@@ -1,0 +1,19 @@
+{% extends "/csroot/controller/admin/default.twig" %}
+
+{% block area_body %}
+
+    <h1 class="display-4">
+       削除できないページ
+    </h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('csroot/admin/menu') }}">メニュー</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('cscms/admin/page/summary') }}">ページ一覧</a></li>
+            <li class="breadcrumb-item active" aria-current="page">ページ削除</li>
+        </ol>
+    </nav>
+
+    <div class="alert alert-danger" role="alert">ホーム、または、子ページが存在するページのため、削除できません。</div>
+
+{% endblock %}

@@ -17,6 +17,14 @@ return array
                     },
                     array(),
                 ),
+            'cs_auth_check' => array
+            (
+                function()
+                {
+                    return \core\auth::check();
+                },
+            ),
+
             'has_access' => array
                 (
                     function($roll_key)

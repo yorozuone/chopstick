@@ -1,0 +1,51 @@
+{% extends "/csroot/controller/admin/default.twig" %}
+
+{% block area_body %}
+
+    <h1 class="display-4">
+        カテゴリ削除
+    </h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('csroot/admin/menu') }}">メニュー</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('cscms/admin/category/summary', [values.parent_page_id]) }}">カテゴリ一覧</a></li>
+            <li class="breadcrumb-item active" aria-current="page">カテゴリ削除</li>
+        </ol>
+    </nav>
+
+    <form action="{{ cs_url('/cscms/admin/category/delete/update') }}" method="post">
+        <div class="card">
+            <div class="card-header">ページの削除</div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="control-label caption">親カテゴリ</label>
+                    <div>
+                        <p class="form-control-static">{{ values.parent_category_caption }}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label caption">カテゴリ名</label>
+                    <div>
+                        <p class="form-control-static">{{ values.caption }}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label caption">パーマネント名</label>
+                    <div>
+                        <p class="form-control-static">{{ values.permanent_name }}</p>
+                    </div>
+                </div>
+                {% if input.number_of_child_category == 0 %}
+                    <input type="submit" class="btn btn-danger" value="削除">
+                {% else %}
+                    <span class="btn btn-outline-info">削除</span>
+                {% endif %}
+                <a href="{{ cs_url('/cscms/admin/category/summary', [values.parent_category_id]) }}" class="btn btn-outline-info">戻る</a>
+            </div>
+        </div>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="category_id" value="{{ values.category_id }}">
+    </form>
+
+{% endblock %}

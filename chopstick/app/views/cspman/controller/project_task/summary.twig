@@ -1,0 +1,56 @@
+{% extends "/csroot/controller/admin/default.twig" %}
+
+{% block area_body %}
+
+    <h1 class="display-4">
+        課題一覧
+    </h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('/csroot/admin/menu') }}">メニュー</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('//cspman/project/summary') }}">プロジェクト一覧</a></li>
+            <li class="breadcrumb-item active" aria-current="page">課題一覧</li>
+        </ol>
+    </nav>
+
+    <div>
+        <a href="{{ cs_url('//cspman/project_task/create', [values.project_id] ) }}" class="btn btn-success">課題登録</a>
+    </div>
+
+    <br>
+
+    {% if rs_project_task|length == 0 %}
+        <div class="alert alert-success" role="alert">課題が登録されていません。</div>
+    {% else %}
+        <p class="h4">課題一覧</p>
+        <div class="table-responsive">
+            <table id="project_sortable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th nowrap>課題</th>
+                        <th nowrap>更新日時</th>
+                        <th nowrap></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in rs_project_task %}
+                        <tr project_id="{{ v.project_id }}">
+                            <td nowrap>
+                                <a href="{{ cs_url('/cspman/project_task/detail', [v.project_task_id]) }}">{{ v.title }}</a> 
+                            </td>
+                            <td nowrap>
+                                {{ v.updated_at | date('Y/m/d H:i', "Asia/Tokyo") }}
+                            </td>
+                            <td nowrap style="text-align: right;">
+                                <a href="{{ cs_url('/cspman/project_task/edit', [v.project_id]) }}" class="btn btn-primary">編集</a>
+                                <a href="{{ cs_url('/cspman/project_task/delete', [v.stackgroup_id]) }}" class="btn btn-danger">削除</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+{% endblock %}

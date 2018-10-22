@@ -1,0 +1,37 @@
+{% extends "/csroot/controller/admin/default.twig" %}
+
+{% block area_body %}
+
+    <h1 class="display-4">
+        メディア・フォルダ削除
+    </h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ cs_url('csroot/admin/menu') }}">メニュー</a></li>
+            <li class="breadcrumb-item"><a href="{{ cs_url('cscms/admin/mediafolder/summary') }}">フォルダ一覧</a></li>
+            <li class="breadcrumb-item active" aria-current="page">フォルダ削除</li>
+        </ol>
+    </nav>
+
+    <form action="{{ cs_url('/cscms/admin/mediafolder/delete/update') }}" method="post">
+        <div class="card">
+            <div class="card-header">フォルダの削除</div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="control-label">フォルダ名</label>
+                    <div>
+                        <p class="form-control-static">{{ dset_folder_values.caption }}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-danger" value="削除">
+                    <a href="{{ cs_url('/cscms/admin/mediafolder/summary') }}" class="btn btn-outline-info">戻る</a>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="mediafolder_id" value="{{ dset_folder_values.mediafolder_id }}">
+    </form>
+
+{% endblock %}

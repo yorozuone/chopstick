@@ -14,6 +14,7 @@ class view
     // --------------------------------------------------------------------------------
     function __construct()
     {
+        debug::trace('[core/view/__construct] : 開始');
         // config 読込
         $config = config::read('view');
         // config 反映
@@ -28,13 +29,10 @@ class view
     // --------------------------------------------------------------------------------
     public function render($src, $vars=array(), $mode=1)
     {
-        //
+        debug::trace('[core/view/render] : 開始');
         // globalvars 変数取得
-        //
         $vars['GLOBALVARS'] = globalvars::get_values();
-        //
         // loader 設定
-        //
         if ($mode == 1)
         {
             $loader = new \Twig_Loader_Filesystem($this->paths);
@@ -43,9 +41,7 @@ class view
         {
             $loader = new \Twig_Loader_String();
         }
-        //
         // 環境設定
-        //
         $twig = new \Twig_Environment
         (
             $loader, array
@@ -54,9 +50,7 @@ class view
                 'debug' => $this->debug,
             )
         );
-        //
         // Twig Function Extension 追加
-        //
         foreach ($this->function as $k => $v)
         {
             $twig->addFunction
@@ -64,9 +58,7 @@ class view
                     new \Twig_SimpleFunction($k, $v[0], isset($v[1]) ? $v[1] : array())
                 );
         }
-        //
         // Twig Filter Extension 追加
-        //
         foreach ($this->filter as $k => $v)
         {
             $twig->addFilter
@@ -74,9 +66,7 @@ class view
                     new \Twig_SimpleFilter($k, $v[0], isset($v[1]) ? $v[1] : array())
                 );
         }
-        //
         // テキストから変換する場合は、構文チェックを行う
-        //
         if ($mode != 1)
         {
             try
@@ -95,9 +85,6 @@ class view
                 }
             }
         }
-        //
-        //
-        //
         return $twig->render($src, $vars);
     }
 }
